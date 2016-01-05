@@ -1,0 +1,212 @@
+body {
+	background-color: #C5BD99;
+}
+
+#logo { border-style: none; outline: none;}
+
+#entirePageContainer {
+	border-style: solid; border-width: 1px; border-color: #C5BD99;
+	margin-left: 100px; margin-top: 0px; margin-bottom: 0px; margin-right: 0px;
+	padding-left: 25px; padding-right: 25px; padding-top: 10px; padding-bottom: 10px;
+	width: 1000px;
+	background-color: white;
+}
+
+header {
+	width: 1000px;
+	height: 140px;
+	margin-left: 0px; padding: 0px; 
+	border-style: solid; border-width: 1px; border-color: white;
+	background-color: white;
+	color: #424242;
+}
+
+#logoFloatLeft {
+	float: left;
+}
+
+/* Contains everything floated right of logo */
+#floatedRightOfLogo {
+	width: 870px; margin-left: 130px; padding: 0px; border-style:none;
+	height: 140px;
+} 
+
+/* Withing floatedRightOfLogo */
+#topBanner {
+	width: 468px;
+	height: 60px;
+	padding: 0px;
+	margin-top: 12px; margin-left: 150px; margin-bottom: 12px; margin-right: 200px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #C5BD99;
+}
+
+/* Navigation is within floatedRightOfLogo */
+#navFloatRight {
+	width: 923px;
+	height: 52px;
+	margin-top: 12px; padding: 0; margin-bottom: 0px;
+	border-style:none;
+}
+
+#navlist {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	background-color: #424242;
+	height: 52px;
+	width: 870px;
+	line-height: 24px;
+}
+
+.navListElement {
+	float: left;
+}
+
+#navlist .navBar:link, .navBar:visited {
+	background-color: #424242;
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 32px;
+	padding-left: 32px;
+	padding-top: 14px; 
+	padding-bottom: 14px;
+	display: block;
+	text-decoration: none;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 20px;
+	color: #C5BD99;
+}
+
+#navlist .navBar:hover, .navBar:active {
+	background-color: #C5BD99;
+	background-repeat: no-repeat;
+	background-position: right;
+	padding-right: 32px;
+	padding-left: 32px;
+	padding-top: 14px; 
+	padding-bottom: 14px;
+	display: block;
+	text-decoration: none;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 20px;
+	color: #701112;
+}
+
+#homeInstructions {
+	float: left;
+	margin-top: 57px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;
+	font-family: Georgia, Times, serif;
+	font-size: 13px;
+}
+
+#aboutTheWaffleNozzle {
+	border-style: solid; border-width: 1px; border-color: white;
+	margin: 2px;
+	padding-left: 25px; padding-right: 25px; padding-top: 0px; padding-bottom: 10px;
+	width: 950px;
+	background-color: white;
+}
+
+#rightColumn {
+	float: right;
+	width: 164px;
+	padding: 0px;
+	margin-right: 0px; margin-left: 25px; margin-top:0px; margin-bottom: 0px;
+	border-style: none;
+	
+}
+
+#socialMediaBox {
+	width: 160px;
+	height: 200px;
+	border-style: solid; border-width: 2px; border-color: #C5BD99;
+	margin-left: 0px; margin-top: 50px; margin-bottom: 30px; margin-right:0px;
+}
+
+#advertisement {
+	text-align: center;
+	line-height: 15px;
+	font-size: 10px;
+	font-style: normal;
+	color: #424242;
+}
+
+#advertisementBox {
+	width: 160px;
+	height: 600px;
+	border-style: solid; border-width: 2px; border-color: #C5BD99;
+	margin-left: 0px; margin-top: 0px; margin-bottom: 25px; margin-right:0px;
+}
+
+#interactiveWaffleNozzle {
+	float: left;
+	border-style: solid; border-width: 1px; border-color: white;
+	width: 360px;
+	height: 460px;
+	margin-left: 0px; margin-right: 25px;
+	background-image: url("interactiveWaffleNozzle/bottle.gif");
+	background-color: white;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#interactiveText {
+	height: 460px;
+	padding-right: 25px; padding-top: 25px;
+}
+
+#imagePart1 {
+	border-style: none;
+	width: 81px;
+	height: 85px;
+	margin-left: 139px; margin-top: 45px; margin-right: 140px; margin-bottom:0px;
+}
+
+#imagePart2 {
+	border-style: none;
+	width: 115px;
+	height: 260px;
+	margin-left: 122px; margin-top: 0px; margin-right: 123px; margin-bottom:20px;
+}
+
+#imagePart3 {
+	border-style: none;
+	width: 100px;
+	height: 25px;
+	margin-left: 130px; margin-top: 38px; margin-right: 130px; margin-bottom:50px;
+}
+
+footer {
+	border-style: solid; border-width: 1px; border-color: #C5BD99;
+	margin-left: 101px; margin-top: 10px; margin-bottom: 0px; margin-right: 0px;
+	width: 1050px;
+	background-color: white;
+	height: 30px;
+	border-style: none;
+	background-color: white;
+	padding: 0px; padding-top: 15px;
+}
+
+#footerLinks {
+	margin: 0px; margin-left: 400px;
+	padding: 0px;
+	list-style-type: none;
+	background-color: white;
+	width: 500px;
+	color: black;
+	font-size: 15px;
+	line-height: 15px;
+	text-decoration: none;
+}
+
+#footerLinks .footerLink:link,  .footerLink:visited {
+	text-decoration: none;
+	color: black;
+}
+
+#footerLinks .footerLink:hover, .footerLink:active{
+	text-decoration: underline;
+	color: black;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset=utf-8>
+	<title>How-To: Amazon EC2</title>
+	<style>
+		header, nav, article, footer, address, section { display: block; }
+		#container { width:900px; margin:auto; background-color:white; }
+		header { background-color:#666; }
+		nav li { display:inline; padding-right:1em; }
+		nav a { color:white; text-decoration:none; }
+		nav a:hover { text-decoration:overline; }
+		h1, h2 { margin:0px; font-size:1.5em; }
+		h2 { font-size:1em; }
+		footer { background-color:#999; text-align:center; }
+	</style>
+	<script>
+		document.createElement("article"); 
+		document.createElement("footer"); 
+		document.createElement("header"); 
+		document.createElement("hgroup"); 
+		document.createElement("nav"); 
+	</script>
+</head>
+
+<body>
+<div id="container">
+    <header>
+     <h1>Sample HTML5 Structure</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+		<hgroup>
+			<h1>How to use the Apache Server with C++ to Dynamically Write HTML Content<h1>
+			<h2>How to use the Apache CGI (Common Gateway Interface)</h2>
+		</hgroup>
+		<p>Apache allows you to write external programs to generate HTML content.  This allows you to create webpages which can change based on nearly anything; user input, time, region, etc.  Apache defines a Common Gateway Interface (CGI) to facilitate these external programs.  The CGI is surprisingly easy to use and it is very powerfull.  You can write the external program in nearly any language you are familiar with.</p>
+		<article>
+			<h3>Configure Apache to Load the CGI Module on Start Up</h2>
+			<p>First, configure the HTTP server to load the CGI module.  The module has already been compiled during installation but it needs to configured to load on start-up.</p>
+			<ul>
+				<li>[ec2-user@ip...]$ sudo /usr/local/apache2/bin/apachectl -k stop</li>
+				<li>[ec2-user@ip...]$ cd /usr/local/apache2/conf</li>
+				<li>[ec2-user@ip...]$ sudo vim httpd.conf</li>
+			</ul>
+			<p>The configuration file should now be open for editing.  Scroll down until you find the commented-out line "#LoadModule cgid_module modules/mod_cgid.so".  Press 'i' to enter VIM's insert mode.  Remove the comment hash so that the cgi module will be loaded.  The line should now read "LoadModule cgid_module modules/mod_cgid.so".  Press 'esc' to exit VIM's insert mode.  Type ":w" and hit enter to save the changes.</p>
+			<h3>Configure Apache to Permit CGI</h3>
+			<p>Next, tell Apache that all files residing in the cgi-bin directory are CGI scripts and should be run accordingly.  You should still have the httpd.conf file open in VIM.</p>
+			<p>Scroll down until you find the ScriptAlias directive: <b>ScriptAlias /cgi-bin/ "/usr/local/apache2/cgi-bin/"</b>.  Press 'i' to enter VIM's insert mode.  Remove the quotation marks around the cgi-bin file path.  After this the line should read: <b>ScriptAlias /cgi-bin/ /usr/local/apache2/cgi-bin/</b>.  Press 'esc' to exit VIM's insert mode.  Type ":w" and hit enter to save the changes.  Type ":quit" and hit enter to exit VIM.</p>
+		</article>
+    </section>
+    <footer>
+     <p>This is the Footer</p>
+    </footer>
+</div>
+</body>
+
+</html>

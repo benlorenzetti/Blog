@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Watching Netflix on Linux</title>
+	<meta name="description" content="Silverlight Plugin on Linux">
+	<meta name="keywords" content="Netflix, Linux, Silverlight, Wine">
+	<meta name="author" content="Ben Lorenzetti">
+
+	<link rel="stylesheet" href="http://homepages.uc.edu/~lorenzbn/css/howto.css">
+</head>
+
+<body>
+	<h1>Watching Netflix on Linux</h1>
+	<p>Netflix requires that you have the Silverlight plug-in from Microsoft to stream videos.  Silverlight is free
+	but there is no Linux version.  Fortunately, there is a workaround: you can run the Windows version
+	using Wine.</p>
+	<ol>
+		<li>
+			<h3>Install Wine</h3>
+			<p>Wine is a program that recreates the Windows environment on Linux.  What this means is that
+			you can run Windows programs, such as Silverlight.  It is not super clear what Wine is an 
+			acronym for.  Maybe WINdows Environment, maybe WINdows Emulator, maybe Windows Is Not an 
+			Emulator, or maybe it's Wine Is Not inEbriating.  Regardless, it is easy to install with 
+			the package managers.  For Red Hat, SUSE, or Fedora, open a terminal and use yum.  If you 
+			are using Debian or Ubuntu, replace "yum" with "apt-get":</p>
+			<p class="code_snippet">
+				$ sudo yum install wine -y
+			</p>
+		</li>
+		<li>
+			<h3>Download a Windows version of your favorite web browser</h3>
+			<p>You need to go online and download an installer for a web browser.  It is
+			important that you download a version that is for Windows (i.e. has a .exe file extension).  
+			Sometimes this is difficult because the homepages for Chrome, IE, and Firefox
+			will detect your Linux OS and automatically direct you to the
+			Linux versions.  If you are having trouble, you can find Firefox for Windows at
+			<a href="https://www.mozilla.org/en-US/firefox/all" target="_blank">
+			https://www.mozilla.org/en-US/firefox/all</a>.
+		</li>
+		<li>
+			<h3>Run the .exe installer with wine</h3>
+			<p>First, make a new directory for the installation.</p>
+			<p class="code_snippet">
+				$ cd /home/usernamehere</br>
+				$ mkdir Windows_Programs
+			</p>
+			<p>For new Linux users:<br/>In the change directory (cd) command, you should replace "usernamehere" 
+			with the username you logged in with.  You can use "$ hostname" to get your username if you 
+			are unsure.</p>
+			<p>Next, use the following commands to move into the Downloads directory and run the .exe installer.</p>
+			<p class="code_snippet">
+				$ cd /home/usernamehere/Downloads<br/>
+				$ ls<br/>
+				some_files&nbsp;&nbsp;&nbsp;&nbsp;Firefox Setup 24.0.exe&nbsp;&nbsp;&nbsp;&nbsp;some_more_files<br/>
+				one_more_file<br/>
+				$ sudo wine Firefox\ Setup\ 24.0.exe
+			</p>
+			<p>For new Linux users:<br/>By default, downloads from the internet are stored in the Downloads folder.
+			If you chose "save as" and downloaded to a different folder, you will need to navigate to that folder
+			instead of Downloads.  The list command (ls) shows you the files in the current directory.  Look 
+			for the .exe file which you just downloaded.  When you type the wine command, you only need to 
+			type the first several letters of this filename.  Simply hit 'tab' and Linux will automatically 
+			complete the name.</p>
+			<p>Once the installer has loaded, choose a custom install so you can select the destination folder.  
+			Select the new folder you created earlier.  Hit next many times to finish the installation.</p>
+		</li>
+		<li>
+			<h3>Run the web browser with Wine</h3>
+			<p>Change directories to the installation folder and determine the name of the executable 
+			program.  Then run the executable using Wine.</p>
+			<p class="code_snippet">
+				$ cd /home/usernamehere/Windows_Programs<br/>
+				$ ls<br/>
+				firefox.exe<br/>
+				$ wine firefox.exe
+			</p>
+		</li>
+
+	</ol>
+
+	<p class="code_snippet">
+cabextract
+$ sudo rpm -i http://sourceforge.net/projects/mscorefonts2/files/rpms/msttcore-fonts-installer-2.2-1.noarch.rpm
+	</p>
+
+</body>
+
+</html>

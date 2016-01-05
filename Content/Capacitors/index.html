@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="keywords" content="Capacitor, Ceramic, Electrolytic, 
+	Tantalum, Code, Surface Mount">
+	<meta name="description" content="Information about the 3 major 
+	varieties of capacitors; ceramic, electrolytic, and tantalum. 
+	How to select capacitors for your circuit board and how to find 
+	them on Digikey.">
+	<meta name="author" content="Ben Lorenzetti">
+	<title>Selecting Capacitors</title>
+	<link href="http://www.benlorenzetti.com/stylesheets/simple.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1 id="top">Selecting Capacitors for your PCB</h1>
+<p>If you search digikey.com for capacitor, there are over 300,000 matches.
+Even if you search for a specific capacitance (in fact, this article assumes
+you are searching for a specific value for a PCB), say 10 pF, there are over 80,000
+choices. How do you choose?</p>
+<p>First, you must understand about the different types of capacitors
+and their common uses. Second, you must understand how caps are labeled.
+Finally, you can understand physical dimensions and which capacities are
+available in each physical package.</p>
+<ol>
+	<li><a href="#varieties">Ceramic, electrolytic, and tantalum</a></li>
+	<li><a href="#codes">Capacitor codes</a></li>
+	<li><a href="#smd">Surface mount (SMD) packages</a></li>
+	<li><a href="#digikey">Digikey part list</a></li>
+</ol>
+<h2 id="varieties">Varieties of Capacitors</h2>
+<p><em>Ceramic capacitors</em> are a sandwich of conductor sheets, alternated
+with layers of ceramic insulator material. The permitivity of
+ceramic materials is highly controllable and layer thicknesses are
+relatively large, so manufacturers can control the capacitance value easily.</p>
+<ul>
+	<li>Ceramic caps typically small capacity (picoFarads - nanoFarads)</li>
+	<li>Ceramic caps have no polarity</li>
+	<li>Ceramic caps can survive high maximum voltages</li>
+	<li>Ceramic caps usually have low loss</li>
+	<li>Ceramic caps have stable capacitance over time, use, and temperature</li>
+</ul>
+<p><em>Electrolytic capacitors</em> use Aluminum Oxide (Al2O3) for the
+dielectric. Two long sheets of aluminum foil are seperated by a sheet of capacitor
+paper and rolled into a cylinder. The surface of the aluminum foil reacts 
+to produce a thin aluminum oxide layer. 
+The aluminum oxide is a good forward-insulator when it is in contact with
+electrolyte, but it can conduct easily in the other direction.
+One side of the capacitor paper is inpregnated with eletrolyte to create the
+insulation effect, giving electrolytic capacitors a forward-voltage polarity.</p>
+<ul>
+	<li>Electrolytic caps have high capacity (microFarads)</li>
+	<li>Electrolytic caps have polarity; apply voltage the wrong direction and they will breakdown</li>
+	<li>Electrolytic caps have low maximum voltages; they will breakdown.</li>
+</ul>
+<p><em>Tantalum capacitors</em> are similar to electrolytic capacitors except they use
+the rare-earth metal tantalum instead of Aluminum. They are basically high end electrolytic
+capacitors.</p>
+<ul>
+	<li>Tantalum caps are used in similar places as electrolytic caps</li>
+	<li>Tantalum caps have polarity</li>
+</ul>
+<img src="cap-symbols.JPG" alt="Polar and non-polar capacitor symbols" width="532px"/>
+<p>You can usually tell from your schematic which type of capacitor is required because
+polar capacitors have a different symbol. Polar caps are symbolized with a straight 
+plate and a curved plate. Non-polar caps are sybolized by two symmetric, parallel plates.
+Non-polar capacitors generally means a ceramic capacitor.
+<p>Electrolytic or Tantalum capacitors are usually used for decoupling near the power
+source. It is common to place a large electrolytic capacitor on either side of a voltage
+regulator on a PCB. Decoupling means shunting noise in the power supply; the inductance
+of a capacitor decreases as frequency increases, so they can be used as a short to ground
+for noise (which is high frequency). Larger capacities are used for decoupling
+near the power supply because<ol><li>the power supply sees larger currents than individual
+ICs on the circuit, and</li><li>the noise from the power supply is a lower frequency (60 Hz
+from the power grid), corresponding to a higher-cap filter.</li></ol></p>
+<p><a href="#top">back to top</a></p>
+
+<h2 id="codes">Capacitor Codes</h2>
+<img src="capacitor-codes.JPG" alt="Capacitor Code Breakdown" width="502px"/>
+<p>Larger capacitors will usually have their capacitance printed on the part, followed
+by the units, such as 47uF. Smaller capacitors may not have as much space for text, so
+they make use of capacitor codes. The codes have three digits and sometimes a letter.
+The first two digits are the significant digits and the third digit is the power-of-ten
+multiplier. The optional letter describes the tolerance %.</p>
+
+<table>
+	<tr>
+		<th>Code</th>
+		<th>Capacitance</th>
+		<th>Conversion</th>
+	</tr>
+	<tr><td>100</td><td>10 pF</td><td></td></tr>
+	<tr><td>101</td><td>100 pF</td><td></td></tr>
+	<tr><td>102</td><td>1,000 pF</td><td>(1,000 pF = nF)</td></tr>
+	<tr><td>103</td><td>10 nF</td><td></td></tr>
+	<tr><td>104</td><td>100 nF</td><td></td></tr>
+	<tr><td>105</td><td>1,000 nF</td><td>(1,000 nF = uF)</td></tr>
+	<tr><td>106</td><td>10 uF</td><td></td></tr>
+</table>
+<p><a href="#top">back to top</a></p>
+
+<h2 id="smd">Surface Mount PCB Pads</h2>
+<img src="smd-caps.JPG" alt="Ceramic SMD capacitors" width="450px"/>
+<br/>
+<img src="smd-caps-pad-design.JPG" alt="PCB design for ceramic SMD caps" width="492px"/>
+<p><a href="#top">back to top</a></p>
+
+<h2 id="digikey">Digikey Ordering Information</h2>
+<p>These are the capacitors I am using on my current circuit board, Deja-view.
+I try to order from Johansen Dielectrics because, as far as I can tell,
+it is the only American supplier on Digikey. Updated on 05/14/14.</p>
+<table>
+	<tr>
+		<th>Digikey Part #</th>
+		<th>Value</th>
+		<th>Code</th>
+		<th>Technology</th>
+		<th>Manufacturer</th>
+		<th>Man. Part #</th>
+		<th>Package</th>
+	</tr>
+	<tr>
+		<td>712-1341-1-ND</td>
+		<td>33 pF</td>
+		<td>330</td>
+		<td>NP0 ceramic</td>
+		<td>Johansen Technology Inc</td>
+		<td>251R14S330GV4T</td>
+		<td>0603 SMD</td>
+	<tr>
+		<td>709-1004-1-ND</td>
+		<td>100 pF</td>
+		<td>101</td>
+		<td>NPO ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>500X14N101MV4T</td>
+		<td>0603 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1150-1-ND</td>
+		<td>470 pF</td>
+		<td>471</td>
+		<td>NPO ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>500R14N471JV4T</td>
+		<td>0603 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1151-1-ND</td>
+		<td>1 nF</td>
+		<td>102</td>
+		<td>NPO ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>500R14N102JV4T</td>
+		<td>0603 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1021-1-ND</td>
+		<td>10 nF</td>
+		<td>103</td>
+		<td>X7R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>501R15W103KV4E</td>
+		<td>0805 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1161-1-ND</td>
+		<td>0.1 uF</td>
+		<td>104</td>
+		<td>X7R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>500R14W104KV4T</td>
+		<td>0603 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1224-1-ND</td>
+		<td>1 uF</td>
+		<td>105</td>
+		<td>X5R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>250R14X105KV4T</td>
+		<td>0603 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1063-1-ND</td>
+		<td>2.2 uF</td>
+		<td>225</td>
+		<td>X5R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>100R15X225KV4E</td>
+		<td>0805 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1230-1-ND</td>
+		<td>4.7 uF</td>
+		<td>475</td>
+		<td>X5R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>6R3R15X475KV4E</td>
+		<td>0805 SMD</td>
+	</tr>
+	<tr>
+		<td>709-1229-1-ND</td>
+		<td>10 uF</td>
+		<td>106</td>
+		<td>X5R ceramic</td>
+		<td>Johansen Dielectrics Inc</td>
+		<td>160R15X106KV4E</td>
+		<td>0805 SMD</td>
+	</tr>
+	<tr>
+		<td>P5178-ND</td>
+		<td>10 uF</td>
+		<td></td>
+		<td>electrolytic</td>
+		<td>Panasonic Electronic Components</td>
+		<td>ECA-1HM100</td>
+		<td>through-hole, see drawing below</td>
+	</tr>
+	<tr>
+		<td>P12408-ND</td>
+		<td>150 uF</td>
+		<td></td>
+		<td>electrolytic</td>
+		<td>Panasonic Electronic Components</td>
+		<td>EEU-FM1V151</td>
+		<td>through-hole, see drawing below</td>
+	</tr>
+</table>
+<p>Panasonic 10uF and 150uF electrolytic capacitor mechanical drawing:</p>
+<img src="panasonic-capacitor-10uF.png" alt="Panasonic 10 uF Al Cap - mechanical drawing"/>
+
+<p><a href="#top">back to top</a></p>
+
+</body>
+</html>

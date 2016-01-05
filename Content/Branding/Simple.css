@@ -1,0 +1,19 @@
+body {
+	font-size: 14pt;
+	font-family: "times new roman", arial, serif;
+	background-color: rgb(204,204,204);
+	background-image: url('../images/bodybackground.gif');
+	background-size: 100% 100%;
+	background-repeat: repeat-x;
+	background-position: left-bottom;
+}
+
+p {
+	width: 600px; /*This width is based on 14pt verdana font, 70 chars per line*/
+}
+
+.code {
+	font-size: 12pt;
+	font-family: monospace;
+	width: 1000px;
+}

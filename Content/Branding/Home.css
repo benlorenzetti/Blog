@@ -1,0 +1,58 @@
+/* basicStyle.css */
+/* style basics from here until line 44 */
+body {
+	background-color: rgb(204,204,204);
+	background-image: url('../images/bodybackground.gif');
+	background-size: 100% 100%;
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+p, ul, ol, table {
+	font-size: 12pt;
+	font-family: verdana, arial, serif;
+}
+h1, h2, nav ul {
+	font-family: georgia;
+}
+a:link, a:visited {
+	color: rgb(179, 22, 35);
+}
+hr { height: 3px;
+	background-image: url('../images/footerbackground.gif');
+}
+#horizontal-div-containing-entire-page { border-style: none; padding: 0px; 
+	width:  800px; /* define width and   */
+	margin: 0 auto 0 auto; /* center the section */
+}
+header { margin: 0px; border-style: none; padding: 0px; }
+aside { margin: 20px; border-style: none; padding: 0px; 
+	float: left;
+}
+#vertical-div-containing-article-and-navigation { 
+	margin: 0px; border-style: none; padding: 0px;
+	width: 500px; /* Verdana 12pt font, 70 characters per line */
+	float: left;
+}
+nav { margin: 0px; border-style: none; padding: 0px; 
+	background-image: url('../images/footerbackground.gif');
+	background-size: 100% 100%;
+	background-repeat: repeat-y;
+	width: 100%; margin-top: 20px;
+}
+nav ul { list-style-type: none; padding: 0px; margin: 0px 0px 0px 25px; }
+nav ul li { float: left; }
+nav ul li a {
+	display: block;
+	padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;
+	text-decoration: none;
+	font-size: 18px;
+}
+nav ul li a:link, nav ul li a:visited { color: rgb(204,204,204); }
+nav ul li a:hover, nav ul li a:active { background-color: rgb(179,22,35); color: rgb(204,204,204); }
+footer { margin: 0px; border-style: none; padding: 0px; 
+	clear: both; 
+}
+/* end of style */
+
+article {}
+.code { font-family: monospace; font-size: 10pt; }

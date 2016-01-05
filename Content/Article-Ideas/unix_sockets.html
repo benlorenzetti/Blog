@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset=utf-8>
+	<title>C++ and Unix Sockets</title>
+	<style>
+	header, nav, article, footer, address, section { display: block; }
+	#container { width:900px; margin:auto; background-color:white; }
+	header { background-color:#666; }
+	nav li { display:inline; padding-right:1em; }
+	nav a { color:white; text-decoration:none; }
+	nav a:hover { text-decoration:overline; }
+	h1, h2 { margin:0px; font-size:1.5em; }
+	h2 { font-size:1em; }
+	footer { background-color:#999; text-align:center; }
+	.code { font-family: monospace; }
+	</style>
+</head>
+
+<body>
+<div id="container">
+    <header>
+     <h1>Sample HTML5 Structure</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+	<hgroup>
+	<h1>Unix Sockets for the C++ Programmer</h1>
+	<p>for communcation between two programs running on the same machine</p>
+	</hgroup>
+	<article>
+	<h3></h3>
+	<p>
+		
+	</p>
+	<p class="code">
+<pre>
+// unix_socket_communication.h
+
+/*	
+ *	int unix_socket::host::initialize( const char * );
+ *		@param: a unique socket address, also known by the client
+ *		return: if positive, returns a socket file descriptor that is open, bound, and listening
+ *	int unix_socket::host::accept_connection( int );
+ *		@param: file descriptor of a listening socket
+ *		return: if positive, returns a socket file descriptor for the connection
+ *	void unix_socket::host::close_connection( int );
+ *		@param: file descriptor of socket to be closed
+ *	int unix_socket::client::ititialize( const char * );
+ *		@param: a unique socket address, also known by the host
+ *		return: file descriptor for an open and connected socket
+ *	void unix_socket::client::terminate( int );
+ *		@param: file descriptor of socket to close
+ *	int unix_socket::recieve_data( int, char *, int );
+ *		@param: socket file descriptor of an open connection
+ *		@param: character array which will be filled with incoming data
+ *		@param: length of the character array
+ *		return: number of characters recieved
+ *	int unix_socket::send_data( int, char *, int );
+ *		@param: socket file descriptor of an open connection
+ *		@param: data array
+ *		@param: length of data		
+ */
+
+#ifndef UNIX_SOCKET_COMMUNICATION_H
+#define UNIX_SOCKET_COMMUNICATION_H
+
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+
+namespace unix_socket
+{
+        int recieve_data( int, char *, int );
+        void send_data( int, char *, int );
+        namespace host
+        {
+		const int SIZE_OF_INCOMING_CONNECTION_QUE = 10;
+                int initialize( const char * );
+                int accept_connection( int );
+                void close_connection( int );
+        }// end host namespace
+        namespace client
+        {
+                int initialize( const char * );
+                void terminate( int );
+        }// end client namespace
+}// end unix_socket namespace
+
+int unix_socket::recieve_data( int socket_file_descriptor, char *data, int length)
+{
+	int number_of_characters_recieved;
+	number_of_characters_recieved = recv( socket_file_descriptor, data, length, 0);
+	if( number_of_characters_recieved == -1 ) { return -5; } // error: recv
+	return number_of_characters_recieved;
+}
+
+void unix_socket::send_data( int socket_file_descriptor, char *data, int length )
+{
+	send( socket_file_descriptor, data, length, 0 );
+}
+
+int unix_socket::host::initialize( const char * socket_address )
+{
+	int socket_file_descriptor, length, dummy;
+	struct sockaddr_un local;
+	
+	/* Create a stream socket and check for error */
+	socket_file_descriptor = socket( AF_UNIX, SOCK_STREAM, 0 );
+	if( socket_file_descriptor == -1 ) { return -1; } // error: socket
+
+	local.sun_family = AF_UNIX;
+	strcpy( local.sun_path, socket_address );
+	unlink( local.sun_path );
+	length = strlen( local.sun_path ) + sizeof( local.sun_family );
+	
+	/* Bind the socket to an address and check for error */
+	dummy = bind( socket_file_descriptor, (struct sockaddr *)&local, length );
+	if( dummy == -1 ) { return -2; } // error: bind
+	
+	/* Listen on the socket for incoming connections */
+	dummy = listen( socket_file_descriptor, unix_socket::host::SIZE_OF_INCOMING_CONNECTION_QUE );
+	if( dummy == -1 ) { return -3; } // error: listen
+	
+	return socket_file_descriptor;
+}
+
+int unix_socket::host::accept_connection( int file_descriptor )
+{
+	int open_connection_file_descriptor;
+	struct sockaddr_un remote;
+	socklen_t t = sizeof( remote );
+	open_connection_file_descriptor = accept(file_descriptor, (struct sockaddr *)&remote, &t);
+	if( open_connection_file_descriptor == -1 ) { return -4; } // error: accept
+	return open_connection_file_descriptor;
+}
+
+void unix_socket::host::close_connection( int socket_file_descriptor )
+{
+	close( socket_file_descriptor );
+}
+
+int unix_socket::client::initialize( const char * socket_address )
+{
+	int socket_file_descriptor, length, dummy;
+	struct sockaddr_un remote;
+	
+	/* Create a stream socket and check for error */
+	socket_file_descriptor = socket(AF_UNIX, SOCK_STREAM, 0);
+	if( socket_file_descriptor == -1 ) { return -1; } // error: socket
+	
+	remote.sun_family = AF_UNIX;
+	strcpy( remote.sun_path, socket_address );
+	length = strlen( remote.sun_path ) + sizeof( remote.sun_family );
+	
+	/* Connect and check for error */
+	dummy = connect( socket_file_descriptor, (struct sockaddr *)&remote, length );
+	if( dummy == -1 ) { return -6; } // error: connect
+	
+	return socket_file_descriptor;
+}
+
+void unix_socket::client::terminate( int socket_file_descriptor )
+{
+	close( socket_file_descriptor );
+}
+
+#endif
+</pre>	
+	</p>
+	
+	<p class="code">
+<pre>
+// test_unix_socket_client.cpp
+
+#include "unix_socket_communication.h"
+#include <iostream>
+using namespace std;
+
+const char SOCK_PATH[] = {'1','2','3','4','\0'};
+
+int main()
+{	
+	cout << "Enter text to send to the server: \n";
+	char text_from_user[1000];
+	cin.getline( text_from_user, 999 );
+	int file_descriptor = unix_socket::client::initialize( SOCK_PATH );
+	if( file_descriptor < 0 )
+	{
+		cout << "error in initialization\n";
+	
+	}
+	else
+	{
+		unix_socket::send_data( file_descriptor, text_from_user, 1000 );
+		int length = unix_socket::recieve_data( file_descriptor, text_from_user, 1000 );
+		text_from_user[length] = '\0';
+		cout << "The text was sent and the server has replied:\n" << text_from_user << endl;
+		unix_socket::client::terminate( file_descriptor );
+	}	
+}
+</pre>
+	</p>
+
+	<p class="code">
+<pre>
+// test_unix_socket_server.cpp
+
+#include "unix_socket_communication.h"
+#include <iostream>
+using namespace std;
+
+const char SOCK_PATH[] = {'1','2','3','4','\0'};
+
+int main()
+{
+        int listening_socket = unix_socket::host::initialize( SOCK_PATH );
+        if( listening_socket < 0 ) { cout << "error: " << listening_socket << endl; }
+
+        for(;;)
+        {
+                int open_connection = unix_socket::host::accept_connection( listening_socket );
+                if( open_connection < 0 )
+                {
+                        cout << "error: " << open_connection << endl;
+                }
+                else if( open_connection == 0 )
+                {
+                        /* there are no requests, do nothing */
+                }
+                else
+                {
+                        cout << "connected to a client\n";
+                        char in_data[1000];
+                        int length = unix_socket::recieve_data( open_connection, in_data, 1000 );
+                        in_data[length] = '\0';
+                        cout << "information recieved from client: " << in_data << endl;
+                        char out_data[3] = {'4','2','\0'};
+                        unix_socket::send_data( open_connection, out_data, 3 );
+			cout << "a reply was send.  closing the connection...\n";
+			unix_socket::host::close_connection( open_connection );
+		}
+	}
+}
+</pre>
+	</p>
+	</article>
+    </section>
+    <footer>
+     <p>This is the Footer</p>
+    </footer>
+</div>
+</body>
+
+</html>

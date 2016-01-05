@@ -1,0 +1,79 @@
+/*
+ *	Elementary TCP Sockets - for Linux and Unix Machines
+ *
+ *	This is a summary of what is needed to use simple, IPv4, TCP sockets in a C++ program.
+ *	The information here is adapted from chapter 4 of UNIX Network Programming, by 
+ *	Richard Stevens.
+ *
+ *	User space programs can request sockets from the Linux OS to access other processes
+ *	on the same machine and other machines on the internet.  To make use of sockets,
+ *	include the socket header file:
+ *	
+ *	|	#include <sys/socket.h>
+ *	
+ *	To request a socket, call the socket() function:
+ *	
+ *	|	int socket( int family , int type , int protocol );
+ *	
+ *	When you call for a socket, the OS wants to know what type of communication protocol
+ *	is desired.  Local machine or internet?  Internet protocol 4 or 6?  Datagrams or
+ *	stream?  Some protocol constants are defined in socket.h:
+ *	
+ *		---family---	--description--
+ *		AF_INET		IPv4 protocols	<-- we will use this
+ *		AF_INET6	IPv6 protocols
+ *		AF_LOCAL	Unix domain protocols (for processes on the same machine)
+ *
+ *		----type----	--description--
+ *		SOCK_STREAM	stream socket  	<-- we will use this (for TCP)
+ *		SOCK_DGRAM	datagram socket (useful for video or audio streaming where
+ *						lost data is not worth waiting on)
+ * 
+ *		--protocol--	--description--
+ *		    0				<-- we will use this
+ *		   1-?		useful for raw sockets
+ *
+ *	The socket() function returns a socket file descriptor on success, or -1 on error.
+ *	The connect() function is used by a TCP client to establish a connection with a TCP
+ *	server.  The connection is made through a socket via its file descriptor.
+ *	
+ *	|	int connect( int sockfd, const struct sockaddr *servaddr, socklen_t addrlen );
+ *	
+ *	The parameters are a socket file descriptor returned by socket(), a socket address
+ *	structure containing the IP address of the server and its port number, and the size
+ *	of the address structure (which will depend on the protocol used).  Connect will return
+ *	0 on success or -1 on error.  If connect() fails, you cannot try to reconnect on the 
+ *	same socket.  Call close( sockfd ) and open a new socket if you want to try again.
+ *	
+ *	You can set up the socket address structure this way:
+ *
+ *	|	char human_readable_ip[] = "206.62.226.35";
+ *	|	int port_number = 25;		// 25 is SMTP
+ *	|
+ *	|	struct sockaddr_in servaddr;
+ *	|	memset( &servaddr , 0 , sizeof( servaddr ) ); // #include <cstring>
+ *	|	servaddr.sin_family = AF_INET;
+ *	|	servaddr.sin_port = htons( port_number ); // #include <arpa/inet.h> 
+ *	|		// htons() converts from machine to network by order
+ *	|	int success = inet_pton( AF_INET, human_readable_ip, &servaddr.sin_addr );
+ *	|	if( success < 0 ) 
+ *	|	{
+ *	|		// handle the error
+ *	|	}
+ *
+ *	Here is an example of casting required in the connect() function:
+ *
+ *	|	struct sockaddr_in servaddr;
+ *	|	// fill servaddr with IP address and port number
+ *	|	// call socket and check for error
+ *	|	int return_value = connect( sockfd , (struct servaddr *) &servaddr , sizeof( servaddr ) );
+ *	|	if( return_value == -1 )
+ *	|	{
+ *	|		// deal with error
+ *	|	}
+ *
+ *	After you have made a TCP connection, you can use read() and write() to communicate
+ *	with the server.  Different protocols will call for different handshakes at this point.
+ * 
+ */
+

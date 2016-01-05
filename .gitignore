@@ -1,0 +1,9 @@
+# Ignore all to exclude executables without extensions
+*
+
+# Unignore all with extensions and directories
+!*.*
+!*/
+
+# Ignore object files
+*.o

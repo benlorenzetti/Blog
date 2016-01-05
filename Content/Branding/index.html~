@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Website Layout</title>
+	<link rel="stylesheet" type="text/css" href="basic-style.css">
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header>
+	<h1>Header</h1>
+	<p>Usually empty. Can be used for wallpaper image or advertisement.</p>
+</header>
+<aside>
+	<a href="http://benlorenzetti.com"><img src="brand.png" alt="Aside Image"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+	<h1>Article</h1>
+	<p>The webpage is designed with 7 major divisions:</p>
+	<ol>
+		<li>A <b>&#60;div&#62;</b> wrapper is used to center the webpage. It is assigned a fixed with and automatic margins.</li>
+		<li>The <b>&#60;header&#62;</b> division.</li>
+		<li>The <b>&#60;aside&#62;</b> semantic division is for the website's logo/brand image. It is floated left within the wrapper.</li>
+		<li>A <b>&#60;div&#62;</b> wraps around the article and navigation divisions. It holds the navigation bar horizontally aligned with the main page content. This container is floated left, following the aside image. The width is fixed to allow ~70 characters per line.</li>
+		<li>The <b>&#60;article&#62;</b> contains the main content. The article's CSS can be customized for each page. This template has no CSS applied to the article.</li>
+		<li>The <b>&#60;nav&#62;</b> division has a gradiated background image and uses floated, block style links to form a navigation bar. It contains an empty clear division to ensure it fills to the full width of its wrapper.</li>
+		<li>The <b>&#60;footer&#62;</b> division should usually be left empty. It is necessary to clear the floats and extend the page height below the content. The background image varies vertically so that the page appears darker as one scrolls down.</li>
+	</ol>
+	<p>There are essentially 5 divisions for content and 2 "wrapper" divisio|ns for page layout. Only the two wrapper divisions are assigned a fix|ed pixel width. The article+nav wrapper should be assigned a width th|at limits paragraphs to 70 characters per line, for readability. Font|-size for the webpage should be assigned in pixels or point so that z|ooming does not affect the word wrapping.</p>
+	<p>The horizontal div wrapper (containing the entire page) should be given a width that is less than 1024 pixels to improve viewing across all devices. The aside image and the article+nav wrapper form two columns in the horizontal div wrapper, using floats. If the image width (dynamic) and the article+nav wrapper width do not fit within the div, then the image will shift above the article content.</p>
+	<p>The "code" class of paragraphs are given a monospace font. This is the basic html5 template for the site:</p>
+	<p class="code">
+&#60;!DOCTYPE html&#62;<br/>
+&#60;html lang="en"&#62;<br/>
+&#60;head&#62;<br/>
+	&#60;meta charset="utf-8"/&#62;<br/>
+	&#60;title&#62;&#60;/title&#62;<br/>
+	&#60;link rel="stylesheet" type="text/css" href="http://www.benlorenzetti.com/stylesheets/home.css"&#62;<br/>
+&#60;/head&#62;<br/><br/>
+&#60;body&#62;<br/>
+&#60;div id="horizontal-div-containing-entire-page"&#62;<br/>
+&#60;header&#62;&#60;/header&#62;<br/>
+&#60;aside&#62;<br/>
+&#60;a href="http://benlorenzetti.com"&#62;&#60;img src="" alt=""&#62;&#60;/a&#62;<br/>
+&#60;/aside&#62;<br/>
+
+&#60;div id="vertical-div-containing-article-and-navigation"&#62;<br/>
+&#60;hr/&#62;<br/>
+&#60;article&#62;&#60;/article&#62;<br/>
+&#60;nav&#62;&#60;ul&#62;<br/>
+&#60;li&#62;&#60;a href="#"&#62;&#60;/a&#62;&#60;/li&#62;<br/>
+&#60;/ul&#62;&#60;div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"&#62;&#60;/div&#62;<br/>
+&#60;/nav&#62;<br/>
+&#60;/div&#62;&#60;!--article+nav wrapper--&#62;<br/>
+&#60;footer&#62;&#60;/footer&#62;<br/>
+&#60;/div&#62;&#60;!--horizontal centering div--&#62;<br/>
+&#60;/body&#62;<br/>
+&#60;/html&#62;<br/>
+</p>
+</article>
+<nav>
+	<ul>
+		<li class="li-nav"><a href="#">Nav 1</a></li>
+		<li class="li-nav"><a href="#">Nav 2</a></li>
+		<li class="li-nav"><a href="#">Nav 3</a></li>
+	</ul>
+	<div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--vertical div containing article and navigation-->
+<footer>
+</footer>
+</div><!--horizontal div containing entire page-->
+</body>
+
+</html>

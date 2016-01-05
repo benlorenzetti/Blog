@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>SSH, FTP, etc.</title>
+	<link href="http://www.benlorenzetti.com/stylesheets/simple.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<h3>FTP procedure</h3>
+<p>The server probably has firewall protection, which must temporarily
+be stopped. Open a terminal and then SSH into the server.</p>
+<p class="code">
+$ ssh -i publicKey.pem username@domainname.com</br>
+$ sudo service iptables stop</p>
+<p>Open another terminal to do the file transfer. Make sure to restart iptables
+after completing all the file transfers.</p>
+<p class="code">
+$ ftp -p domainname.com</br>
+Name: enterUsernameCreatedForFTP</br>
+Password:</p>
+<p class="code">
+ftp> put put /localMachinePathway/fileToTransfer saveAsFilename</br>
+ftp> get remoteMachineFilename /localMachinePathway/fileToDownload</br>
+ftp> quit</p>
+<h3>HTTP Server Directory</h3>
+<p class="code">
+/var/www
+</p>
+<h3>Remove file or directory</h3>
+<p class="code">
+$ rm filename</br>
+$ rm -r directoryName</br>
+(-r is recursive option)
+</p>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<meta charset=utf-8>
+	<title>How-To: Forms, CGI, and CGIC</title>
+	<style>
+	header, nav, article, footer, address, section { display: block; }
+	#container { width:900px; margin:auto; background-color:white; }
+	header { background-color:#666; }
+	nav li { display:inline; padding-right:1em; }
+	nav a { color:white; text-decoration:none; }
+	nav a:hover { text-decoration:overline; }
+	h1, h2 { margin:0px; font-size:1.5em; }
+	h2 { font-size:1em; }
+	footer { background-color:#999; text-align:center; }
+	.code { font-family: monospace; }
+	</style>
+</head>
+
+<body>
+<div id="container">
+    <header>
+     <h1>Sample HTML5 Structure</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+	<hgroup>
+	<h1>Using the System Clock<h1>
+	</hgroup>
+	<article>
+	<p>
+		To get the time from the system clock, include the "time.h" C library.
+	</p>
+	<p class="code">
+		#include &#60;ctime&#62;
+	</p>
+	<p>
+		The function time(time_t *time); returns the number of seconds that have elapsed since January 1, 1970, according
+		to your systems clock.  The return type is time_t.
+	</p>
+	<p class="code">
+		time_t now = time( 0 );
+	</p>
+	<p>
+		Here is a sample program:
+	</p>
+	<p class="code">
+		<pre>
+// example_time_program.cpp
+	
+#include &#60;ctime&#62;
+#include &#60;iostream&#62;
+using namespace std;
+
+int main()
+{
+	time_t seconds = time( 0 ); // seconds since January 1, 1970
+	time_t minutes = seconds / 60;
+	time_t hours = minutes / 60;
+	time_t days = hours / 24;
+	time_t years = 0; 
+	time_t days_not_counted = days;
+	int leap_year = 2;
+	while( days_not_counted > 365 )
+	{
+		if( leap_year % 4 == 0 )
+		{
+			days_not_counted -= 366;
+		}
+		else //( not a leap year )
+		{
+			days_not_counted -= 365;
+		}
+		years++;
+		leap_year++;
+	}
+		
+	cout << "Year: " << years + 1970 << endl;
+	cout << "Days: " << days_not_counted << endl;
+	const GMT_TO_EST = -4; // if it is 8:00 p.m. in England, it is 4:00 p.m. in New York
+	cout << "Hour: " << hours % 24 + GMT_TO_EST << endl;
+}
+		</pre>
+	</p>
+	</article>
+    </section>
+    <footer>
+     <p>This is the Footer</p>
+    </footer>
+</div>
+</body>
+
+</html>
