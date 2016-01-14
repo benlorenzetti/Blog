@@ -12,40 +12,24 @@
 #include <string.h> // strerror ()
 #include <string>
 
-// Required only on Windows Systems
-#ifndef _Windows
-#pragma warning(disable: 4996)
-#pragma comment(lib, "Ws2_32.lib")
-#include <WinSock2.h>
-#include <Ws2tcpip.h>
-#include <io.h>
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#include <BaseTsd.h>
-typedef SSIZE_T ssize_t;
-#endif /* _SSIZE_T_DEFINED */
-#define close closesocket
-
 // Required only on Unix Systems
-#else
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <unistd.h> // read(), write(), close()
 #include <fcntl.h>
-#endif
 
-using namespace std;
+#define HTTP_PORT	80
+#define	NO_CONNECTION_ACCEPTED	-1
 
-enum ports { HTTP };
-const int NO_CONNECTION_ACCEPTED = -1;
+struct ipv6_server {
+	int sock_fd;	
+}
 
-class ipv6_socket_server
-{
-public:
-	ipv6_socket_server(ports, int);
+int start_ipv6_server (ipv6_server*, int, int);
 	// Opens a socket(), bind()s it to the local machine, and listen()s for incoming IPv6 connections
-	// @param: port type (choose from enumerated list above)
+	// @param: a server "object"
+	// @param: port type (an HTTP_PORT is 80)
 	// @param: maximum queue size for incoming connections
 	int accept_connection(char *);
 	// Accept()s an incoming connection
@@ -72,31 +56,9 @@ public:
 	*       by unistd.h (io.h on Windows).
 	*/
 	~ipv6_socket_server();
-private:
-	int sock_fd;
-};
 
-ipv6_socket_server::ipv6_socket_server(ports port, int max_queue_size)
+int start_ipv6_server (ipv6_server* server, int port, int max_queue_size)
 {
-	// Call WSAStartup if a Windows Machine (load the dll)
-#ifndef _Windows
-	WORD wVersionRequested;
-	WSADATA wsaData;
-	int wsaerr;
-
-	// Using MAKEWORD macro, Winsock version request 2.2
-	wVersionRequested = MAKEWORD(2, 2);
-
-	wsaerr = WSAStartup(wVersionRequested, &wsaData);
-	if (wsaerr != 0)
-	{
-		/* Tell the user that we could not find a usable */
-		/* WinSock DLL.*/
-		cout << "The Winsock dll not found!\n";
-		exit(EXIT_FAILURE);
-	}
-#endif // _Windows
-
 	// Set up the hints parameter for getaddrinfo ()
 	struct addrinfo hints;
 	memset(&hints, 0, sizeof(hints));
@@ -109,43 +71,47 @@ ipv6_socket_server::ipv6_socket_server(ports port, int max_queue_size)
 	hints.ai_next = NULL;
 
 	// Create the correct port string
-	char port_c_string[1000];
+	char port_c_string[4];
 	switch (port)
 	{
-	case HTTP: strcpy(port_c_string, "80"); break;
+		case HTTP_PORT:
+			strcpy(port_c_string, "80");
+			break;
+		default:
+			printf ("start_ipv6_server(): port number %d not recognized.\n", port);
 	}
 
 	// Call getaddrinfo () to query DNS and set up a socket address struct
 	struct addrinfo *addrinfo_list;
-	int success = getaddrinfo(NULL, port_c_string, &hints, &addrinfo_list);
-	if (success != 0)
-	{
-		cout << "Error in getaddrinfo (): " << gai_strerror(success) << endl;
-		//		exit(EXIT_FAILURE);
-	}
-
+	int failure;
+	failure = getaddrinfo(NULL, port_c_string, &hints, &addrinfo_list);
+	if (failure != 0)
+		printf ("start_ipv6_server(): getaddrinfo() error: %d\n", failure);
+	
 	// Try each address in the list until one can be named
 	struct addrinfo *i;
 	for (i = addrinfo_list; i != NULL; i = i->ai_next)
 	{
 		// Get a socket file descriptor from the OS
-		sock_fd = socket(i->ai_family, i->ai_socktype, i->ai_protocol);
+		server->sock_fd = socket(i->ai_family, i->ai_socktype, i->ai_protocol);
 		if (sock_fd == -1)
 			continue;	// -1 is failure, continue to next iteration
 
 		// Assign a name to the socket (bind to an address)
-		success = bind(sock_fd, i->ai_addr, i->ai_addrlen);
-		if (success == 0)
+		failure = bind(server->sock_fd, i->ai_addr, i->ai_addrlen);
+		if (failure == 0) {
+			printf ("start_ipv6_server(): bind successful, continuing...\n");
 			break;	// 0 is successful bind. Use this file descriptor
-		cout << "bind (): " << strerror(errno) << endl;
+		}
 
+		printf ("start_ipv6_server(): unable to bind (%d)\n", failure);
 		// Close the socket file descriptor if unsuccessful
-		close(sock_fd);
+		close(server->sock_fd);
 	}
-	if (success != 0)
+	if (failure != 0)
 	{
-		cout << "Error in ipv6_socket_server(): was unable to bind to an IPv6 Socket\n";
-		cout << "(try running as super user)\n";
+		printf ("Error in ipv6_socket_server(): was unable to bind to an IPv6 Socket\n");
+		printf ("(try running as super user)\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -153,23 +119,15 @@ ipv6_socket_server::ipv6_socket_server(ports port, int max_queue_size)
 	freeaddrinfo(addrinfo_list);
 
 	// Set the socket to be nonblocking
-	#ifndef _Windows
-		unsigned long on = 1;
-		if (0 != ioctlsocket(sock_fd, FIONBIO, &on)) {
-			cout << "ioctlsocket() error.\n";
-			exit(EXIT_FAILURE);
-		}
-	#else
-		if (!fcntl (sock_fd, F_SETFL, O_NONBLOCK)) {
-			cout << "fcntl() error " << strerror(errno) << endl;
-			exit(EXIT_FAILURE);
-		}
-	#endif
+	if (!fcntl (server->sock_fd, F_SETFL, O_NONBLOCK)) {
+		printf ("fcntl() error %d\n", errno);
+		exit(EXIT_FAILURE);
+	}
 
 	// Indicate that the socket is passive, waiting for connections
-	if (listen(sock_fd, max_queue_size) != 0)
+	if (0 != listen (server->sock_fd, max_queue_size))
 	{
-		cout << "listen(): " << strerror(errno) << endl;
+		printf ("listen(): %d\n", errno);
 		exit(EXIT_FAILURE);
 	}
 }
