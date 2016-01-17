@@ -1,18 +1,14 @@
-/*  ipv6_socket_server.h
+/*  ipv6_server.h
 */
 
-#ifndef IPV6_SOCKET_SERVER_H
-#define IPV6_SOCKET_SERVER_H
+#ifndef IPV6_SERVER_H
+#define IPV6_SERVER_H
 
-// Required on both Windows and Unix Systems
-#include <iostream>
+#include <stdio.h>
 #include <sys/types.h>
-#include <cstdlib>
-#include <cerrno> // int errno
-#include <string.h> // strerror ()
-#include <string>
-
-// Required only on Unix Systems
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h> // int errno
 #include <sys/socket.h>
 #include <netdb.h>
 #include <arpa/inet.h>
@@ -24,40 +20,42 @@
 
 struct ipv6_server {
 	int sock_fd;	
-}
+};
 
-int start_ipv6_server (ipv6_server*, int, int);
+int start_ipv6_server (struct ipv6_server*, int, int);
 	// Opens a socket(), bind()s it to the local machine, and listen()s for incoming IPv6 connections
 	// @param: a server "object"
 	// @param: port type (an HTTP_PORT is 80)
 	// @param: maximum queue size for incoming connections
-	int accept_connection(char *);
+	int accept_connection(struct ipv6_server*, char *);
 	// Accept()s an incoming connection
-	// @param: filled with the connecting machine's IPv6 address
-	// return: a socket file descriptor with an open connection, or NO_CONNECTION_ACCEPTED on error and sets errno
-	static string recv_wrapper(int);
+	// @param: the server "object"
+	// @param: filled with the connecting machine's IPv6 address (size should be >= 56 bytes)
+	// return: a socket file descriptor with an open connection, or a NO_CONNECTION_ACCEPTED on error and sets errno
+//	static string recv_wrapper(int);
 	// @param: socket file descriptor
 	// return: string sent by the remote client, or an error msg
-	static int send_wrapper(int, string, string &);
+//	static int send_wrapper(int, string, string &);
 	// @param: socket file descriptor
 	// @param: string to be sent
 	// @param: return error message
 	// return: size sent, or -1 on error
-	static int send_wrapper(int, const char *, int);
+//	static int send_wrapper(int, const char *, int);
 	// @param: socket file descriptor
 	// @param: data to send
 	// @param: size of data array
 	// return: total size sent
-	static void close_wrapper(int);
+	void close_connection(struct ipv6_server*, int);
+	// @param: the server "object"
 	// @param: socket file descriptor to close
 	/*
 	* Note: all 3 of the wrapper functions [read_wrapper(), write_wrapper(), and close_wrapper()]
 	*       could be replaced by direct calls to read(), write(), and close(), which are supplied
 	*       by unistd.h (io.h on Windows).
 	*/
-	~ipv6_socket_server();
+	void stop_ipv6_server(struct ipv6_server*);
 
-int start_ipv6_server (ipv6_server* server, int port, int max_queue_size)
+int start_ipv6_server (struct ipv6_server* server, int port, int max_queue_size)
 {
 	// Set up the hints parameter for getaddrinfo ()
 	struct addrinfo hints;
@@ -94,7 +92,7 @@ int start_ipv6_server (ipv6_server* server, int port, int max_queue_size)
 	{
 		// Get a socket file descriptor from the OS
 		server->sock_fd = socket(i->ai_family, i->ai_socktype, i->ai_protocol);
-		if (sock_fd == -1)
+		if (server->sock_fd == -1)
 			continue;	// -1 is failure, continue to next iteration
 
 		// Assign a name to the socket (bind to an address)
@@ -132,27 +130,28 @@ int start_ipv6_server (ipv6_server* server, int port, int max_queue_size)
 	}
 }
 
-int ipv6_socket_server::accept_connection(char *ipv6_address)
+int accept_connection (struct ipv6_server* server, char* ip_address)
 {
 	// Accept the connection and get a file descriptor
-	sockaddr_in6 sock_addr;
+	struct sockaddr_in6 sock_addr;
 	socklen_t size = sizeof(sock_addr);
 	memset(&sock_addr, 0, sizeof(sock_addr));
-	int connection_sfd = accept(sock_fd, (sockaddr *)&sock_addr, &size);
+	int connection_sfd = accept(server->sock_fd, (struct sockaddr *)&sock_addr, &size);
 	if (connection_sfd != -1)
-		inet_ntop(AF_INET6, (void *)&sock_addr, ipv6_address, size);
+		inet_ntop(AF_INET6, (void *)&sock_addr, ip_address, size);
 	return connection_sfd;
 }
 
+/*
 string ipv6_socket_server::recv_wrapper(int sfd)
 {
 	const int BUFFER_SIZE = 1000;
 	char buffer[BUFFER_SIZE];
 	ssize_t buffer_size = BUFFER_SIZE;
 	string temp;
-	/* Make repeating calls to read() until entire message is complete.
-	* Read() returns number of characters filled; 0 indicates end of file.
-	* Read() returns -1 for error and sets errno. */
+	// Make repeating calls to read() until entire message is complete.
+	// Read() returns number of characters filled; 0 indicates end of file.
+	//  Read() returns -1 for error and sets errno.
 	while (buffer_size != 0)
 	{
 		// Read from the file descriptor
@@ -167,7 +166,10 @@ string ipv6_socket_server::recv_wrapper(int sfd)
 	}
 	return temp;
 }
+*/
 
+
+/*
 int ipv6_socket_server::send_wrapper(int sfd, string to_send, string &error_message)
 {
 	int size_sent = 0;
@@ -189,7 +191,9 @@ int ipv6_socket_server::send_wrapper(int sfd, string to_send, string &error_mess
 	}
 	return size_sent;
 }
+*/
 
+/*
 int ipv6_socket_server::send_wrapper(int sfd, const char *to_send, int size)
 {
 	const int ALLOWED_ATTEMPTS = 10;
@@ -205,14 +209,16 @@ int ipv6_socket_server::send_wrapper(int sfd, const char *to_send, int size)
 	}
 	return size_sent;
 }
+*/
 
-void ipv6_socket_server::close_wrapper(int sfd)
+void close_connection (struct ipv6_server* server, int sfd)
 {
 	close(sfd);
 }
 
-ipv6_socket_server::~ipv6_socket_server()
+void stop_ipv6_server (struct ipv6_server* server)
 {
-	close(sock_fd);
+	close(server->sock_fd);
 }
+
 #endif
