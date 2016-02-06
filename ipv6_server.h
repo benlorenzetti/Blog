@@ -18,8 +18,15 @@
 #define HTTP_PORT	80
 #define	NO_CONNECTION_ACCEPTED	-1
 
+struct open_connection {
+	struct open_connection* next_OC;
+	int sock_fd;
+	char ip_address[64];
+};
+
 struct ipv6_server {
-	int sock_fd;	
+	int sock_fd;
+	struct open_connection* connection_list;	
 };
 
 int start_ipv6_server (struct ipv6_server*, int, int);
@@ -27,10 +34,9 @@ int start_ipv6_server (struct ipv6_server*, int, int);
 	// @param: a server "object"
 	// @param: port type (an HTTP_PORT is 80)
 	// @param: maximum queue size for incoming connections
-	int accept_connection(struct ipv6_server*, char *);
+	int accept_connection (struct ipv6_server*);
 	// Accept()s an incoming connection
 	// @param: the server "object"
-	// @param: filled with the connecting machine's IPv6 address (size should be >= 56 bytes)
 	// return: a socket file descriptor with an open connection, or a NO_CONNECTION_ACCEPTED on error and sets errno
 //	static string recv_wrapper(int);
 	// @param: socket file descriptor
@@ -116,29 +122,39 @@ int start_ipv6_server (struct ipv6_server* server, int port, int max_queue_size)
 	// Free the addrinfo_list from getaddrinfo ()
 	freeaddrinfo(addrinfo_list);
 
-	// Set the socket to be nonblocking
-	if (!fcntl (server->sock_fd, F_SETFL, O_NONBLOCK)) {
-		printf ("fcntl() error %d\n", errno);
-		exit(EXIT_FAILURE);
-	}
-
 	// Indicate that the socket is passive, waiting for connections
 	if (0 != listen (server->sock_fd, max_queue_size))
 	{
 		printf ("listen(): %d\n", errno);
 		exit(EXIT_FAILURE);
 	}
+
+	// Initialize other members of the ipv6_server* object
+	server->connection_list = NULL;
 }
 
-int accept_connection (struct ipv6_server* server, char* ip_address)
+int accept_connection (struct ipv6_server* server)
 {
 	// Accept the connection and get a file descriptor
 	struct sockaddr_in6 sock_addr;
 	socklen_t size = sizeof(sock_addr);
 	memset(&sock_addr, 0, sizeof(sock_addr));
 	int connection_sfd = accept(server->sock_fd, (struct sockaddr *)&sock_addr, &size);
-	if (connection_sfd != -1)
+	if (connection_sfd != -1) {
+		// Append a new open connection to the linked list
+		// 1. LOCK THE LIST IF MULTITHREADING
+
+		// 2. Find the end of the list
+		struct open_connection** ptr_to_EoL_ptr;
+		*ptr_to_EoL_ptr = server->connection_list;
+		while (**ptr_to_EoL_ptr != NULL)
+			*ptr_to_EoL_ptr = (*ptr_to_EoL_ptr)->next_OC;
+		
+		// 3. Append new Open Connection Object to the back of the list
+
 		inet_ntop(AF_INET6, (void *)&sock_addr, ip_address, size);
+
+	}
 	return connection_sfd;
 }
 
