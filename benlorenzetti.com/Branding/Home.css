@@ -2,7 +2,7 @@
 /* style basics from here until line 44 */
 body {
 	background-color: rgb(204,204,204);
-	background-image: url('../images/bodybackground.gif');
+	background-image: url('./bodybackground.gif');
 	background-size: 100% 100%;
 	background-repeat: repeat-x;
 	background-position: left bottom;
@@ -18,12 +18,9 @@ a:link, a:visited {
 	color: rgb(179, 22, 35);
 }
 hr { height: 3px;
-	background-image: url('../images/footerbackground.gif');
+	background-image: url('./footerbackground.gif');
 }
-#horizontal-div-containing-entire-page { border-style: none; padding: 0px; 
-	width:  800px; /* define width and   */
-	margin: 0 auto 0 auto; /* center the section */
-}
+
 header { margin: 0px; border-style: none; padding: 0px; }
 aside { margin: 20px; border-style: none; padding: 0px; 
 	float: left;
@@ -34,7 +31,7 @@ aside { margin: 20px; border-style: none; padding: 0px;
 	float: left;
 }
 nav { margin: 0px; border-style: none; padding: 0px; 
-	background-image: url('../images/footerbackground.gif');
+	background-image: url('./footerbackground.gif');
 	background-size: 100% 100%;
 	background-repeat: repeat-y;
 	width: 100%; margin-top: 20px;
