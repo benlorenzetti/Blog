@@ -26,7 +26,7 @@ struct open_connection {
 
 struct ipv6_server {
 	int sock_fd;
-	struct open_connection* connection_list;	
+	struct open_connection* OC_list;	
 };
 
 int start_ipv6_server (struct ipv6_server*, int, int);
@@ -51,7 +51,7 @@ int start_ipv6_server (struct ipv6_server*, int, int);
 	// @param: data to send
 	// @param: size of data array
 	// return: total size sent
-	void close_connection(struct ipv6_server*, int);
+//	void close_connection(struct ipv6_server*, int);
 	// @param: the server "object"
 	// @param: socket file descriptor to close
 	/*
@@ -75,7 +75,7 @@ int start_ipv6_server (struct ipv6_server* server, int port, int max_queue_size)
 	hints.ai_next = NULL;
 
 	// Create the correct port string
-	char port_c_string[4];
+	char port_c_string[8];
 	switch (port)
 	{
 		case HTTP_PORT:
@@ -130,7 +130,7 @@ int start_ipv6_server (struct ipv6_server* server, int port, int max_queue_size)
 	}
 
 	// Initialize other members of the ipv6_server* object
-	server->connection_list = NULL;
+	server->OC_list = NULL;
 }
 
 int accept_connection (struct ipv6_server* server)
@@ -145,14 +145,24 @@ int accept_connection (struct ipv6_server* server)
 		// 1. LOCK THE LIST IF MULTITHREADING
 
 		// 2. Find the end of the list
-		struct open_connection** ptr_to_EoL_ptr;
-		*ptr_to_EoL_ptr = server->connection_list;
-		while (**ptr_to_EoL_ptr != NULL)
-			*ptr_to_EoL_ptr = (*ptr_to_EoL_ptr)->next_OC;
+		struct open_connection** addr_of_OC_ptr;
+		addr_of_OC_ptr = &server->OC_list;
+		while (*addr_of_OC_ptr != NULL) {
+			printf ("linked list iteration\n");
+			addr_of_OC_ptr = & ( (*addr_of_OC_ptr)->next_OC);
+		}
 		
 		// 3. Append new Open Connection Object to the back of the list
+		*addr_of_OC_ptr = malloc (sizeof (struct open_connection));
+		if (*addr_of_OC_ptr == NULL) {
+			printf ("Memory allocation failure for new open_connection struct.\n");
+			close (connection_sfd);
+		}
 
-		inet_ntop(AF_INET6, (void *)&sock_addr, ip_address, size);
+		// 4. Initialize Data Members of New Object
+		(*addr_of_OC_ptr)->next_OC = 0;
+		(*addr_of_OC_ptr)->sock_fd = connection_sfd;
+		inet_ntop(AF_INET6, (void *)&sock_addr, (*addr_of_OC_ptr)->ip_address, size);
 
 	}
 	return connection_sfd;
@@ -227,10 +237,12 @@ int ipv6_socket_server::send_wrapper(int sfd, const char *to_send, int size)
 }
 */
 
+/*
 void close_connection (struct ipv6_server* server, int sfd)
 {
 	close(sfd);
 }
+*/
 
 void stop_ipv6_server (struct ipv6_server* server)
 {
