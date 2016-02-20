@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="keywords" content="C string, Loren Ipsum, loren_ipsum,
+	loren_ipsum.h, C string alternative, strings in C">
+	<meta name="description" content="">
+	<meta name="author" content="Ben Lorenzetti">
+	<title>Loren Ipsum String Library</title>
+	<link href="../Branding/Home.css" rel="stylesheet" type="text/css">
+	<style>
+		body {
+			background-color: rgb(204,204,204);
+		}
+		p, ul, ol, table {
+			font-size: 12pt;
+			font-family: verdana, arial, serif;
+		}
+		h1, h2, nav ul {
+			font-family: georgia;
+		}
+		a:link, a:visited {
+			color: rgb(179, 22, 35);
+		}
+		aside {
+			margin: 0px; border-style: none; padding: 0px;
+			float: left;
+		}
+		#vertical-div-containing-article-and-navigation { 
+			margin: 0px; border-style: none; padding: 0px;
+			width: 500px; /* Verdana 12pt font, 70 characters per line */
+			float: left;
+}
+		#vertical-nav {
+			background-color: black;
+			width:250px;	
+		}
+		#vertical-nav ul {
+			list-style-type: none;
+			padding: 0px;
+			margin: 25px 25px 25px 25px;
+		}
+		#vertical-nav ul li {
+			float: left;
+		}
+		#vertical-nav ul li a {
+			display: block;
+			padding-right: 10px; padding-left: 10px;
+			padding-top: 10px; padding-bottom: 10px;
+			text-decoration: none;
+			font-size: 14px;
+		}
+		#vertical-nav ul li a:link, #vertical-nav ul li a:visited {
+			color: rgb(204, 204, 204);
+		}
+		#vertical-nav ul li a:hover, #vertical-nav ul li a:active {
+			background-color: rgb(179,22,35);
+			color: rgb(204,204,204);
+		}
+		footer { margin: 0px; border-style: none; padding: 0px; 
+			clear: both; 
+		}
+
+		article {}
+		.code { font-family: monospace; font-size: 10pt; }
+
+	</style>
+</head>
+<body>
+
+<aside>
+<img src="loren-ipsum-text.png" alt="Lorem Ipsum Text"/>
+<nav id="vertical-nav">
+<ul>
+	<li><a href="#">Introduction & Download</a></li>
+	<li><a href="./ipsum.html">Data Format Details</a></li>
+	<li><a href="./comparisons.html">Other String Libraries</a></li>
+	<li><a href="./loren/index.html">Function Reference</a></li>
+</ul>
+<div style="clear: both"></div>
+</nav>
+</aside>
+
+<div id="vertical-div-containing-article-and-navigation">
+
+<article>
+<hr>
+<h1>Loren Ipsum</h1>
+
+<p>Loren Ipsum is a data format and function library
+that provide an alternative to standard strings in C.</p>
+
+<p>In an <span class="code">ipsum</span> character array,
+semantic meaning is associated with the first byte instead of the
+null-terminating <span class="code">'\0'</span> in C strings.
+The semantic header encodes information on string length, allocation
+size, and data type.
+There is an continue flag in the most significant bit that allow the
+header to grow for longer length strings.</p>
+
+<img src="ipsum-data-format.png" alt="Ipsum Data Format"/>
+
+<p>The <span class="code">lor_</span> functions are similar to those
+provided by <span class="code">&lt;string.h&gt;</span>,
+except that dynamic memory allocation is done for you.
+(Note you still have to initialize and free memory.)
+In general memory allocation is done in powers of 2, but
+implementations may define minimum and maximum allocation sizes.
+</p>
+
+<p>Handling heap allocations saves the programmer
+some bookkeeping work and eliminates the risk of buffer overflows.
+Use of the length header allows Loren Ipsum strings to hold true
+binary data, including zeros,
+and reduces runtime complexity for some functions.
+For example, <span class="code">lor_strlen()</span> does not
+traverse the entire array looking for <span class="code">'\0'</span>.
+Furthermore, the data structure and functions lend themselves to
+assembly or even hardware optimization, although the implementation
+provided below is written for portability.
+</p>
+
+<h2>Download</h2>
+
+
+
+</article>
+</div>
+<footer></footer>
+</body>
+
+</html>

@@ -46,6 +46,8 @@ nav ul li a {
 }
 nav ul li a:link, nav ul li a:visited { color: rgb(204,204,204); }
 nav ul li a:hover, nav ul li a:active { background-color: rgb(179,22,35); color: rgb(204,204,204); }
+
+
 footer { margin: 0px; border-style: none; padding: 0px; 
 	clear: both; 
 }
