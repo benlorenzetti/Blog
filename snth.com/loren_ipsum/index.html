@@ -23,10 +23,10 @@
 <p>is a standard set of functions
 and data format for doing string manipulations in C.
 It handles memory allocation internally to simplify
-programming and protect against buffer overflow.
+programming and protect against buffer overflows.
 Runtime and memory usage are competitive with &lt;string.h&gt;
 and the data format supports multithreading for implementations
-compiled with C11 or written for specific architechtures
+compiled with C11 or written for specific architectures
 with atomic integer operations.</p>
 
 <p>The data format is a character array,
@@ -35,7 +35,7 @@ The header encodes string length and allocation size.
 For more information, read about the
 <a href="./data_format.html">data format</a>.</p>
 
-<img src="ipsum-data-format.png" alt="Ipsum Data Format"/>
+<img src="./ipsum-data-format.png" alt="Ipsum Data Format"/>
 
 <h2>Contents</h2>
 <ol>
@@ -69,15 +69,75 @@ For more information, read about the
     <th>-</th>
   </tr>
   <tr>
-    <td><a class="function-link" href="#">lor_gc</td>
+    <td><a class="function-link" href="#">lor_gc</a></td>
     <td>a nonblocking "garbage collector", which returns threadsafe,
         read only strings of minimal size.</td>
+    <th>yes</th>
+    <th>-</th>
+  </tr>
+  <tr>
+    <td><a class="function-link" href="#">lor_parse_header</a></td>
+    <td>internal function that copies a header and  parses it.</td>
     <th>yes</th>
     <th>-</th>
   </tr>
 </table>
 
 <h2 id="initialization">Dynamic vs Static Initialization</h2>
+
+<p>One of the main benefits of Loren Ipsum strings is that dynamic
+memory is managed for you.
+However this is C, and if you want to declare your string on the
+stack you should be able to do so.
+For this, Loren Ipsum provides two types,
+<span class="code">ipsum</span> and
+<span class="code">ipstat</span>.</p>
+
+<p>Both types end up being a pointer to a sequence of characters
+[<a href="#">1</a>],
+but they are separate so the compiler can check that
+<span class="code">ipsum</span> strings are passed to dynamic
+functions and <span class="code">ipstat</span> strings are not.
+Loren Ipsum has two sets of complementary functions,
+one of which calls
+<span class="code">malloc()</span>,
+<span class="code">realloc()</span>, and
+<span class="code">free()</span> internally,
+but the other set returns an error code 
+(<span class="code">0</span>) whenever a requested
+operation would overflow its buffer.
+All sense of "dynamicity" or "staticity" exists only with the
+programmer and during compiler type checking;
+no part of the string header is wasted on this information
+and no runtime checking is done.</p>
+
+<p>Static strings must be initialized such that the header string
+correctly reflects the array size.
+The best way to do this is generating the whole line with this
+<a href="#">tool</a>
+</p>
+
+<p class="code">
+#include "loren_ipsum.h"<br/>
+<br/>
+ipstat str1[64] = "Qa static string.";
+</p>
+
+<p>Dynamic strings are allocated with the
+<span class="code">lor_init()</span> function.
+The initialization parameter can accept a C string using the
+<span class="code">'@'</span> specifier, or a number of
+macros are available such as
+<span class="code">LOR_ALLOC_4</span>,
+<span class="code">LOR_ALLOC_8</span>,
+<span class="code">LOR_ALLOC_16</span>, and many other
+powers of two.</p>
+
+<p class="code">
+ipsum str2;<br/>
+lor_init (&amp;str2, "@a dynamic string.");<br/>
+</p>
+
 
 <h2 id="releasing-memory">Releasing Memory</h2>
 
