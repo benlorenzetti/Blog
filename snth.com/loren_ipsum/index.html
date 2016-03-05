@@ -52,34 +52,55 @@ For more information, read about the
   <tr>
     <th></th>
     <th></th>
-    <th>Thread Safe?</th>
-    <th>Static Strings</th>
+    <th>Thread<br/>Safe?</th>
+    <th>Equivalent for Static Strings</th>
   </tr>
   <tr>
-    <td><a class="function-link" href="#">lor_init</a></td>
+    <td><a class="function-link" href="#">lor_init ()</a></td>
     <td>allocate and initialize dynamic strings.</td>
-    <th>no</th>
-    <td>(see <a href="initialization">static initialization)</a></td>
+    <th>yes</th>
+    <td><a class="function-link" href="#">lor_hdrinit ()</a></td>
   </tr>
   <tr>
-    <td><a class="function-link" href="#">lor_free</a></td>
+    <td><a class="function-link" href="#">lor_free ()</a></td>
     <td>a wrapper for <span class="code">free()</span>,
         which will block on threadsafe, modifiable strings.</td>
     <th>yes</th>
     <th>-</th>
   </tr>
   <tr>
-    <td><a class="function-link" href="#">lor_gc</a></td>
+    <td><a class="function-link" href="#">lor_gc ()</a></td>
     <td>a nonblocking "garbage collector", which returns threadsafe,
         read only strings of minimal size.</td>
     <th>yes</th>
     <th>-</th>
   </tr>
   <tr>
-    <td><a class="function-link" href="#">lor_parse_header</a></td>
-    <td>internal function that copies a header and  parses it.</td>
-    <th>yes</th>
-    <th>-</th>
+    <td><a class="function-link" href="#">lor_parse_header ()</a></td>
+    <td>internal function that parses header for header size, alloc size, and string length.</td>
+    <th>no</th>
+    <th><em>I</em></th>
+  </tr>
+  <tr>
+    <td><a class="function-link" href="#">lor_strlen ()</a></td>
+    <td>get string length (which includes the header length).</td>
+    <th>no</th>
+    <th><em>I</em></th>
+  </tr>
+  <tr>
+    <td><a class="function-link" href="#">lor_strchr ()</a></td>
+    <td>locate first occurance of character in string</td>
+    <th>no</th>
+    <th><em>I</em></th>
+  </tr>
+  <tr>
+    <td><a class="function-link" href="#">lor_2cstr ()</a></td>
+    <td>get pointer to C substring. Guaranteed to be NULL terminated for dynamic strings.</td>
+    <th>no</th>
+    <td><span class="code">char dest[1000];<br/>strncpy (&amp;dest, lor_2cstr(), lor_strlen());</span></td>
+  </tr>
+  <tr>
+
   </tr>
 </table>
 
