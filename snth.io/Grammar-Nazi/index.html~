@@ -29,10 +29,10 @@ It was taken from the USB 2.0 Specification, page 31.[<a id="note-1" href="#foot
 In their defense, FCI is a French company.</p>
 <img src="fci-micro-usb-type-b-receptacle.gif" alt="FCI Micro USB type-B Mechanical Drawing">
 <p>There are actually many well written datasheets out there. Part of the problem is that a well written datasheet,
-at one person's level, can be an enigma to some but redundant to others.</p>
+at one person's level, can be an enigma machine to some and a massively redundant novel to others.</p>
 <p>I'm not sure if there is a solution to this, but I am trying to document more of my work to learn.
-A good question to ask any Daytonite is "Do you have the Wright Stuff?"
-</p>
+A good question to ask an Daytonite is "Do you have the Wright Stuff?"
+But another question is: do you have the write stuff?</p>
 <hr/>
 <p id="footnote-1">[<a href="#note-1">1</a>] 
 link to the <a href="http://www.usb.org/developers/docs/usb20_docs/#usb20spec">USB 2.0 Specification</a></p>
