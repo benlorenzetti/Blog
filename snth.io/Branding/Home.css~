@@ -8,7 +8,7 @@ body {
 	background-position: left bottom;
 }
 p, ul, ol, table {
-	font-size: 12pt;
+	font-size: 11pt;
 	font-family: verdana, arial, serif;
 }
 h1, h2, nav ul {
@@ -20,10 +20,7 @@ a:link, a:visited {
 hr { height: 3px;
 	background-image: url('./footerbackground.gif');
 }
-#horizontal-div-containing-entire-page { border-style: none; padding: 0px; 
-	width:  auto; /* define width and   */
-	margin: 0 auto 0 auto; /* center the section */
-}
+
 header { margin: 0px; border-style: none; padding: 0px; }
 aside { margin: 20px; border-style: none; padding: 0px; 
 	float: left;
@@ -49,6 +46,8 @@ nav ul li a {
 }
 nav ul li a:link, nav ul li a:visited { color: rgb(204,204,204); }
 nav ul li a:hover, nav ul li a:active { background-color: rgb(179,22,35); color: rgb(204,204,204); }
+
+
 footer { margin: 0px; border-style: none; padding: 0px; 
 	clear: both; 
 }
