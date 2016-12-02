@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>1 - 2 - N</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/Home.css">
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+	<a href="../index.html"><img src="../Profile-Pictures/colosseum.jpg" alt="Brand Image"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>Counting from 1 to N</h1>
+<p>What is the <em>first</em> natural number? Well, when phrased this way
+the answer is clearly 1. The Romans knew this, they didn't even have a
+numeral for zero, instead using X for 10 and C, M for 100, 1000. 
+[<a href="#footnote1">1</a>]
+Yet today most programming languages, and digital systems in general,
+start their numbering at zero.</p>
+
+<p>Edsger Dijkstra described this problem very well in his note
+<a href="https://www.cs.utexas.edu/users/EWD/ewd08xx/EWD831.PDF" target="_blank">
+"Why numbering should start at zero"</a>.
+However I respectfully disagree with his conclusion, it is more natural
+to define the set 
+<span style="white-space:nowrap;">&#8469;={1, 2, 3, 4,...}</span>
+than to start counting at zero with 
+<span style="white-space:nowrap;" >&#8469;={0, 1, 2, 3,...}.</span>
+</p>
+
+<p>Of course practically it doesn't matter--if you have 256 bytes
+of memory available in RAM, you can uniquely address each location by
+<span style="white-space:nowrap;">{0, 1, 2, ... , 254, 255}</span>
+or <span style="white-space:nowrap;">{1, 2, 3, ... , 255, 256}</span>
+equally easily because in binary 0 and 256 have the same representation
+within 8-bits.
+Zero, represented by <span class="code">00000000</span> is not discernable from 
+<span class="code">(1)00000000</span>, which is Two Fifty Six.
+</p>
+
+<p>I think  that starting at 1 is better because if you have N
+elements, then the index of the last elements tells you how many there are
+and accessing the Nth memory location is not out-of-bounds.
+However C starts counting at zero and always identifies larger 
+blocks of data from the leftmost byte.
+</p>
+<p>To have a successful systems language use 1-to-N indexing,
+you would need a computer architecture that addressed multibyte
+words from the right, not the left.
+So a 4-byte word would be pointed to by its 4th byte
+and the new language could support type casting of different size structs
+by preserving the location of the Nth byte, even as the value of N changes.
+</p>
+
+<img src="left-vs-right-addressing.png" alt="Left vs. Right Edge Addressing" width="500px"/>
+<p>32-bit words addressed from the left vs the right</p>
+
+<p>A pragmatic advantage of a right vs left memory model is easy 
+type casting for big-endian byte order,
+which is the character/digit order English speakers read and write in.
+It is also the byte order of the internet. (Easier to change a machine to the
+network than a network to the machine.) 
+</p>
+ 
+<img src="big-endian-and-alphabetical-order.png"
+alt="Big-endian byte order matches alphabetical order" width="500px"/>
+
+<p>Big-endian ordering matches alphabetical order; with ASCII encoding,
+"abc" indeed evaluates to a value less than "cba"</p>
+
+<p>A right edge, or 1-to-N memory model would also remove the dissonance
+between array and list indexing present in most languages and might
+reduce memory access errors associated with location N.</p>
+
+<p>But what about real world applications?
+In digital signal processing time usually starts at zero, not one
+(Much to the frustration of engineers using MATLAB).
+</p>
+
+<p>Exploring this further is one of my current projects, and so
+far there are some potentially promising results.</p>
+
+<p>The first is just cognitively nice: if you have N datapoints starting
+at 1 (dimensionless) and take this to approximate a real time signal
+with segments measured from the right, then doubling the
+number of datapoints can take you twice further towards infinity or
+close half the distance to zero.</p>
+
+<img src="closing-the-gap-to-zero.png" alt="Closing the gap to zero"/>
+
+<p>Second, simple geometric series becomes sort-of invertible if you 
+start at 1 and negate the result.
+This also leads to a strange situation where
+convolving with z^n from 0 to &#x221e; (i.e. the unilateral Z-transform)
+produces the same result as correlating with z^n from 1 to &#x221e;
+(Although the ROCs go in opposite directions).</p>
+
+<p>If the last paragraph hardly made any sense, well it doesn't yet to
+me either. But stay tuned for more!</p>
+
+
+<hr/>
+<footer id="footnote1">[1] This is a little bit cheeky, most would say
+the Romans had not yet discoverd zero. 
+The Romans had the word nulla to indicate the lack of any countable items,
+but they did not have the concept of zero as a placeholder in a decimal number system. 
+This was invented in India and it was not until the middle ages that 
+"this precious knowledge of nothing"
+made its way to Europe through Arab trade in Moorish Spain.
+Fun fact, there is no year 0 BC or 0 AD.
+</footer>
+
+</article>
+<nav>
+	<ul>
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../About/index.html">About</a></li>
+		<li><a href="../Archive/index.html">Archive</a></li>
+	</ul>
+	<div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--vertical div containing article and navigation-->
+<footer>
+</footer>
+</div><!--horizontal div containing entire page-->
+</body>
+
+</html>
