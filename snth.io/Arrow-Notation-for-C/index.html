@@ -1,0 +1,83 @@
+<DOCTYPE html>
+<meta charset="UTF-8">
+<head>
+<title>Arrow Notation for C</title>
+</head>
+
+<body>
+<section>
+<h1>Function Syntax &amp; Semantics, Inspired by C</h1>
+<p>
+multicore evolution and operating systems Microsoft research, frans kaashoek, mit.
+</p>
+<a class=footnotes" href="#footnotes">[1]</a>
+
+<h2>Network Effects: The Body of C</h2>
+<p>As a young CS observer, we seem to be in the midst of either a
+protestant-reformation-like movement or a tower-of-babbel-like moment
+for programming languages.
+Perhaps it has always seemed like this, but at any rate switching to an arrow
+notation for function declarations should not be viewed as a big change for
+C programmers.
+</p>
+<p>I believe that C's enduring nature is due to the compromise it strikes
+between low level control and mid-level portability and expressivity; in
+particular through pointers, flat RAM model, and procedure calling conventions.
+I call this the great compromise of C and to me it represents the power of the
+human mind and human society at finding optima without formal methods.
+<a class=footnotes" href="#footnotes">[1]</a>
+</p>
+
+<p>C has even influenced hardware design and further reinforced its own optimum,
+however one can still
+believe that hardware changes may also shift the optima in software language
+design and OS organization.
+</p>
+
+<p>Two examples of changes in hardware affecting software language are the inclusion of stdint.h in C99 and
+the addition of atomics in C11. Both of these changes improved the portability
+of C while fitting low level primitives that had developed in modern hardware
+and OSs. Rank and file programmers largely welcomed these changes,
+but somewhat in the way that
+citizens of the union supported the emancipation proclamation, or
+parishoners supported the catholic reformation, or common citizens supported
+peaceful devolutions of the British Empire. These were absolute
+improvements for society but by that point caused little change in the
+day-to-day complexity of life for these particular people.
+</p>
+<p>
+I argue that a change to arrow notation for procedure is not a major change
+for C programmers if pointers and their traditional *star syntax is retained.
+Programmers are already familiar with all the complexity expressed by these
+four permutations of procedure calls, essentially managing it now using the
+const keyword, experience, and community.
+It is a cosmetic change to syntax, not a change to the data-movement semantics
+that C programmers thrive on.
+</p>
+
+<p>More control over calling conventions?</p>
+
+
+<p>Complexity disadvantage for programmers--stdint and atomic were already
+being dealt with
+by programmers but shift to functional style was not necessarily.</p>
+
+<hr>
+<h2>Footnotes</h2>
+<ol id="footnotes">
+  <li>In my opinion, the big 3 levels for C's enduring use are (1) low-level
+    control through included types, pointers, and flat memory with DMA,
+    (2) mid-level portability through pointers and standard
+    libraries/APIs, and (3) high-level expressivity through composite
+    types and sytax that is friendly for text-substitution macros.
+    But, although the UNIX tradition of manipulating text for interoperability
+    is very powerful, I am happy to see modern languages replacing C-style,
+    text substitution macros with generic type systems or top level runtimes.
+    This tradeoff can be worth it if the added complexity is managed.
+  </li>
+</ol>
+</section>
+
+</body>
+</html>
+
