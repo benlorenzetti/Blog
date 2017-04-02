@@ -1,94 +1,103 @@
-<h1>On Programming Languages</h1>
+Resources:
 
-<p>Any language has two fundamental purposes: communication with others and
-clarification of ones' own thoughts.
-Unfortunately, these two do not always go hand in hand.</p>
+J.W.J. Williams and R.W. Floyd - heapsort and inplace, for beauty in
+connectiong data structures and algorithms.
 
-<figure>
-	<img src="./hand-in-hand.gif" alt="ALS hand in hand"/>
-	<figcaption>So Meta.</figcaption>
-</figure>	
-	
-<p>I think we should consider how much we value dissemination vs. distillation,
-and evaluate the languages we use everyday. If you value communication 100% over distilling
-thoughts in your head, then the network effect dominates and you should just go with the flow.
-But if you have trouble expressing yourself, feel constantly bombarded by information,
-or find yourself unmotivated to study vocab for the GRE,
-then perhaps parts of our language are not optimal.
-</p>
+Alexander Stepanov - beauty in matching data structures and algorithms
+in STL. On separating data and algorithms (theres a quote on this).
+On type system and sytax for recomposibility in Elements of Programming
+and semantic model of machine. Abstract from bottom up quote, related to
+binary, ternary, quaternary logic.
 
-<p>Probably programmers are more inclined to think about languages, because language
-choice affects what machines they can distribute to, how programs are organized,
-how long programs take to write, and who they work with.
-Your language choice even confers a sense of identity and community within the programmng world.
-But this idea is for everbody, and every language. For example:
-</p>
+Girard - idea of linear logic.
 
-<ul>
-	<li>Would the ABC song be more fun if we had letters for the spanish R-trill or the clicks in Bantu languages?</li>
-	<li>How long, when living abroad, do you have to speak a language before you dream in it?</li>
-	<li>Is "imaginary" really the best translation for that dimension from math to English?</li>
-	<li>Does your programming language effect your thought process?
-		(<a href="http://ep.yimg.com/ty/cdn/paulgraham/acl1.txt">See ch.1 of Paul Graham's book on Common Lisp</a>)</li>
-	<li>Why are American students required to study foreign languages for 4+ years,
-		when they already speak the most widely spoken language in terms of raw population,
-		scientific publications, and business?</li>
-	<li>Will the world eventually converge to a common tongue?</li>
-	<li>Is High Valerian more similar to Elvish or Latin?</li>
-	<li>Is it better to have a unified system of written and spoken word, or should
-		text not be bounded by the limits of our vocal cords? (Like Kanji and Hiragana)</li>
-	<li>Is a number system based on our fingers really the most optimal for describing quantities?</li>
-	<li>Russian does not have any articles, do "a", "an" and "the" really add anything to English?</li>
-	<li>Is French romantic or is Espan<emph>ol</emph> sexist?</li>
-	<li>Why are so many Chinese names suggestive in English?</li>
-	<li>Would Catalonia want independence if it weren't for Catalan?</li>
-	<li>Is C the best programming language?</li>
-</ul>
+Dennis Richie - design of language by building a system.
 
-<p>I don't have the answers, but I hope you agree it is interesting.
-The thing is, you don't have a lot of choice about what language you use in daily life.
-Even if you did, I doubt there are significant differences between what you can express in
-English, German, Hindu, or Chinese.
-But neither is true of programming, where you can choose the languages you use and there certainly
-are differences.
-Hopefully this will be the first of many posts as I learn and compare new languages.
-</p>
-	
-<h2>Features of C-- that differentiate it from C</h2>
-<ol>
-	<li>Object Oriented (state machines, memory management, inheritance, polymorphism, parallelism)</li>
-	<li>new and delete (malloc and free would not be supported on all systems-so good they are part of std library not language itself)</li>
-	<li>Function overloading</li>
-	<li>Templates</li>
-	<li>namespaces</li>
-	<li>More complicated/more safe casting</li>
-	<li>Booleans</li>
-</ol>
+Paul Graham and McCarthy - powerful communication in English, two types of
+hackers, Lisp vs memory layout hackers. Main idea is about different macro
+models (which are fundamentally a syntax thing) between a top level,
+text substitution (UNIX), or type templating. Language as a way of thinking.
 
-<h2>Features that C++ added, relative to C</h2>
-<ol>
-	<li>Enumeration</li>
-	<li>New types (as opposed to using typedef in C)</li>
-	<li>Pass by reference</li>
-	<li>String "types"</li>
-	<li>STL</li>
-</ol>
+Dijstra - unafraid to think and have opinion on things. I disagree about 0.
 
-<p>Bjarne Stroustroup has a great many ideas, has added much to computer language,
-and continues to do so. In fact, this comparison of C and C++ is almost certainly
-incomplete because I am only at level C++11.
-But I don't plan on learning any more C++; if you have limited time you eventually
-must make decisions. C++ was always backwards compatible with C, and each subsequent
-version of C++ continues backward compatibilty.
-In English, if you strive for the longest sequence of backward compatibility,
-you end up going from "desserts" to "stressed".</p>
+Andrei Alexdrescu - good writing and stumbling on powerful, broadly applicable
+data layout abstractions.
 
-<p>And that is what is wonderful about English, it only took a quick googling
-(which is a verb) of "backward words" to correlate C with mint chocolate chip ice cream and C++ with stress.
-</p>
+Napoleon - similarities with other human endeavors.
 
-<p>Of the three languages I've truely experienced, C is my favorite and the standard of
-comparison for others in the future.
-I've put aside C++, but I won't forget the features that I wish were incorporated
-in standard C, namely obviating typedef, parameters by reference, (and a standard string?).
-</p>
+Meta Intro:
+
+Language is the greatest enduring legacy of civilization. English. Latin.
+Zero in math. Math and physics. SI. Turing bit representation. 
+Programming languages. Tool of thought. Network effect. A language is
+its history, its current semantics and sytax, and the number-ability-and-power
+of those who speak it.
+
+Human mind is the best parser. - Dennis Richie. What does well formed mean?
+
+match current machine model - address by bit, not byte? little-endian, 2s 
+compliment.
+
+easy transistion from C.
+
+Obey networking effects. big endian on networks. Little in math. sequence
+indexing. Defer to common usage when you aren't sure. Don't defer when
+you are certain.
+
+Intro:
+
+Alexander Stepanov on purpose of programming. (Represent real world in bits)
+And programming language should give access to bits
+
+A programming language comes down to two things: syntax and semantics; and
+the programmer's mental model also comes down to two things: data/memory
+layout and procedures on that data. Every effort should be made to have
+consistency between language syntax, language semantics, and the mental model
+of the machine. We should look critically
+at machine models which complicate language semantics and syntax, and likewise 
+at syntax and semantics which restrict use of machine features.
+
+I believe the popularity and success of C is due to its enduring semantic
+consistency with machine architectures (in a sense they have coevolved) and
+its terse and flexible syntax which allows powerful (if difficult) textual
+substitution macros.
+
+The ambition of CTL is to largely preserve C's semantic machine model (with
+a several modifications to reduce ambiguity) but redefine C's syntax and
+rewrite the standard library in order to support AST modification macros
+like the various LISPs and a generic type system.
+
+Changes from C's Semantic Model:
+1) N and U 2's compliment intrinsic types and arrays
+2) Only little endian machines
+3) Alignment requirements?
+4) Support for ternary machines?
+5) Emphasis on bounded ranges and safe iterators
+6) Linear logic
+
+Changes from C's Syntax:
+1) bracket notation for pointer dereference
+2) more "typey" "functional" syntax
+3) built in collection library inspired by C++ STL
+4) New string library
+5) Linear logic functions and types improving function call interfaces
+6) consistent bracing for different types of memory
+7) A well specificed type-system top level for the compiler
+8) unicode support
+
+Highlighted non-changes:
+1) Similar algebraic type system with structs, unions, and casting polymorhism
+2) No language support for runtime varients/discriminated unions (use sentinels)
+3) No language level garbage collection or dynamic object dispatch
+4) No language level exceptions
+5) No RAII; manual memory management for the heap
+6) No namespaces separate from control flow / include file scoping
+7) Pointers still present through type functions
+
+Improving the semantic model through linear types.
+Programming false dichotomies at language level
+Object-oriented vs datum orientented
+Functional vs Procedural
+both of these are really about managing explosion of state in data or time
+(time := control flow state).
+Or about memory management in the heap vs function call stack.
