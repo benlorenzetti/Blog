@@ -24,6 +24,7 @@ hr { height: 3px;
 header { margin: 0px; border-style: none; padding: 0px; }
 aside { margin: 20px; border-style: none; padding: 0px; 
 	float: left;
+    min-width: 306px;
 }
 #vertical-div-containing-article-and-navigation { 
 	margin: 0px; border-style: none; padding: 0px;

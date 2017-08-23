@@ -7,3 +7,35 @@
 
 # Ignore object files
 *.o
+*.out
+
+# Ignore LaTeX intermediate files
+*.aux
+*.glo
+*.idx
+*.log
+*.toc
+*.ist
+*.acn
+*.acr
+*.alg
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.lof
+*.lot
+*.maf
+*.mtc
+*.mtc1
+*.synctex.gz
+
+# Ignore Vim Temporary Files and Some Windows Temorary Files
+*.swp
+*.swo
+~$*.doc*
+~$*.docx*
+~$*.txt*
