@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Geometric Memory</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/Home.css">
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+	<a href="../index.html"><img src="../Profile-Pictures/colosseum.jpg" alt="Brand Image"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<section id="intro">
+<h1>RAM is Cheap</h1>
+<ol start="0">
+    <li>Intro</li>
+    <li><a = href="#triangle-and-geometric-series">
+        Triangle and Geometric Series Functions</a>
+    </li>
+    <li><a href="#gam-model">GAM Model</a></li>
+    <li><a href="#heap">Heap Data Structure</a></li>
+    <li><a href="#heap-building">Heap Building</a></li>
+</ol>
+<p> The dirty-bit secret of RAM has always been that it is implemented
+as a hierarchy in hardware&mdash;implying memory access time is
+logarithmic, not constant time for any distance.
+As data sets grow and machines gain more parallel processors,
+we need to take this more seriously in our analysis of algorithms.
+Random access memory (RAM) is too cheap a mathematical model and 
+I plan to start using a geometric model called <i>``Jam''</i> (GAM).
+For example I analyze <span class="math1">buildheap()</span>
+under this memory model and, out of laziness, prophesize that
+comparison based sorting cannot overcome
+<span class="math1">O(nlog n)</span> complexity, even
+when marshaling a logarithmic number of processors.
+</p>
+<p> If we are going to make complexity analysis more...complex...,
+we need to justify why. If the addressable memory of a 64-bit
+computer is fixed at N=2^64 chars, why not just assert the access time
+for any char is
+<span style="math1">log(2^64) = 64 = (constant)</span>?
+And if we forge ahead with a geometric model for memory,
+where does the complexity stop? After all integer addition, a most
+fundamental operation, is also logarithmic in N.
+A similar debate exists regarding Scala's vectors, which you can read
+about at Mr. Haoyi's blog: <a target="_blank" href="http://www.lihaoyi.com/post/ScalaVectoroperationsarentEffectivelyConstanttime.html">
+Scala Vector Operations Aren't ``Effectively Constant Time''</a>.
+</p>
+<p> I think we should err on the side of being more complete
+in our analyses and consider both of these two fundamental
+operations logarithmic. If software can be written with
+these concepts in mind, hardware may be able to follow with
+increasing speed.
+</p>
+</section>
+<section id="triangle-and-geometric-series">
+<p><a href="#intro">top</a></p>
+<h2>1. Triangle Series and Geometric Series</h2>
+<p> Before we get started describing the GAM model and
+<span class="math1">buildheap()</span>, there are two series
+that will be convenient to use, the venerable geometric series and 
+the triangle series. The triangle series is like the factorial
+function, but adding integer levels instead of multiplying integer
+factors. There is also less to think about the
+<i>``zeroth''</i> element.
+</p>
+<img src="./latex/triangle-series-open-form.png">
+<p> We can derive a closed form for the
+<span class="math1">&Delta;</span> series by
+reversing the index scheme and comparing it to the original.</p>
+<img src="./latex/triangle-series-closed-form-derivation.png">
+<p> Finally we are left with
+    <span class="math1">
+        <img src="./latex/triangle-series-closed-form.png">
+    </span>
+.</p>
+<p> It is helpful to have not just the infinte geometric series but
+also its derivative with respect to <span class="math1">r</span>,
+shifted left&mdash;and this done twice.
+</p>
+<img src="./latex/geometric-series-and-shifted-derivatives.png">
+</section>
+<section id="gam-model">
+<p><a href="#intro">top</a></p>
+<h2>2. The GAM Model</h2>
+<p> The geometric access memory model is based on the heirarchial
+structure of hardware, adders, multiplexers, and demultiplexers, and
+on partions of memory and integer value types. It says that
+<em>memory access time is proportional, to position of the most
+significant digit different from a reference address.</em>
+I'm not being particularly original or creative here;
+heirarchial memory models are discussed in plenty of literature.
+[<a href="#note1">1</a>, <a href="#note2">2</a>]
+One thing I think is surprising is the indexing direction you
+need to use for multiplexing, the highest bits need to code the
+smallest physical distances.
+</p>
+<img src="geometric-multiplexer-addressing.png"
+     alt="geometric-multiplexer-addressing.png">
+<p> One can imagine adding shortcuts from memory cells into this MUX
+to short circuit the gate depth logarithmically for smaller distances.
+But it is unfortunate that determining the highest set bit in real
+time is also a logarithmic operation. We would need a-priori
+knowledge from software.
+</p>
+<img src="log-ceiling-function.png"
+     alt="log-ceiling-function.png">
+</section>
+
+<section id="heap">
+<p><a href="#intro">top</a></p>
+<h2>3. Heap Data Structure</h2>
+</section>
+
+<section id="heap-building">
+<p><a href="#intro">top</a></p>
+<h2>4. Heap Building</h2>
+</section>
+
+<hr/>
+<p id="note-1">[1] <a href="./ben-amram-memory-models-note.pdf">
+Ben-Amram,. A.M., Unit-cost pointers versus
+logarithmic-cost addresses, Theoretical. Computer.
+Science 132 (1994) 377-385.
+</a></p>
+<p id="note-2">[2] <a href="./ref1.pdf">
+Aggarwal, A., Alpern, B., Chandra, A. K., &amp; Snir, M. (1987).
+MODEL FOR HIERARCHICAL MEMORY. Conference Proceedings
+of the Annual ACM Symposium on Theory of Computing, 305-314. 
+</a></p>
+</footer>
+
+</article>
+<nav>
+	<ul>
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../About/index.html">About</a></li>
+		<li><a href="../Archive/index.html">Archive</a></li>
+	</ul>
+	<div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--vertical div containing article and navigation-->
+<footer>
+</footer>
+</div><!--horizontal div containing entire page-->
+</body>
+
+</html>
