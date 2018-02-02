@@ -31,7 +31,7 @@ aside { margin: 20px; border-style: none; padding: 0px;
 }
 #vertical-div-containing-article-and-navigation { 
 	margin: 0px; border-style: none; padding: 0px;
-	width: 500px; /* Verdana 12pt font, 70 characters per line? */
+	width: 700px; /* Verdana 12pt font, 70 characters per line? */
 	float: left;
 }
 nav { margin: 0px; border-style: none; padding: 0px; 
