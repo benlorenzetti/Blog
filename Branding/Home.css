@@ -11,6 +11,10 @@ p, ul, ol, table, h2 {
 	font-size: 11pt;
 	font-family: verdana, arial, serif;
 }
+section p, section img {
+    margin-left: 2em;
+    margin-right: 2em;
+}
 h1, h2, nav ul {
 	font-family: georgia;
     padding: 0;
@@ -63,4 +67,8 @@ article {}
 span.math1 {
     white-space: nowrap;
     font-style: italic;
+}
+
+h2 span.date {
+    font-style: monospace;
 }
