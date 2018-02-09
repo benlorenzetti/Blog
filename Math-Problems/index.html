@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Website Layout</title>
-	<link rel="stylesheet" type="text/css" href="Home.css">
+	<link rel="stylesheet" type="text/css" href="../Branding/Home.css">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
     </script>
     <script>
@@ -14,10 +14,8 @@
     </script>
 </head>
 
-<body>
+<body id="top">
 <header>
-	<h1>Math Problems</h1>
-	<p>Usually empty. Can be used for wallpaper image or advertisement.</p>
 </header>
 <aside>
 	<a href="../index.html"><img src="brand.png" alt="Aside Image"></a>
@@ -28,7 +26,49 @@
 <div id="vertical-div-containing-article-and-navigation">
 <hr/>
 <article>
-	<h1>Article</h1>
+<ol>
+    <li>Grand Narrative</li>
+    <li>Min, Mean, and Order Statistic Algorithms</li>
+    <li>Median of Medians</li>
+    <li>Wishful Thinking</li>
+    <li>The Promiscuous Math Problem Problem</li>
+</ol>
+<section>
+<img alt="dual-heap.png" src="dual-heap.png">
+<h1>1. Math Problems</h1>
+<p> I posit (rather trivially) that there are two types of math
+problems: those that teach you a new concept or technique and those
+that are essentially practice of a concept you already knew.
+Right now I am working on an exciting problem analyzing the
+performance of a beautiful algorithm I call
+<span>CurtainHeap</span>,
+which can be used for selecting pivots in
+<span>QuickSort</span>
+and other order statistic algorithms like
+<span>QuickSelect</span>.
+</p>
+<p> But it is definitely a problem of the second type, I know
+it will be an in-place, unstable algorithm that runs in O(n) linear
+time and in my heart-of-hearts, that it is only probablistic in its
+degree of success and can't be used deterministically for an O(nlogn) <span>QuickSort</span> or
+O(n) <span>Quickselect</span>.
+I credit this intuition to an online, MIT open course on algorithms
+and to some media of Alexander Stepanov I've seen.
+</p>
+<p> Its disappointing to be working on a problem of the
+second type, but an advantage is you can go back to old lectures and
+papers to help. However I was extra disappointed finding from
+multiple credible sources a deterministicly usable algorithm
+<span>MedianOfMedians</span> already does exactly
+<span>CurtainHeap</span> wishes to do.
+But there appears to be a logic error! (which are always
+weirdly satisfying to point out...)
+</p>
+</section>
+<section id="order-statistics">
+<a href="#top">top</a>
+<h1>Order Statistics</h1>
+</section>
 	<p>The webpage is designed with 6 major divisions:</p>
 	<ol>
 		<li>A <b>&#60;header&#62;</b> division, which is not used but could potentially hold a banner image.</li>
