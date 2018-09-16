@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Functional C</title>
+  <style>
+    body { width: 40em; }
+    hr { width: 25em; }
+    .C { font-family: monospace; white-space: pre; }
+    .nowrap { white-space: nowrap; }
+  </style>
+</head>
+<body>
+<h1>Functional C</h1>
+<p> The big idea of functional programming is that the data types and
+  functions in a program are like propositions and implications in a logical
+  proof, and that this correspondence is a good way to type check and
+  choose language semantics. This essay explores the "functional" semantics
+  of the C Programming Language, and how they could be expanded to a system
+  inspired by Girard's
+  <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">Linear Logic</a>.
+</p>
+<p> A separate idea, which I call operation-oriented programming, is often
+  conflated with functional programming. Basically it is the ability to parse
+  and deal with operations. Operations are functions of the form
+  <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
+  for some type T. For example:
+  <div class="C">
+    struct complex { float real; float imag; };
+    struct complex a, b;
+    struct complex times(struct complex c1, struct complex c2);
+  </div>
+  The function <span class="C">times</span> is an operation on complex numbers,
+  so we would be able to write <span class="C">times(a, b)</span>,
+  <span class="C">times a b</span>, or
+  <span class="C">a times b</span>.
+  Since operations &sube; functions, its easy to see how the conflation arises
+  and its not such a bad thing; I will happily use this syntax as if C could do it.
+</p>
+<hr>
+<p> The best basis of Boolean algebra is one unary
+  plus two binary operators, INV, MAX, and MIN, operating on the set of values
+  <span class="nowrap">&Bopf; = {T, 0}</span> storable in a single bit
+  or a subspace of a word in memory. The binary operators have the type
+  signature
+  <span class="nowrap">&Bopf; &times; &Bopf; &rarr; &Bopf;</span>
+  so the cardinality of binary, boolean operators is
+  <span class="nowrap">|&Bopf;|^|&Bopf;&times;&Bopf;| = 2^(2*2) = 16</span>,
+  i.e. there are 16 possible binary operators.
+  <span class="nowrap">For unary &Bopf; &rarr; &Bopf;, there are 2^2</span>
+  possible: negation, buffer, always zero, and always true.
+  Three more of the 16 possible operations are also listed in the table below.
+</p>
+<table>
+  <tr>
+    <th>Operation</th>
+    <th>Example</th>
+    <th></th>
+    <th>Assembly</th>
+    <th>Functional C</th>
+  </tr><tr>
+    <td>Negation</td>
+    <td>&not;a</td>
+    <td>T if a = 0</td>
+    <td class="C">INV</td>
+    <td class="C"></td>
+  </tr><tr>
+    <td>Conjunction</td>
+    <td>a &times; b</td>
+    <td>T if a = T and b = T (max function)</td>
+    <td class="C">AND</td>
+    <td class="C">struct</td>
+  </tr><tr>
+    <td>Disjuction</td>
+    <td>a + b</td>
+    <td>T if a = T or b = T (min function)</td>
+    <td class="C">OR</td>
+    <td class="C">store</td>
+  </tr>
+  <tr>
+    <td>Exclusive Disjunction</td>
+    <td>a &oplus; b</td>
+    <td>(a &times; &not;b) + (b &times; &not;a)</td>
+    <td class="C">XOR</td>
+    <td class="C">union</td>
+  </tr><tr>
+    <td>Contradiction</td>
+    <td>0</td>
+    <td>&not;a &times; a (always zero)</td>
+    <td class="C">RST</td>
+    <td class="C">void</td>
+  </tr><tr>
+    <td>Logical Implication</td>
+    <td>a &rarr; b</td>
+    <td>&not;a + b</td>
+    <td class="C"></td>
+    <td class="C">functions</td>
+  </tr>
+</table>
+<p> The table hints at how all 16 possible operations can be constructed
+  algebraicly from some basic three, given two propositions (a and b) that could
+  be either true or false. This is classical logic, and in the sense of
+  functional programming, the propositions are
+  <em>that an object fits a known type while it exists in memory</em>.
+  Finally, any three of the 16 operations could be chosen as bases and
+  more than three can be offered as intrinsic/built-in.
+</p>
+<hr>
+<p> I claim that C already has five functional connectives built into the
+  language: &times;, &oplus;, &rarr;, &larr;, and 0 (false), or structure, union,
+  function, store, and void. The connectives operate on the
+  proposition that all objects follow their type once they are born.
+  The compiler operates on the predicate that every statement the programmer
+  makes is truth (T).
+  But to explore this further we need the truth tables.
+</p>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>  <th>b</th>  <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th> <th>&larr;</th> <th>0</th>
+  </tr><tr>
+    <td>0</td>  <td>0</td>  <td>|</td>  <td>0</td>        <td>0</td>        <td>T</td>       <td>0</td>     <td>0</td>
+  </tr><tr>
+    <td>0</td>  <td>T</td>  <td>|</td>  <td>0</td>        <td>T</td>        <td>T</td>       <td>T</td>     <td>0</td>
+  </tr><tr>
+    <td>T</td>  <td>0</td>  <td>|</td>  <td>0</td>        <td>T</td>        <td>0</td>       <td>T</td>     <td>0</td>
+  </tr><tr>
+    <td>T</td>  <td>T</td>  <td>|</td>  <td>T</td>        <td>0</td>        <td>T</td>       <td>T</td>     <td>0</td>
+  </tr>
+</table>
+<ol>
+  <li><h2>"times"</h2>
+<p> The first operator &times;, called <em>and</em> in classical logic,
+  <em>times</em> in Girards' logic, and <span class="C">struct</span> or
+  <em>arguement list</em> in Richie's, allows us to define a larger object
+  type in memory from a concatenation of smaller ones, corresponding to a cross
+  product of the state spaces of the substructs. For example the
+  <span class="C">struct</span> type
+  <span class="C">char &times; char</span> has
+  <span class="nowrap">|char|*|char| = 256*256</span> possible values.
+</p>
+<div class="C">
+  struct shortint { char high; char low; };
+</div>
+<p>
+  From the truth table we see that an object of type A&times;B is only true if
+  both its parts a and b exist in memory and follow their respective types.
+  We add the additional notion that they are adjacent in memory.
+  It is unfortunate in C that structures and arguement lists cannot be conflated.
+</p>
+</li>
+<li><h2>"xor"</h2>
+<p> The second operator &oplus;, called <em>exclusive or</em>, <em>plus</em>,
+  or <span class="C">union</span> has the meaning in C that this block of
+  memory could be interpreted as either type A or type B, but the
+  compiler has no idea which one is correct. In set space, its cardinality
+  is probably <span class="nowrap">|A&oplus;B| = |A| + |B|</span>, like the
+  disjoint union of sets, but we rarely actually care to calculate the
+  cardinality of our types so specifying this seems unproductive. It is
+  unfortunate in C that the union type cannot have any nominal intersection
+  of substructures.
+</p>
+</li>
+<li><h2>"functional imp"</h2>
+<p> The case for functions is more nuanced, so we reach for the truth
+  table. If a function <span class="C">mul</span> has type
+  <span="nowrap">mul: &Copf;&times;&Copf;&rarr;&Copf;</span>, then we must
+  first determine (or indeed select <span class="C">mul</span> based on) if
+  an object <span class="C">(c1, c2]</span> exists in memory and has type
+  <span class="nowrap">&Copf;&times;&Copf;</span>.
+  You would have already asserted this is true (T) with
+  <div class="C">
+    struct complex c1 = {.real = 0.6, .imag = 0.8};       a b | a&rarr;b
+    struct complex c2 = {.real = 1, .imag = 0 };          0 0 | T
+    ...                                                   0 T | T
+    mul(c1, c2)                                           T 0 | 0
+    ...                                                   T T | T
+  </div>
+i.e. by declaring, initializing, and passing <span class="C">c1</span>
+and <span class="C">c2</span>. The compiler always must use a case from the
+truth table that makes the expression <span class="C">mul(c1, c2)</span> T.
+If the arguement list type checked T, then there is only one case: proving
+the result exists with the proper type &Copf;.
+</p>
+<p> However, if the arguement list type checks 0, the compiler
+must still select a case where the expression is T, but now
+there are two such cases; if you put nonsense into a function you might get
+a valid result (T) or you might get nonsense (0).
+If the result object is false (0) you get a compiler error, but you can
+assert the result is T by type punting or void*ing (0) the function arguements
+explicitely.
+</p>
+</li>
+<li><h2>"store"</h2>
+<p> The most subtle and hackily conflated connective is &larr;, called
+  <em>store</em> or <em>assignment</em> in C.
+  The key here, which I relized from Girard's paper, is to think of OR like a
+  symmetric implication.
+</p>
+<div class="nowrap">
+  (&not;a &rarr; b) &equiv; (&not;b &rarr; a) &equiv; (a + b)
+</div>
+<p> Whenever you copy a value in the processor/stack to another location
+  using &larr;, you often expect the old memory location to be recycled
+  by the compiler, but sometimes both the copy and original will still be used
+  later. Both of these cases are reflected in the truth table for OR;
+  the only case where an assignment expression is 0 and should spit out
+  a compiler error is if the input value did not type check T and the programmer
+  did not explicitely type punt or go through void.
+</p>
+</li>
+</body>
+</html>
