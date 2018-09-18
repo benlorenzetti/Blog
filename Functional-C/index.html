@@ -8,21 +8,21 @@
     hr { width: 25em; }
     .C { font-family: monospace; white-space: pre; }
     .nowrap { white-space: nowrap; }
+    a { text-decoration: none; }
   </style>
 </head>
 <body>
 <h1>Functional C</h1>
 <p> The big idea of functional programming is that the data types and
-  functions in a program are like propositions and implications in a logical
+  functions in a program are like propositions and implications in a logic
   proof, and that this correspondence is a good way to type check and
   choose language semantics. This essay explores the "functional" semantics
-  of the C Programming Language, and how they could be expanded to a system
-  inspired by Girard's
+  of the C Programming Language, anticipating how they could be expanded to a
+  system inspired by Girard's
   <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">Linear Logic</a>.
 </p>
 <p> A separate idea, which I call operation-oriented programming, is often
-  conflated with functional programming. Basically it is the ability to parse
-  and deal with operations. Operations are functions of the form
+  conflated with functional programming. Operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
   for some type T. For example:
   <div class="C">
@@ -31,25 +31,28 @@
     struct complex times(struct complex c1, struct complex c2);
   </div>
   The function <span class="C">times</span> is an operation on complex numbers,
-  so we would be able to write <span class="C">times(a, b)</span>,
-  <span class="C">times a b</span>, or
-  <span class="C">a times b</span>.
+  so for operation-oriented programming we might write
+  <span class="C">times a b</span> or
+  <span class="C">a times b</span> instead of
+  <span class="C">times(a, b)</span>.
   Since operations &sube; functions, its easy to see how the conflation arises
-  and its not such a bad thing; I will happily use this syntax as if C could do it.
+  and its not such a bad con; I will happily use this "functional" syntax as
+  if C could do it.
 </p>
 <hr>
 <p> The best basis of Boolean algebra is one unary
-  plus two binary operators, INV, MAX, and MIN, operating on the set of values
+  plus two binary operators, operating on the set of values
   <span class="nowrap">&Bopf; = {T, 0}</span> storable in a single bit
   or a subspace of a word in memory. The binary operators have the type
   signature
   <span class="nowrap">&Bopf; &times; &Bopf; &rarr; &Bopf;</span>
-  so the cardinality of binary, boolean operators is
+  so their cardinality is
   <span class="nowrap">|&Bopf;|^|&Bopf;&times;&Bopf;| = 2^(2*2) = 16</span>,
-  i.e. there are 16 possible binary operators.
-  <span class="nowrap">For unary &Bopf; &rarr; &Bopf;, there are 2^2</span>
+  i.e. there are 16 possible binary operators. For
+  <span class="nowrap">unary &Bopf; &rarr; &Bopf;, there are 2^(2)</span>
   possible: negation, buffer, always zero, and always true.
-  Three more of the 16 possible operations are also listed in the table below.
+  Three basis and three more of the 16 possible operations are also listed in
+  the table below.
 </p>
 <table>
   <tr>
@@ -98,10 +101,10 @@
   </tr>
 </table>
 <p> The table hints at how all 16 possible operations can be constructed
-  algebraicly from some basic three, given two propositions (a and b) that could
-  be either true or false. This is classical logic, and in the sense of
+  algebraically from the basic three, given two propositions (a and b) that could
+  be either true (T) or false (0). This is classical logic, and in the sense of
   functional programming, the propositions are
-  <em>that an object fits a known type while it exists in memory</em>.
+  <em>that an object fits a known type and it exists in memory</em>.
   Finally, any three of the 16 operations could be chosen as bases and
   more than three can be offered as intrinsic/built-in.
 </p>
@@ -194,19 +197,56 @@ explicitely.
 <p> The most subtle and hackily conflated connective is &larr;, called
   <em>store</em> or <em>assignment</em> in C.
   The key here, which I relized from Girard's paper, is to think of OR like a
-  symmetric implication.
+  symmetric implication; i.e. if the object on the right side of assignment
+  will disapear (become 0), then the object on the left becomes valid.
 </p>
 <div class="nowrap">
   (&not;a &rarr; b) &equiv; (&not;b &rarr; a) &equiv; (a + b)
 </div>
-<p> Whenever you copy a value in the processor/stack to another location
-  using &larr;, you often expect the old memory location to be recycled
+<p> Whenever you copy a value from the processor/stack to another location
+  using <span class="nowrap">&larr; "store"</span>,
+  you often expect the old memory location to be recycled
   by the compiler, but sometimes both the copy and original will still be used
   later. Both of these cases are reflected in the truth table for OR;
   the only case where an assignment expression is 0 and should spit out
   a compiler error is if the input value did not type check T and the programmer
   did not explicitely type punt or go through void.
 </p>
+<p> In this context, C's use of a symmetric operator "=" for "store" is very
+  insightful, although ultimately I agree with C++ and many C critics that
+  you need non-symmetric semantics and it probably shouldn't have been
+  the symbol that means equality in all of math.
+</p>
 </li>
+<hr>
+<h2>Functional C</h2>
+<p> The C programming language has fundamentally functional semantics,
+  including connective features
+  <span class="C">struct</span>, <span class="C">union</span>,
+  functions, assignment, and <span class="C">void</span>.
+  However, in using these functional features, there is friction
+  from C's syntax and its depth of analysis of structures, unions, and function
+  types.
+</p>
+<p> Finally, most functional programming languages take their emphasis on
+  functions one or two steps further than C, by emphasizing a few special functions
+  that can <em>operate</em> on the abstract syntax tree and generic types at
+  compile time (macros) or by emphasizing all proceedures should be proper
+  mathematical functions (no side effects).
+</p>
+<p> Giving special status to a subset of functions seems useful (macros), but
+  restricting the set of procedures to a subset of functions seems unproductive
+  (no side effects). A <span class="C">time()</span> procedure with type
+  <span class="nowrap">0 &rarr; &Zopf; &times; &Zopf;</span> trivially passes the
+  logic test for implication, despite returning a different result each time
+  called. Less obvious is whether it should be possible
+  to use functions of type <span class="nowrap">T &rarr; 0</span> with
+  double negation, for example by declaring "cout implies nothing".
+</p>
+<hr>
+<p> This essay written in anticipation of extension to
+  <a href="#">linear types...</a>
+</p>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a> Ben Lorenzetti<br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
 </html>
