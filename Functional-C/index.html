@@ -26,9 +26,7 @@
   functions in programs are like propositions and implications in logic
   proofs, and that this correspondence is a good way to organize language semantics.
   This essay explores the "functional" semantics
-  of the C Programming Language, anticipating how they could be expanded to a
-  system inspired by Girard's
-
+  of the C Programming Language.
 </p>
 <p> A separate idea, which I call operation-oriented programming, is often
   conflated with functional programming. Operations are functions of the form
@@ -51,7 +49,7 @@
 <hr>
 <p> A nice basis for Boolean algebra is one unary
   plus two binary operators, operating on the set of values
-  <span class="nowrap">&Bopf; = {T, 0}</span> storable in a single bit
+  <span class="nowrap">&Bopf; = {T, &empty;}</span> storable in a single bit
   or a subspace of a word in memory. The binary operators have the type
   signature
   <span class="nowrap">&Bopf; &times; &Bopf; &rarr; &Bopf;</span>
@@ -73,7 +71,7 @@
   </tr><tr>
     <td>Negation</td>
     <td>&not;a</td>
-    <td>T if a = 0</td>
+    <td>T if a = &empty;</td>
     <td class="C">INV</td>
     <td class="C"></td>
   </tr><tr>
@@ -104,7 +102,7 @@
 </table>
 <p> The last two hint at how all 16 possible operations can be constructed
   algebraically from the basic three, given two propositions (a and b) that could
-  be either true (T) or false (0). This is classical logic, and in the sense of
+  be either true (T) or false (&empty;). This is classical logic, and in the sense of
   functional programming, the propositions are
   <em>that an object fits a known type and it exists in memory</em>.
   Finally, any three of the 16 operations could be chosen as bases and
@@ -121,15 +119,15 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>  <th>b</th>  <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th> <th>&#8612;</th>  <th>;</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
   </tr><tr>
-    <td>0</td>  <td>0</td>  <td>|</td>  <td>0</td>        <td>0</td>        <td>T</td>      <td>0</td>        <td>T</td>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>
   </tr><tr>
-    <td>0</td>  <td>T</td>  <td>|</td>  <td>0</td>        <td>T</td>        <td>T</td>      <td>0</td>        <td>T</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>T</td>
   </tr><tr>
-    <td>T</td>  <td>0</td>  <td>|</td>  <td>0</td>        <td>T</td>        <td>0</td>      <td>T</td>        <td>T</td>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>
   </tr><tr>
-    <td>T</td>  <td>T</td>  <td>|</td>  <td>T</td>        <td>0</td>        <td>T</td>      <td>T</td>        <td>T</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
   </tr>
 </table>
 <ol>
@@ -166,6 +164,19 @@
 </p>
 </li>
 <li><h2>"functional imp"</h2>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>T</td>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>
+  </tr>
+</table>
 <p> The case for functions is more nuanced, so we reach for the truth
   table. If a function <span class="C">mul</span> has type
   <span="nowrap">mul: &Copf;&times;&Copf;&rarr;&Copf;</span>, then we must
@@ -174,11 +185,11 @@
   <span class="nowrap">&Copf;&times;&Copf;</span>.
   You would have already asserted this is true (T) with
   <div class="C">
-    struct complex a1 = {.real = 0.6, .imag = 0.8};       a b | a&rarr;b
-    struct complex a2 = {.real = 1, .imag = 0 };          0 0 | T
-    struct complex b;                                     0 T | T
-                                                          T 0 | 0
-    b = mul(a1, a2);                                      T T | T
+    struct complex a1 = {.real = 0.6, .imag = 0.8};
+    struct complex a2 = {.real = 1, .imag = 0 };
+    struct complex b;
+
+    b = mul(a1, a2);
   </div>
   i.e. by declaring, initializing, and <em>listing</em> <span class="C">c1</span>
   and <span class="C">c2</span>. The compiler will typically use a case from the
@@ -188,15 +199,16 @@
   then the standard behaviour is a proof the result 'b' exists with the proper
   type &Copf;.
 </p>
-<p> Otherwise, if the result object is false (0) then the entire expression
-  evaluates false, possibly signaling a logic error, which would
+<p> Otherwise, if the result object is false (&empty;) then the entire
+  expression evaluates false, possibly signaling a logic error, which would
   be the desired compiler behaviour if we think
   <span class="C">fprintf(stdout, "Good")</span> is semantically superior to
   <span class="C">printf("Bad")</span>.
   Bjarne Stroustrup already improved C in this regard by introducing
   input output streams.
 </p>
-<p> The other cases <span class="nowrap">0 &rarr; 0 and 0 &rarr; T</span>
+<p> The other cases
+  <span class="nowrap">&empty; &rarr; &empty; and &empty; &rarr; T</span>
   will be discussed later.
 </p>
 </li>
@@ -207,15 +219,15 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>b</th>  <th>a</th>  <th>|</th>  <th>&#8612;</th>  <th>|</th>  <th>&larr;</th> <th></th>         <th>+</th>
+    <th>b</th>        <th>a</th>        <th>|</th>  <th>&#8612;</th>  <th>|</th>  <th>&larr;</th>   <th></th>         <th>+</th>
   </tr><tr>
-    <td>0</td>  <td>0</td>  <td>|</td>  <td>0</td>        <td>|</td>  <td>T</td>      <td>&times;</td>  <td>0</td>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>        <td>&times;</td>  <td>&empty;</td>
   </tr><tr>
-    <td>0</td>  <td>T</td>  <td>|</td>  <td>0</td>        <td>|</td>  <td>0</td>      <td>&times;</td>  <td>T</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&times;</td>  <td>T</td>
   </tr><tr>
-    <td>T</td>  <td>0</td>  <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>      <td>&times;</td>  <td>T</td>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>        <td>&times;</td>  <td>T</td>
   </tr><tr>
-    <td>T</td>  <td>T</td>  <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>      <td>&times;</td>  <td>T</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>        <td>&times;</td>  <td>T</td>
   </tr>
 </table>
 <p> Because C allows objects to be recycled in space and time,
@@ -224,16 +236,16 @@
   <span class="C">b &#8612; a;</span>, for propositions
   <span class="nowrap">a, b &isin; A</span> is first an implication (&larr;)
   that
-  <em>if a is an object with memory layout of type A, then so is b.</em>
-  After this expression is evaluated true by the compiler, then it is an
-  assertion that <em>b or a are equivalent objects with a</em> (with, in
-  Girard's sense).
+  <em>if a exists and follows its type, then so does b.</em>
+  Then after the function returns, it is an assertion that
+  <em>b exists and follows its type but a may be recycled</em>, i.e.
+  <em>b or a is equivalent with b</em> (with, in Girard's sense).
 </p>
 <p> As Girard's paper on
   <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">linear logic</a>,
   points out, we can think of OR like a symmetric implication;
-  i.e. even if the object on one side dissapears (becomes 0), then the other
-  object is still valid (T).
+  i.e. even if the object on one side dissapears (becomes &empty;), then the
+  other object is still valid (T).
   <div>
     a + b &equiv; (&not;a &rarr; b) &equiv; (&not;b &rarr; a)
   </div>
@@ -255,12 +267,23 @@
   </div>
   which is also tautologically stupid but gives us a possible interpretation
   for the two cases of &rarr; not discussed above: that arguments
-  passed to a function on the stack may become unavailable (a = 0) after
+  passed to a function on the stack may become unavailable (a = &empty;) after
   the procedure returns.
 </p>
 </li>
 <li>
-  <h2>"statement"</h2>
+<h2>"statement"</h2>
+<p> The connectives so far have provided a way for the programmer to
+  write propositions (variable types) and manipulate them as true or false
+  values (objects), but the statement operators
+  <span class="nowrap">{; , :}</span> allows the compiler to
+  assist the programmer in this task by <em>building lists of true
+  statements</em>.
+</p>
+<p> This includes listing procedure steps and concatenating procedure arguments,
+  if a store operation or an argument could ever fail to be true,
+  the compiler should prevent this contradiction.
+</p>
 </li>
 <hr>
 <h2>Functional C</h2>
@@ -271,23 +294,28 @@
   <span class="nowrap">&times;, &oplus;, &rarr;, &#8612;, and ';'</span>.
   However, in using these functional features, there is friction
   from C's syntax and its depth of analysis of structures, unions, and function
-  types.
+  types, leaving room for improvement in newer languages.
 </p>
-<p> Finally, most functional programming languages take their emphasis on
-  functions one or two steps further than C, by emphasizing a few special functions
-  that can <em>operate</em> on the abstract syntax tree and generic types at
-  compile time (macros) or by emphasizing all proceedures should be proper
-  mathematical functions (no side effects).
+<p> Finally, many functional languages go further,
+  by emphasizing a few special functions that can <em>operate</em> on the
+  abstract syntax tree and generic types at compile time (macros) or by
+  emphasizing all proceedures should be proper mathematical functions
+  (no side effects).
 </p>
 <p> Giving special status to a subset of functions seems useful (macros), but
   restricting the set of procedures to a subset of functions seems unproductive
   (no side effects). A <span class="C">time()</span> procedure with type
-  <span class="nowrap">0 &rarr; &Zopf; &times; &Zopf;</span> trivially passes the
-  logic test for implication, despite returning a different result each time
-  called.
+  <span class="nowrap">&empty; &rarr; &Zopf; &times; &Zopf;</span>
+  vacuously passes the logic test for implication, despite returning a
+  different result each time called.
   Less obvious is whether it should be possible to use procedures of type
-  <span class="nowrap">T &rarr; 0</span> with double negation, i.e. stating that
-  <a href="./printf-implies-nothing.html">fprint implies nothing.</a>
+  <span class="nowrap">T &rarr; &empty;</span> with double negation.
+</p>
+<p> These and other controversial cases/connectives will be the topic of
+  my next essay,
+  <a href="#">
+    fprint implies nothing, which implies nothing.
+  </a>
 </p>
 <hr>
 <footer>
