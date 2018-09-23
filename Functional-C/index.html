@@ -22,7 +22,7 @@
 <body>
 <article>
 <h1>Functional C</h1>
-<p> The big idea of functional programming is that the data types and
+<p> The big idea of functional programming is that data types and
   functions in programs are like propositions and implications in logic
   proofs, and that this correspondence is a good way to organize language semantics.
   This essay explores the "functional" semantics
@@ -37,19 +37,19 @@
   <div class="C">
     struct complex { float real; float imag; };
     struct complex a, b;
-    struct complex times(struct complex c1, struct complex c2);
+    struct complex mul(struct complex c1, struct complex c2);
   </div>
-  The function <span class="C">times</span> is an operation on complex numbers,
+  The function <span class="C">mul</span> is an operation on complex numbers,
   so for operation-oriented programming we might write
-  <span class="C">times a b</span> or
-  <span class="C">a times b</span> instead of
-  <span class="C">times(a, b)</span>.
+  <span class="C">mul a b</span> or
+  <span class="C">a mul b</span> instead of
+  <span class="C">mul(a, b)</span>.
   Since operations &sube; functions, its easy to see how the conflation arises
   and its not such a bad con; I will happily use this "functional" syntax as
   if C could do it.
 </p>
 <hr>
-<p> The best basis of Boolean algebra is one unary
+<p> A nice basis for Boolean algebra is one unary
   plus two binary operators, operating on the set of values
   <span class="nowrap">&Bopf; = {T, 0}</span> storable in a single bit
   or a subspace of a word in memory. The binary operators have the type
@@ -60,7 +60,7 @@
   i.e. there are 16 possible binary operators. For
   <span class="nowrap">unary &Bopf; &rarr; &Bopf;, there are 2^(2)</span>
   possible: negation, buffer, always zero, and always true.
-  Three basis and two more of the 16 possible operations are also listed in
+  Three basis plus two more of the 16 possible operations are also listed in
   the table below.
 </p>
 <table>
@@ -170,7 +170,7 @@
   table. If a function <span class="C">mul</span> has type
   <span="nowrap">mul: &Copf;&times;&Copf;&rarr;&Copf;</span>, then we must
   first determine (or indeed select <span class="C">mul</span> based on) if
-  an object <span class="C">(c1, c2]</span> exists in memory and has type
+  an object <span class="C">(a1, a2]</span> exists in memory and has type
   <span class="nowrap">&Copf;&times;&Copf;</span>.
   You would have already asserted this is true (T) with
   <div class="C">
@@ -226,7 +226,8 @@
   that
   <em>if a is an object with memory layout of type A, then so is b.</em>
   After this expression is evaluated true by the compiler, then it is an
-  assertion that <em>b or a are equivalent objects with (in Girard's sense) a.</em>
+  assertion that <em>b or a are equivalent objects with a</em> (with, in
+  Girard's sense).
 </p>
 <p> As Girard's paper on
   <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">linear logic</a>,
@@ -283,8 +284,7 @@
   (no side effects). A <span class="C">time()</span> procedure with type
   <span class="nowrap">0 &rarr; &Zopf; &times; &Zopf;</span> trivially passes the
   logic test for implication, despite returning a different result each time
-  called. <span class="C">Wait()</span> has type
-  <span class="nowrap">0 &rarr; 0</span>.
+  called.
   Less obvious is whether it should be possible to use procedures of type
   <span class="nowrap">T &rarr; 0</span> with double negation, i.e. stating that
   <a href="./printf-implies-nothing.html">fprint implies nothing.</a>
