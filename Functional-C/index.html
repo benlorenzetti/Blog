@@ -5,6 +5,18 @@
   <title>Functional C</title>
   <style>
     article { width: 40em; margin: auto; }
+    h1  { font-size: 200%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h2  { font-size: 150%;
+          margin: 0;
+          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h3  { font-size: 150%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
+        }
     hr { width: 25em; }
     a { text-decoration: none; }
     div { margin-top: 0; margin-bottom: 0.5em;
@@ -131,7 +143,7 @@
   </tr>
 </table>
 <ol>
-  <li><h2>"times"</h2>
+  <li><h3>"times"</h3>
 <p> The first operator &times;, called <em>and</em> in classical logic,
   <em>times</em> in Girards' logic, and <span class="C">struct</span> or
   <em>arguement list</em> in Richie's, allows us to define a larger object
@@ -151,7 +163,7 @@
   It is unfortunate in C that structures and arguement lists cannot be conflated.
 </p>
 </li>
-<li><h2>"xor"</h2>
+<li><h3>"xor"</h3>
 <p> The second operator &oplus;, called <em>exclusive or</em>, <em>plus</em>,
   or <span class="C">union</span> has the meaning in C that this block of
   memory could be interpreted as either type A or type B, but the
@@ -163,7 +175,7 @@
   of substructures.
 </p>
 </li>
-<li><h2>"functional imp"</h2>
+<li><h3>"functional imp"</h3>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
     <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>
@@ -212,7 +224,7 @@
   will be discussed later.
 </p>
 </li>
-<li><h2>"store"</h2>
+<li><h3>"store"</h3>
 <p> The most hackily-conjucted connective <em>store</em> (&#8612;),
   called <em>assignment</em> in C, is a conjuction of two logical operators:
   type implication (&larr;) and object aliasing (+).
@@ -272,7 +284,7 @@
 </p>
 </li>
 <li>
-<h2>"statement"</h2>
+<h3>"statement"</h3>
 <p> The connectives so far have provided a way for the programmer to
   write propositions (variable types) and manipulate them as true or false
   values (objects), but the statement operators
@@ -286,7 +298,7 @@
 </p>
 </li>
 <hr>
-<h2>Functional C</h2>
+<h3>Functional C</h3>
 <p> The C programming language has fundamentally functional semantics,
   including connective features
   <span class="C">struct</span>, <span class="C">union</span>,
@@ -313,8 +325,9 @@
 </p>
 <p> These and other controversial cases/connectives will be the topic of
   my next essay,
-  <a href="#">
-    fprint implies nothing, which implies nothing.
+  <a href="./classical-c.html">
+    <span class="nowrap">Classical C</span>, or, printf implies nothing,
+    which implies nothing.
   </a>
 </p>
 <hr>

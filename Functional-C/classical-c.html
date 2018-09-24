@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Classical C</title>
+  <style>
+    article { width: 40em; margin: auto; }
+    h1  { font-size: 200%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h2  { font-size: 150%;
+          margin: 0;
+          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h3  { font-size: 150%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
+        }
+    hr { width: 25em; }
+    a { text-decoration: none; }
+    div { margin-top: 0; margin-bottom: 0.5em;
+          padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
+        }
+    p { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0;
+        padding: 0;
+      }
+    table { margin: auto; }
+    footer { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0; }
+    .C { font-family: monospace; white-space: pre; }
+    .nowrap { white-space: nowrap; }
+    .highlight { color: red; }
+  </style>
+</head>
+<body>
+<article>
+<h1>Classical C</h1>
+<h2>printf implies nothing, which implies nothing</h2>
+<p> This is the second of a sequence of essays exploring desirable semantics
+  found in C and other programming languages.
+</p>
+<ol>
+  <li><a href="./index.html">Functional C</a></li>
+  <li><a href="./classical-c">
+    Classical C, or, printf implies nothing, which implies nothing</a>
+  </li>
+  <li><a href="#">Linear C</a></li>
+</ol>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>&#8612;</th>  <th class="highlight">*</th>  <th class="highlight">**</th>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td>&empty;</td>  <td>&empty;</td>              <td>T</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td>&empty;</td>  <td>&empty;</td>              <td>T</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">&empty;</td>  <td class="highlight">T</td>  <td>&empty;</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>        <td>T</td>                     <td>T</td>
+  </tr>
+</table>
+
+<hr>
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+    src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+  </a> Ben Lorenzetti<br />
+  This work is licensed under a
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+    Commons Attribution 4.0 International License
+  </a>.
+</footer>
+</article>
+</body>
+</html>
