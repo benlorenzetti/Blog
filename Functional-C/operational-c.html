@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Operational C</title>
+  <style>
+    article { width: 40em; margin: auto; }
+    h1  { font-size: 200%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h2  { font-size: 150%;
+          margin: 0;
+          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h3  { font-size: 150%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
+        }
+    hr { width: 25em; }
+    a { text-decoration: none; }
+    div { margin-top: 0; margin-bottom: 0.5em;
+          padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
+        }
+    p { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0;
+        padding: 0;
+      }
+    table { margin: auto; }
+    .figure { display: block; margin: auto; }
+    footer { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0; }
+    .C { font-family: monospace; white-space: pre; }
+    .nowrap { white-space: nowrap; }
+    .highlight { color: red; }
+  </style>
+</head>
+<body>
+<article>
+<h1>Operational C</h1>
+<h2>printf implies nothing, which implies nothing</h2>
+<p> This is the second of a series of essays exploring desirable semantics
+  found in C and other programming languages.
+</p>
+<ol>
+  <li><a href="./index.html">Functional C</a></li>
+  <li><a href="./classical-c">
+    Operational C, or, printf implies nothing, which implies nothing</a>
+  </li>
+  <li><a href="#">Linear C</a></li>
+</ol>
+<p> It is well established
+  <a href="https://homepages.inf.ed.ac.uk/wadler/papers/lineartaste/lineartaste-revised.pdf">[Wadler</a>,
+  <a href="https://en.wikipedia.org/wiki/Intuitionistic_logic">Wikipedia]</a>
+  in functional languages and intuitionist logic
+  <em>to not offer not</em> (&not;) as a base connective, instead constructing
+  it from implication and false
+  <span class="nowrap">(&not;a &equiv; (a &rarr; &empty;))</span>.
+  <span class="nowrap">The C Language</span> is functional in this way, but its
+  definition of false and its use in implications are more controversial.
+</p>
+<p> C has two <em>false</em> connectives <span class="C">NULL</span>
+  and <span class="C">void</span>, which share a conceptual meaning
+  that <em>the object referenced does not exist or its type has size zero</em>.
+  The opposite, <em>true</em>, has no connective in C but means
+  <em>the object exists at the referenced location and follows its type</em>.
+  Here we will use the symbols <span class="nowrap">{&empty;, T}</span> to
+  represent falsehood and truth.
+</p>
+<p> The <a href="./index.html">previous essay</a>
+  introduced two forms of implication in C,
+  <span class="nowrap"><em>functions</em> (&rarr;)</span> and
+  <span class="nowrap"><em>store</em> (&#8612;)</span> but
+  there is a third prominant form,
+  <span class="nowrap"><em>pointers</em> (*)</span>,
+  which have the semantics that a T value references a true
+  object but <span class="C">NULL</span> pointers may or may not
+  indicate a T object. For comparison a <em>reference</em> (&amp;) can never
+  have a <span class="C">NULL</span> (&empty;) value and always points
+  to a true (T) object.
+</p>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>*</th>                    <th>&</th>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>                    <td class="highlight">T</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight">T</td>        <td class="highlight">T</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>  <td>&empty;</td>              <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                     <td>T</td>
+  </tr>
+</table>
+<p> The truth table above highlights the cases that make C's usage of
+  &empty; and implication controversial to functional programmers.
+  What is the meaning of a <span class="C">NULL</span> pointer or a vacuous
+  function? Can a function evaluate &empty; and can &empty; be stored?
+</p>
+<hr>
+<p>
+  A good example of <span class="C">NULL</span> pointers is dynamic C-strings,
+  which have a pointer to a
+  location in memory containing a sequence of characters which ends at the
+  first occurance of the &empty; character (all 255 other
+  <span class="C">char</span> values are T).
+</p>
+<img class="figure" src="c-string.png" width="50%">
+<p> However consider the undefined code below:
+  <div class="C">
+char* a = NULL;
+char* b = (char*) calloc(42);
+
+if (!strcmp(a, b))
+    printf("true");
+else
+    printf("false");
+  </div>
+</p>
+<p> Because the &empty; character has integer value 0,
+  any length of zeros is equivalent to an empty string with no
+  memory allocated, represented by the &empty; pointer.
+  On the other hand, a <span class="C">person</span> type might not consider the
+  &empty; pointer to indicate valid object of that type. Thus these two object
+  types represent the two vacuous cases <span class="nowrap">(a = &empty;)</span>
+  for *; i.e. the * connective does not provide enough
+  information to determine if an empty <span class="C">person</span>
+  is just someone without a soul or was never a person at all.
+</p>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>*</th>                    <th>&</th>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight">T</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight">T</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>              <td>&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                     <td>T</td>
+  </tr>
+</table>
+<p> Next, can a function be vacuously and trivially true
+  <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
+  Recall that operations are functions of the form
+  <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
+  for some specific type T, but the practical operation
+  <span class="nowrap">time: &empty; &rarr; &Zopf;&times;&Zopf;&times;&Zopf;</span>
+  does not always return the same value. So we have something that is
+  an operation but not a function, despite the fact
+  <span class="nowrap">operations &sube; functions</span>.
+  There are several more examples:
+  <div class="C">
+    rand();
+    malloc(size_t);
+    gets(NULL);
+  </div>
+</p>
+<p>I think the obvious way to deal with
+  this contradiction is to just drop the claim that all inputs to a function
+  need be explicitily listed.
+</p>
+<hr>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td>T</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>
+  </tr>
+</table>
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+    src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+  </a> Ben Lorenzetti<br />
+  This work is licensed under a
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+    Commons Attribution 4.0 International License
+  </a>.
+</footer>
+</article>
+</body>
+</html>

@@ -26,6 +26,7 @@
         padding: 0;
       }
     table { margin: auto; }
+    .figure { display: block; margin: auto; }
     footer { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0; }
     .C { font-family: monospace; white-space: pre; }
     .nowrap { white-space: nowrap; }
@@ -43,7 +44,7 @@
 <p> A separate idea, which I call operation-oriented programming, is often
   conflated with functional programming. Operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
-  for some type T. For example:
+  for some specific type T. For example:
   <div class="C">
     struct complex { float real; float imag; };
     struct complex a, b;
@@ -70,8 +71,7 @@
   i.e. there are 16 possible binary operators. For
   <span class="nowrap">unary &Bopf; &rarr; &Bopf;, there are 2^(2)</span>
   possible: negation, buffer, always zero, and always true.
-  Three basis plus two more of the 16 possible operations are also listed in
-  the table below.
+  Five of the 16 possible operations are listed in the table below.
 </p>
 <table>
   <tr>
@@ -227,7 +227,7 @@
 <li><h3>"store"</h3>
 <p> The most hackily-conjucted connective <em>store</em> (&#8612;),
   called <em>assignment</em> in C, is a conjuction of two logical operators:
-  type implication (&larr;) and object aliasing (+).
+  proposition implication (&larr;) and object aliasing (+).
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
@@ -325,7 +325,7 @@
 </p>
 <p> These and other controversial cases/connectives will be the topic of
   my next essay,
-  <a href="./classical-c.html">
+  <a href="./operational-c.html">
     <span class="nowrap">Classical C</span>, or, printf implies nothing,
     which implies nothing.
   </a>
