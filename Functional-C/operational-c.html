@@ -57,24 +57,24 @@
   <span class="nowrap">The C Language</span> is functional in this way, but its
   definition of false and its use in implications are more controversial.
 </p>
-<p> C has two <em>false</em> connectives <span class="C">NULL</span>
+<p> C has two <em>false</em> symbols <span class="C">NULL</span>
   and <span class="C">void</span>, which share a conceptual meaning
-  that <em>the object referenced does not exist or its type has size zero</em>.
-  The opposite, <em>true</em>, has no connective in C but means
+  that <em>the object referenced does not exist or its type has no information</em>
+  (size = 0). The opposite, <em>true</em>, has no symbol in C but means
   <em>the object exists at the referenced location and follows its type</em>.
   Here we will use the symbols <span class="nowrap">{&empty;, T}</span> to
   represent falsehood and truth.
 </p>
 <p> The <a href="./index.html">previous essay</a>
   introduced two forms of implication in C,
-  <span class="nowrap"><em>functions</em> (&rarr;)</span> and
-  <span class="nowrap"><em>store</em> (&#8612;)</span> but
-  there is a third prominant form,
+  <span class="nowrap"><em>stores</em> (&#8612;)</span> and
+  <span class="nowrap"><em>functions</em> (&rarr;)</span> but
+  there is a third form,
   <span class="nowrap"><em>pointers</em> (*)</span>,
-  which have the semantics that a T value references a true
+  which have the semantics that a T pointer references a true
   object but <span class="C">NULL</span> pointers may or may not
   indicate a T object. For comparison a <em>reference</em> (&amp;) can never
-  have a <span class="C">NULL</span> (&empty;) value and always points
+  have a <span class="C">NULL</span> (&empty;) pointer and always points
   to a true (T) object.
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
@@ -92,10 +92,15 @@
 </table>
 <p> The truth table above highlights the cases that make C's usage of
   &empty; and implication controversial to functional programmers.
-  What is the meaning of a <span class="C">NULL</span> pointer or a vacuous
-  function? Can a function evaluate &empty; and can &empty; be stored?
+  What is the meaning of a
+  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a vacuous,
+  <a href="#vacuous-trivial-function">trivial function</a>? Can a
+  <a href="#negation">function return &empty;</a> and can
+  <a href="#empty-store">&empty; be stored</a>?
 </p>
 <hr>
+<section id="empty-pointer">
+<h2>&empty; Pointers</h2>
 <p>
   A good example of <span class="C">NULL</span> pointers is dynamic C-strings,
   which have a pointer to a
@@ -123,7 +128,8 @@ else
   types represent the two vacuous cases <span class="nowrap">(a = &empty;)</span>
   for *; i.e. the * connective does not provide enough
   information to determine if an empty <span class="C">person</span>
-  is just someone without a soul or was never a person at all.
+  never existed at all or if he is just the one without a soul
+  <span class="nowrap">(&empty; * &empty; &equiv; &empty; * T &equiv; <span class="highlight">T</span>)</span>.
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
@@ -138,6 +144,10 @@ else
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                     <td>T</td>
   </tr>
 </table>
+</section>
+<hr>
+<section id="vacuous-trivial-function">
+<h2>(&empty; &rarr; T) Functions</h2>
 <p> Next, can a function be vacuously and trivially true
   <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
   Recall that operations are functions of the form
@@ -147,18 +157,87 @@ else
   does not always return the same value. So we have something that is
   an operation but not a function, despite the fact
   <span class="nowrap">operations &sube; functions</span>.
-  There are several more examples:
+  There are several more useful examples:
   <div class="C">
     rand();
     malloc(size_t);
     gets(NULL);
   </div>
 </p>
-<p>I think the obvious way to deal with
-  this contradiction is to just drop the claim that all inputs to a function
-  need be explicitily listed.
+<p> The question posed by this contradiction is actually a specific instance
+  of a more general issue: <em>can functions have side effects and must all
+  arguments and results be explicit?</em> For example,
+  <div class="C">
+    const char *arg = "a";
+    char *str = (char*) malloc(1024);
+    *str = 0;
+    int n = 6;
+
+    for (int i=1; i<=n; i++)
+      printf(strcat(str, arg));
+  </div>
 </p>
+<p> In this example, the composed function
+  <span class="nowrap">printf &#8728; strcat()</span> is called
+  n times on the same arguments but the output will print
+  <span class="nowrap"><em>1 + 2 + 3 + &middot;&middot;&middot; + n = n(n + 1)/2</em>
+  "aaaaaa"s</span> instead of <em>n</em> "aaa"s because the variable
+  <span class="C">str</span> is being modified on each iteration.
+</p>
+<p> The example shows that even when all arguments are explicit, a function's
+  stored result can still vary if any arguments live outside the function's
+  stack frame. Again, this goes against the mathematical definition of a function
+  because it returns different results for same arguments. The problem is fourfold,
+  <ol>
+    <li>not all argument and result objects are stored wholly on the stack</li>
+    <li>arguments living outside the stack may be modified without a visible store</li>
+    <li>arguments living outside the stack may be modified by other processes</li>
+  </ol>
+</p>
+<p> First, there is no value added in fixing (1) unless (2) and (3) are also
+  dealt with, but there is value added by fixing all three and making some
+  functions referentially transparent on a case-by-case basis.
+</p>
+<p> Second, C has keywords <span class="C">const</span> and
+  <span class="C">volatile</span> to deal with problems (2) and (3), so it
+  is very easy to signal that a function is referentially transparent in C.
+  The <span class="C">const</span> keyword is a little unfortunate though.
+</p>
+<p> Finally, with regard to the use of the word "function", there is no
+  procedure available to a computer that is not deterministic, but there are
+  variable objects in memory that may change in undetermined ways. As long as
+  a procedures' data is <em>stored</em> where it will not be changed
+  externally, that procedure is a function.
+</p>
+</section>
 <hr>
+<section id="negation">
+<h2>Negation</h2>
+</section>
+<hr>
+<section id="empty-store">
+<h2>&empty; Store</h2>
+<p>
+  There is great value in the idea that everything is an expression
+  <a href="https://wiki.haskell.org/Functional_programming">[Haskel: Functional Programming]</a>
+  <a href="https://fsharpforfunandprofit.com/posts/expressions-vs-statements/">[F# Expressions vs. Statements]</a>
+  but I'm not sure the linguistic rigamarole is worth it, I'd rather still call
+  them statements in some order. ...Idempotent...
+</p>
+<p> From the prior essay on <a href="./index.html">functional C</a>, every
+  <em>statement</em> made must evaluate true, so assuming a <span class="nowrap">
+  store (&#8612;)</span>
+  operation is at the root every statement, then every store must evaluate
+  true.
+</p>
+<p> Going one step further, this implies that the "store to"
+  location must be a reference, not just a pointer i.e. the object being
+  stored too must have memory allocated to it per its type (T).
+  This is automatically true for automatic variables in C but it is a
+  <span class="nowrap">logic error (&empty;)</span> to store to a
+  <span class="nowrap"><span class="C">NULL</span> pointer (a = &empty;)</span>,
+  as the logic connectives imply.
+</p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
     <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>
@@ -172,6 +251,20 @@ else
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>
   </tr>
 </table>
+<p> However, what does <span class="C">a &#8612; &empty;;</span> mean?
+  For this we need a detour back to what we propose {T, &empty;} mean.
+  <ul>
+    <li>T &equiv; <em>the object exists at the referenced location and follows its specific type</em></li>
+    <li>&empty; &equiv; <em>the object referenced does not exist or its type has zero size</em></li>
+  </ul>
+</p>
+<p> These are mutually exclusive propositions about an object, but interestingly
+  if we asked ourselves whether a generic type would be T or &empty;, both
+  could potentially be used for different genera systems.
+
+</p>
+</section>
+<hr>
 <footer>
   <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
     <img alt="Creative Commons License" style="border-width:0"
