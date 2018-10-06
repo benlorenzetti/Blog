@@ -35,24 +35,26 @@
 <body>
 <article>
 <h1>Functional C</h1>
-<p> The big idea of functional programming is that data types and
-  functions in programs are like propositions and implications in logic
-  proofs, and that this correspondence is a good way to organize language semantics.
-  This essay explores the "functional" semantics
-  of the C Programming Language.
+<p> This essay explores the functional semantics of the C programming language,
+  in particular how C embodies two big ideas:
+  <ol>
+    <li>Objects and functions in programs are like propositions and implications
+      in logic proofs,
+    </li>
+    <li>Objects and functions can be composed.</li>
+  </ol>
 </p>
 <p> A separate idea, which I call operation-oriented programming, is often
   conflated with functional programming. Operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
-  for some specific type T. For example:
+  for some type T. For example:
   <div class="C">
     struct complex { float real; float imag; };
     struct complex a, b;
     struct complex mul(struct complex c1, struct complex c2);
   </div>
   The function <span class="C">mul</span> is an operation on complex numbers,
-  so for operation-oriented programming we might write
-  <span class="C">mul a b</span> or
+  so for operation-oriented language we might write
   <span class="C">a mul b</span> instead of
   <span class="C">mul(a, b)</span>.
   Since operations &sube; functions, its easy to see how the conflation arises
@@ -112,10 +114,11 @@
     <td class="C">functions</td>
   </tr>
 </table>
-<p> The last two hint at how all 16 possible operations can be constructed
-  algebraically from the basic three, given two propositions (a and b) that could
-  be either true (T) or false (&empty;). This is classical logic, and in the sense of
-  functional programming, the propositions are
+<p> Exclusive or and implication demonstrate how the other operations can be
+  constructed algebraically from the basic three, given two propositions
+  (a and b) that could be either true (T) or false (&empty;).
+  This is classical logic, and in the sense of functional programming,
+  the propositions are
   <em>that an object fits a known type and it exists in memory</em>.
   Finally, any three of the 16 operations could be chosen as bases and
   more than three can be offered as intrinsic/built-in.
@@ -133,13 +136,13 @@
   <tr>
     <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
   </tr><tr>
     <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>
   </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
   </tr>
 </table>
 <ol>
@@ -180,13 +183,13 @@
   <tr>
     <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>
-  </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>T</td>
-  </tr><tr>
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>T</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>
   </tr>
 </table>
 <p> The case for functions is more nuanced, so we reach for the truth
@@ -211,17 +214,20 @@
   then the standard behaviour is a proof the result 'b' exists with the proper
   type &Copf;.
 </p>
-<p> Otherwise, if the result object is false (&empty;) then the entire
-  expression evaluates false, possibly signaling a logic error, which would
-  be the desired compiler behaviour if we think
+<p> Otherwise, if the result object is <span class="C">void</span> (&empty;)
+  then the entire expression would evaluate false, possibly signaling a logic
+  error, which would be the desired compiler behaviour if we think
   <span class="C">fprintf(stdout, "Good")</span> is semantically superior to
   <span class="C">printf("Bad")</span>.
   Bjarne Stroustrup already improved C in this regard by introducing
   input output streams.
 </p>
-<p> The other cases
-  <span class="nowrap">&empty; &rarr; &empty; and &empty; &rarr; T</span>
-  will be discussed later.
+<p> This and the other lower cases
+  <span class="nowrap">{&empty; &rarr; &empty;, &empty; &rarr; T}</span>
+  will be considered more deeply but to preview,
+  the compiler can fail, despite accepting false (&empty;) or mistyped argument
+  lists, because the <em>idempotent function</em> results in the untypable,
+  ambiguous, generic (T).
 </p>
 </li>
 <li><h3>"store"</h3>
@@ -231,31 +237,42 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>b</th>        <th>a</th>        <th>|</th>  <th>&#8612;</th>  <th>|</th>  <th>&larr;</th>   <th></th>         <th>+</th>
+    <th>b</th>        <th>a</th>        <th>|</th>  <th>&larr;</th>   <th></th>         <th>+</th>        <th></th>   <th>&#8612;</th>  <th></th>   <th>a&oplus;b&oplus;a</th>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>        <td>&times;</td>  <td>&empty;</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&times;</td>  <td>T</td>        <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>
   </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&times;</td>  <td>T</td>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>T</td>         <td>&times;</td>  <td>T</td>        <td>|</td>  <td>T</td>       <td>|</td>  <td>T</td>
   </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>        <td>&times;</td>  <td>T</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>&times;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>
   </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>|</td>  <td>T</td>        <td>&times;</td>  <td>T</td>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>        <td>&times;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>
   </tr>
 </table>
 <p> Because C allows objects to be recycled in space and time,
-  every connective is asserted twice: once before an expression is
-  evaluated and again after. The statement
-  <span class="C">b &#8612; a;</span>, for propositions
-  <span class="nowrap">a, b &isin; A</span> is first an implication (&larr;)
-  that
+  connectives may be asserted multiple times down their truth table: once
+  immediately as an expression is evaluated but then potentially a lower case
+  later. The statement
+  <span class="C">b &#8612; a;</span> for propositions
+  <span class="nowrap">a, b &isin; T</span> is first an implication
+  <span class="nowrap">(case T &larr; T)</span> that
   <em>if a exists and follows its type, then so does b.</em>
-  Then after the function returns, it is an assertion that
-  <em>b exists and follows its type but a may be recycled</em>, i.e.
-  <em>b or a is equivalent with b</em> (with, in Girard's sense).
+  However, after the store is complete the statement could be
+  downgraded to a lower case
+  <span class="nowrap">T &larr; &empty;</span>, i.e.
+  <em>a's memory could be recycled</em>.
 </p>
-<p> As Girard's paper on
-  <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">linear logic</a>,
-  points out, we can think of OR like a symmetric implication;
+<p> If we had wanted to introduce store (&#8612;) without implication and
+  or (b &larr; a) &times; (b + a), we could have done so using xor
+  memory-wise:
+  <span class="nowrap">b &#8612; a &equiv; a &oplus; b &oplus; a</span>,
+  i.e. <em>if a and b don't intersect, then both a and b</em>, otherwise
+  <em>if a and b would intersect, then it has to be b</em>. Another reading
+  would be
+  <em>a or b is equivalent with a</em> (with, in Girard's sense).
+</p>
+<p> However, as Girard's paper on
+  <a href="http://girard.perso.math.cnrs.fr/Synsem.pdf">linear logic</a> notes,
+  we can introduce OR like a symmetric implication;
   i.e. even if the object on one side dissapears (becomes &empty;), then the
   other object is still valid (T).
   <div>
@@ -266,21 +283,12 @@
   C++ and Alexander Stepanov that specified, non-symmetric
   semantics are needed and it shouldn't have been the symbol that means equality.
 </p>
-<p> Thus the logic expression for "store" can be written
+<p> Thus the logic expression for "store" can be expressed
   <div>
-    b &#8612; a &equiv; (b &larr; a) &times; (b &larr; &not;a)
+    b &#8612; a &equiv; a &oplus; b &oplus; a &equiv; (b &larr; a) &times; (b &larr; &not;a)
   </div>
-  which signifies the possibility of a's memory being recycled after the store.
-</p>
-<p> More significantly, the logic expression for "procedural impl"
-  can be written
-  <div>
-    a &rarr; b &equiv; (a &rarr; b) &times; (a &rarr; b)
-  </div>
-  which is also tautologically stupid but gives us a possible interpretation
-  for the two cases of &rarr; not discussed above: that arguments
-  passed to a function on the stack may become unavailable (a = &empty;) after
-  the procedure returns.
+  which signifies the possibility of a's memory being recycled after the store
+  and the <em>idempotent store</em> results in the specific type T (b &isin; T).
 </p>
 </li>
 <li>
