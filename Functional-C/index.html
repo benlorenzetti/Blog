@@ -30,6 +30,7 @@
     footer { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0; }
     .C { font-family: monospace; white-space: pre; }
     .nowrap { white-space: nowrap; }
+    .blockquote { padding-left: 2em; padding-right: 2em; font-style: italic; }
   </style>
 </head>
 <body>
@@ -118,14 +119,19 @@
   constructed algebraically from the basic three, given two propositions
   (a and b) that could be either true (T) or false (&empty;).
   This is classical logic, and in the sense of functional programming,
-  the propositions are
-  <em>that an object fits a known type and it exists in memory</em>.
+  the proposition is
+  <em>that an object exists in memory and fits its type</em>.
+</p>
+<p>
   Finally, any three of the 16 operations could be chosen as bases and
-  more than three can be offered as intrinsic/built-in.
+  more than three can be offered as intrinsic/built-in. The most common for
+  type systems are {&oplus;, &times;, &rarr;}.
+</p>
+  </form>
 </p>
 <hr>
 <p> I claim that C already has five functional connectives built into the
-  language: &times;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
+  compiler: &times;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
   function, store, and statement. The connectives operate on the
   proposition that all objects follow their type once they are born.
   The compiler operates on the predicate that every statement the programmer
@@ -148,8 +154,8 @@
 <ol>
   <li><h3>"times"</h3>
 <p> The first operator &times;, called <em>and</em> in classical logic,
-  <em>times</em> in Girards' logic, and <span class="C">struct</span> or
-  <em>arguement list</em> in Richie's, allows us to define a larger object
+  <em>times</em> in Girards' logic, and <span class="C">struct</span>
+  in Richie's, allows us to define a larger object
   type in memory from a concatenation of smaller ones, corresponding to a cross
   product of the state spaces of the substructs. For example the
   <span class="C">struct</span> type
@@ -333,7 +339,7 @@
 </p>
 <p> These and other controversial cases/connectives will be the topic of
   my next essay,
-  <a href="./operational-c.html">
+  <a href="./classical-c.html">
     <span class="nowrap">Classical C</span>, or, printf implies nothing,
     which implies nothing.
   </a>

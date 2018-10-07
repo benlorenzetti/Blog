@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Operational C</title>
+  <title>Classical C</title>
   <style>
     article { width: 40em; margin: auto; }
     h1  { font-size: 200%;
@@ -22,6 +22,9 @@
     div { margin-top: 0; margin-bottom: 0.5em;
           padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
         }
+    pre { margin-top: 0; margin-bottom: 0em;
+          padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
+        }
     p { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0;
         padding: 0;
       }
@@ -31,11 +34,13 @@
     .C { font-family: monospace; white-space: pre; }
     .nowrap { white-space: nowrap; }
     .highlight { color: red; }
+    .highlight-done { color: blue; }
+    .blockquote { padding-left: 2em; padding-right: 2em; font-style: italic; }
   </style>
 </head>
 <body>
 <article>
-<h1>Operational C</h1>
+<h1>Classical C</h1>
 <h2>printf implies nothing, which implies nothing</h2>
 <p> This is the second of a series of essays exploring desirable semantics
   found in C and other programming languages.
@@ -43,7 +48,7 @@
 <ol>
   <li><a href="./index.html">Functional C</a></li>
   <li><a href="./classical-c">
-    Operational C, or, printf implies nothing, which implies nothing</a>
+    Classical C, or, printf implies nothing, which implies nothing</a>
   </li>
   <li><a href="#">Linear C</a></li>
 </ol>
@@ -55,7 +60,7 @@
   it from implication and false
   <span class="nowrap">(&not;a &equiv; (a &rarr; &empty;))</span>.
   <span class="nowrap">The C Language</span> is functional in this way, but its
-  definition of false and its use in implications are more controversial.
+  definition of false and its use in implications are more debatable.
 </p>
 <p> C has two <em>false</em> symbols <span class="C">NULL</span>
   and <span class="C">void</span>, which share a conceptual meaning
@@ -66,10 +71,12 @@
   represent falsehood and truth.
 </p>
 <p> The <a href="./index.html">previous essay</a>
-  introduced two forms of implication in C,
+  introduced connectives
+  <span class="nowrap">(&times;, &oplus;, and ;)</span>
+  and two forms of implication from C,
   <span class="nowrap"><em>stores</em> (&#8612;)</span> and
   <span class="nowrap"><em>functions</em> (&rarr;)</span> but
-  there is a third form,
+  there is another form,
   <span class="nowrap"><em>pointers</em> (*)</span>,
   which have the semantics that a T pointer references a true
   object but <span class="C">NULL</span> pointers may or may not
@@ -81,20 +88,20 @@
   <tr>
     <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>*</th>                    <th>&</th>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>                    <td class="highlight">T</td>  <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight">T</td>        <td class="highlight">T</td>  <td>&empty;</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                    <td>T</td>
   </tr><tr>
     <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>  <td>&empty;</td>              <td>&empty;</td>
   </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                     <td>T</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight">T</td>        <td class="highlight">T</td>  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight">T</td>  <td>&empty;</td>
   </tr>
 </table>
 <p> The truth table above highlights the cases that make C's usage of
-  &empty; and implication controversial to functional programmers.
+  &empty; and implication debatable to functional programmers.
   What is the meaning of a
-  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a vacuous,
-  <a href="#vacuous-trivial-function">trivial function</a>? Can a
+  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a
+  <a href="#vacuous-function">vacuous function</a>? Can a
   <a href="#negation">function return &empty;</a> and can
   <a href="#empty-store">&empty; be stored</a>?
 </p>
@@ -129,44 +136,45 @@ else
   for *; i.e. the * connective does not provide enough
   information to determine if an empty <span class="C">person</span>
   never existed at all or if he is just the one without a soul
-  <span class="nowrap">(&empty; * &empty; &equiv; &empty; * T &equiv; <span class="highlight">T</span>)</span>.
+  <span class="nowrap">(&empty; * &empty; &equiv; &empty; * T &equiv; <span class="highlight-done">T</span>)</span>.
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>*</th>                    <th>&</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>*</th>                        <th>&</th>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight">T</td>  <td>&empty;</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                        <td>T</td>
   </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight">T</td>  <td>&empty;</td>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>                  <td>&empty;</td>
   </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>              <td>&empty;</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight-done">T</td> <td>&empty;</td>
   </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                     <td>T</td>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight-done">T</td> <td>&empty;</td>
   </tr>
 </table>
 </section>
 <hr>
-<section id="vacuous-trivial-function">
-<h2>(&empty; &rarr; T) Functions</h2>
-<p> Next, can a function be vacuously and trivially true
+<section id="vacuous-function">
+<h2>(&empty; &rarr; x) Functions</h2>
+<p> Next, can useful functions be vacuously true
   <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
   Recall that operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
   for some specific type T, but the practical operation
   <span class="nowrap">time: &empty; &rarr; &Zopf;&times;&Zopf;&times;&Zopf;</span>
   does not always return the same value. So we have something that is
-  an operation but not a function, despite the fact
+  a useful operation but not a function, despite the fact
   <span class="nowrap">operations &sube; functions</span>.
   There are several more useful examples:
   <div class="C">
+    nop();
     rand();
     malloc(size_t);
     gets(NULL);
   </div>
 </p>
 <p> The question posed by this contradiction is actually a specific instance
-  of a more general issue: <em>can functions have side effects and must all
-  arguments and results be explicit?</em> For example,
+  of a more general issue: <em>must all arguments and results be explicit?</em>
+  For example,
   <div class="C">
     const char *arg = "a";
     char *str = (char*) malloc(1024);
@@ -180,39 +188,123 @@ else
 <p> In this example, the composed function
   <span class="nowrap">printf &#8728; strcat()</span> is called
   n times on the same arguments but the output will print
-  <span class="nowrap"><em>1 + 2 + 3 + &middot;&middot;&middot; + n = n(n + 1)/2</em>
-  "aaaaaa"s</span> instead of <em>n</em> "aaa"s because the variable
+  <span class="nowrap"><em>1 + 2 + 3 + &middot;&middot;&middot; + n = n(n + 1)/2
+  aaaaaa's</span></em> instead of <em></span>n aaa's</span></em> because the variable
   <span class="C">str</span> is being modified on each iteration.
 </p>
+<figure>
+  <img class="figure" width="50%" src="./monty-python-and-the-holy-grail.jpg">
+  <caption>He who is valient and pure of function, may find the Holy Grail in
+    the Castle of Aaaaaaaa.
+  </caption>
+</figure>
 <p> The example shows that even when all arguments are explicit, a function's
   stored result can still vary if any arguments live outside the function's
   stack frame. Again, this goes against the mathematical definition of a function
-  because it returns different results for same arguments. The problem is fourfold,
+  because it returns different results for same arguments. The problem is threefold,
   <ol>
-    <li>not all argument and result objects are stored wholly on the function stack</li>
+    <li>not all argument and result objects are referenced on the function stack</li>
     <li>arguments living outside the stack may be modified without a visible store</li>
     <li>arguments living outside the stack may be modified by other processes</li>
   </ol>
 </p>
 <p> First, there is no value added in fixing (1) unless (2) and (3) are also
-  dealt with, but there is value added by fixing all three and making some
-  functions referentially transparent on a case-by-case basis.
+  dealt with, but there is value added by fixing all three and thereby making
+  functions referentially transparent.
 </p>
 <p> Second, C has keywords <span class="C">const</span> and
   <span class="C">volatile</span> to deal with problems (2) and (3), so it
-  is very easy to signal that a function is referentially transparent in C.
+  is possible to signal that a function is referentially transparent in C.
   The <span class="C">const</span> keyword is a little unfortunate though.
 </p>
 <p> Finally, with regard to the use of the word "function", there is no
-  procedure available to a computer that is not deterministic, but there are
-  variable objects in memory that may change in undetermined ways. As long as
-  a procedures' data is <em>stored</em> where it will not be changed
-  externally, that procedure is a function.
+  procedure available in a classic computer that is not deterministic, although
+  there are variable objects in memory and some of these may change outside the
+  current scope of code; so it is not innacurate to use the word "function" or
+  "variable" for these in C, given the link and stack machine model C runs on.
+  C's functional semantics could be improved by introducing
+  <a href="#">linear types</a> as a superset of functions, to annotate
+  referential transparency and help manage the link-loaded function
+  stack&mdash;a part of our machine models unlikely to be replaced.
+</p>
+<p class="blockquote">
+  Conventional programming languages are basically high level, complex versions
+  of the von Neumann computer...Although I refer to conventional languages as
+  "von Neumann languages" to take note of their origin and style, I do not, of
+  course, blame the great mathematician for their complexity. In fact, some
+  might say that I bear some responsibility for that problem.
+</p>
+<p class="blockquote">
+  Von Neumann programming languages use variables to imitate the computer's
+  storage cells; control statements elaborate its jump and test instructions;
+  and assignment statements imitate its fetching, storing, and arithmetic. The
+  assignment statement is the von Neumann bottleneck of programming languages
+  and keeps us thinking in word-at-a-time terms in much the same the computer's
+  bottleneck does.
+</p>
+<p>
+  &mdash;John Backus, <em>Can Programming Be Liberated from the von Neumann Style?
+  A Functional Style and Its Algebra of Programs.</em> 1997 ACM Turing
+  Award Lecture.
 </p>
 </section>
 <hr>
 <section id="negation">
-<h2>Negation</h2>
+<h2>! Negation</h2>
+<p> So far I've defended C's permissiveness around missing function
+  arguments and referential transparency
+  <span class="highlight-done">(&empty; &rarr; T)</span>, including
+  <span class="C">malloc()</span>, which returns a <em>pointer</em>
+  (not a reference) by consulting a hidden memory oracle, but much more
+  questionable is its coupled function
+  <span class="C">free()</span>, which returns nothing
+  <span class="highlight">(T &rarr; &empty;)</span>!
+  This violates the definition of a mathematical function, which must map
+  every possible input to an output value and this is reflected in the logical
+  type system.
+</p>
+<table border="0" cellspacing="0" cellpadding="2em">
+  <tr>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>*</th>                        <th>&</th>
+  </tr><tr>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                        <td>T</td>
+  </tr><tr>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>  <td>&empty;</td>                  <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight-done">T</td>   <td class="highlight-done">T</td> <td>&empty;</td>
+  </tr><tr>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight-done">T</td> <td>&empty;</td>
+  </tr>
+</table>
+<p> The pure functional fix has a lot to recommend it, because it makes
+  transparent the memory allocation pool being updated.
+  <pre>
+    malloc: Global_Heap &times; &Nopf;          -> Global_Heap &times; &Nopf;*T;
+    free:   Global_heap &times; &Nopf;*T -> Global_Heap;
+  </pre>
+</p>
+<p> But so does the functionally irreverent, <em>classical C</em> form: it is
+  simpler to read and hides the <span class="C">Global_Heap</span> variable
+  from the namespace.
+  <pre>
+    malloc: &Nopf;          -> &Nopf;*T;
+    free:   &Nopf;*T -> &empty;
+  </pre>
+</p>
+<p> Why is this the classical form? Because logical negation
+  <span class="nowrap">(!p &equiv; (p &rarr; &empty;))</span> can now be used;
+  the declaration for <span class="C">free</span> suggests that <em>its
+  argument must be false for a statement calling <span class="C">free</span>
+  to be true</em>. Although C does not actually use its '!' operator in this
+  context, it should be able to use double negation at the calling point to
+  make a true statement. For example, something like
+  <pre>
+    *Obj obj &lt;-+ malloc(sizeof(obj));
+    free(obj) -> &empty;;
+    - OR -
+    !free(obj);
+  </pre>
+</p>
 </section>
 <hr>
 <section id="empty-store">
