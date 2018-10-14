@@ -39,54 +39,38 @@
   </style>
 </head>
 <body>
-<article>
+<article id="top">
 <h1>Classical C</h1>
-<h2>printf implies nothing, which implies nothing</h2>
-<p> This is the second of a series of essays exploring desirable semantics
-  found in C and other programming languages.
+<h2>freedom implies nothing</h2>
+<p> This is the second of a series of essays exploring functional semantics
+  in a C-like programming language.
 </p>
 <ol>
   <li><a href="./index.html">Functional C</a></li>
   <li><a href="./classical-c">
-    Classical C, or, printf implies nothing, which implies nothing</a>
+    Classical C, or, freedom implies nothing</a>
   </li>
-  <li><a href="#">Linear C</a></li>
+  <li><a href="./ternary-c.html">Ternary C</a></li>
 </ol>
-<p> It is well established
-  <a href="https://homepages.inf.ed.ac.uk/wadler/papers/lineartaste/lineartaste-revised.pdf">[Wadler</a>,
-  <a href="https://en.wikipedia.org/wiki/Intuitionistic_logic">Wikipedia]</a>
-  in functional languages and intuitionist logic
-  <em>to not offer not</em> (&not;) as a base connective, instead constructing
-  it from implication and false
-  <span class="nowrap">(&not;a &equiv; (a &rarr; &empty;))</span>.
-  <span class="nowrap">The C Language</span> is functional in this way, but its
-  definition of false and its use in implications are more debatable.
-</p>
-<p> C has two <em>false</em> symbols <span class="C">NULL</span>
+<p> The C Language has two <em>false</em> symbols <span class="C">NULL</span>
   and <span class="C">void</span>, which share a conceptual meaning
   that <em>the object referenced does not exist or its type has no information</em>
   (size = 0). The opposite, <em>true</em>, has no symbol in C but means
   <em>the object exists at the referenced location and follows its type</em>.
-  Here we will use the symbols <span class="nowrap">{&empty;, T}</span> to
+  For now we will use the symbols <span class="nowrap">{&empty;, T}</span> to
   represent falsehood and truth.
 </p>
-<p> The <a href="./index.html">previous essay</a>
-  introduced connectives
-  <span class="nowrap">(&times;, &oplus;, and ;)</span>
-  and two forms of implication from C,
-  <span class="nowrap"><em>stores</em> (&#8612;)</span> and
-  <span class="nowrap"><em>functions</em> (&rarr;)</span> but
-  there is another form,
-  <span class="nowrap"><em>pointers</em> (*)</span>,
-  which have the semantics that a T pointer references a true
-  object but <span class="C">NULL</span> pointers may or may not
-  indicate a T object. For comparison a <em>reference</em> (&amp;) can never
-  have a <span class="C">NULL</span> (&empty;) pointer and always points
-  to a true (T) object.
+<p> There are several <span class="highlight">use cases</span> of &empty;
+  and implications in C that are debatable from a functional point of view.
+  What is the meaning of a
+  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a
+  <a href="#vacuous-function">vacuous function</a>? Can a
+  <a href="#negation">function return &empty;</a> and can
+  <a href="#empty-store">&empty; be stored</a>?
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>*</th>                    <th>&</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>**</th>                   <th>*</th>
   </tr><tr>
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                    <td>T</td>
   </tr><tr>
@@ -97,17 +81,23 @@
     <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight">T</td>  <td>&empty;</td>
   </tr>
 </table>
-<p> The truth table above highlights the cases that make C's usage of
-  &empty; and implication debatable to functional programmers.
-  What is the meaning of a
-  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a
-  <a href="#vacuous-function">vacuous function</a>? Can a
-  <a href="#negation">function return &empty;</a> and can
-  <a href="#empty-store">&empty; be stored</a>?
+<p> The <a href="./index.html">previous essay</a>
+  introduced connectives
+  <span class="nowrap">(&otimes;, &oplus;, and ;)</span>
+  and two forms of implication in C,
+  <span class="nowrap"><em>stores</em> (&#8612;)</span> and
+  <span class="nowrap"><em>functions</em> (&rarr;)</span> but
+  there is another form,
+  <span class="nowrap"><em>pointers</em> (**)</span>,
+  which have the semantics that a T pointer references a true
+  object but <span class="C">NULL</span> pointers may or may not
+  indicate a T object. For comparison a <em>reference</em> (*) can never
+  have a false (&empty;) pointer and always points to a true (T) object.
 </p>
 <hr>
 <section id="empty-pointer">
-<h2>&empty; Pointers</h2>
+<a href="#top">top</a>
+<h3>&empty; Pointers</h3>
 <p>
   A good example of <span class="C">NULL</span> pointers is dynamic C-strings,
   which have a pointer to a
@@ -116,10 +106,10 @@
   <span class="C">char</span> values are T).
 </p>
 <img class="figure" src="c-string.png" width="50%">
-<p> However consider the undefined code below:
+<p> However consider the undefined code below (using ** for pointers and * for references):
   <div class="C">
-char* a = NULL;
-char* b = (char*) calloc(42);
+char**a = NULL;
+char**b = (char**) calloc(42);
 
 if (!strcmp(a, b))
     printf("true");
@@ -127,20 +117,27 @@ else
     printf("false");
   </div>
 </p>
-<p> Because the &empty; character has integer value 0,
+<p> Because the <span class="C">NULL</span> character has integer value 0,
   any length of zeros is equivalent to an empty string with no
   memory allocated, represented by the &empty; pointer.
-  On the other hand, a <span class="C">person</span> type might not consider the
+  On the other hand, a <span class="C">wizard</span> type might not consider the
   &empty; pointer to indicate valid object of that type. Thus these two object
-  types represent the two vacuous cases <span class="nowrap">(a = &empty;)</span>
-  for *; i.e. the * connective does not provide enough
-  information to determine if an empty <span class="C">person</span>
-  never existed at all or if he is just the one without a soul
-  <span class="nowrap">(&empty; * &empty; &equiv; &empty; * T &equiv; <span class="highlight-done">T</span>)</span>.
+  types represent the
+  <span class="highlight-done">
+    two vacuous cases <span class="nowrap">(a = &empty;)</span> for **;
+  </span>
+  i.e. the ** connective does not provide enough
+  information to determine if
+  <span class="C">**wizard he-who-cannot-be-named = NULL;</span>
+  either doesn't exist at all or if his soul lives on at 0.
+  <span class="nowrap">(&empty; ** &empty; &equiv; &empty; ** T &equiv; T)</span>.
 </p>
+</section>
+<section id="vacuous-function">
+<a href="#top">top</a>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>*</th>                        <th>&</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>**</th>                       <th>*</th>
   </tr><tr>
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                        <td>T</td>
   </tr><tr>
@@ -151,10 +148,7 @@ else
     <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight-done">T</td> <td>&empty;</td>
   </tr>
 </table>
-</section>
-<hr>
-<section id="vacuous-function">
-<h2>(&empty; &rarr; x) Functions</h2>
+<h3>(&empty; &rarr; x) Functions</h3>
 <p> Next, can useful functions be vacuously true
   <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
   Recall that operations are functions of the form
@@ -208,14 +202,14 @@ else
     <li>arguments living outside the stack may be modified by other processes</li>
   </ol>
 </p>
-<p> First, there is no value added in fixing (1) unless (2) and (3) are also
-  dealt with, but there is value added by fixing all three and thereby making
-  functions referentially transparent.
+<p> First, there is little gained in securing (1) unless (2) and (3) are also
+  dealt with, but there are some benefits to fixing all three and thereby
+  making functions referentially transparent.
 </p>
 <p> Second, C has keywords <span class="C">const</span> and
   <span class="C">volatile</span> to deal with problems (2) and (3), so it
   is possible to signal that a function is referentially transparent in C.
-  The <span class="C">const</span> keyword is a little unfortunate though.
+  The <span class="C">const</span> keyword is a unfortunately verbose though.
 </p>
 <p> Finally, with regard to the use of the word "function", there is no
   procedure available in a classic computer that is not deterministic, although
@@ -248,20 +242,19 @@ else
   Award Lecture.
 </p>
 </section>
-<hr>
 <section id="negation">
-<h2>! Negation</h2>
+<a href="#top">top</a>
+<h3>! Negation</h3>
 <p> So far I've defended C's permissiveness around missing function
   arguments and referential transparency
   <span class="highlight-done">(&empty; &rarr; T)</span>, including
   <span class="C">malloc()</span>, which returns a <em>pointer</em>
-  (not a reference) by consulting a hidden memory oracle, but much more
-  questionable is its coupled function
+  (not a reference) by consulting a hidden memory oracle, but even more
+  questionable is its sibling
   <span class="C">free()</span>, which returns nothing
   <span class="highlight">(T &rarr; &empty;)</span>!
-  This violates the definition of a mathematical function, which must map
-  every possible input to an output value and this is reflected in the logical
-  type system.
+  This violates the definition of a mathematical function, which cannot map
+  somethings to nothing, and this is reflected in the the logic:
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
@@ -276,28 +269,28 @@ else
     <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight-done">T</td> <td>&empty;</td>
   </tr>
 </table>
-<p> The pure functional fix has a lot to recommend it, because it makes
+<p> The purely functional form has a lot to recommend it, because it makes
   transparent the memory allocation pool being updated.
   <pre>
-    malloc: Global_Heap &times; &Nopf;          -> Global_Heap &times; &Nopf;*T;
+    malloc: Global_Heap &times; &Nopf;   -> Global_Heap &times; &Nopf;*T;
     free:   Global_heap &times; &Nopf;*T -> Global_Heap;
   </pre>
 </p>
 <p> But so does the functionally irreverent, <em>classical C</em> form: it is
   simpler to read and hides the <span class="C">Global_Heap</span> variable
-  from the namespace.
+  from the namespace/userspace.
   <pre>
-    malloc: &Nopf;          -> &Nopf;*T;
+    malloc: &Nopf;   -> &Nopf;*T;
     free:   &Nopf;*T -> &empty;
   </pre>
 </p>
-<p> Why is this the classical form? Because logical negation
-  <span class="nowrap">(!p &equiv; (p &rarr; &empty;))</span> can now be used;
-  the declaration for <span class="C">free</span> suggests that <em>its
-  argument must be false for a statement calling <span class="C">free</span>
-  to be true</em>. Although C does not actually use its '!' operator in this
-  context, it should be able to use double negation at the calling point to
-  make a true statement. For example, something like
+<p> Why does the classical form compile? Because logical negation
+  <span class="nowrap">(!p &equiv; (p &rarr; &empty;))</span> is being used;
+  the type declaration for <span class="C">free</span> suggests that <em>its
+  argument must be false when a statement calling <span class="C">free</span>
+  becomes true</em>. Unfortunately C does not actually use its '!' operator in
+  this context, for example I would prefer free statements be made
+  explicitely true
   <pre>
     *Obj obj &lt;-+ malloc(sizeof(obj));
     free(obj) -> &empty;;
@@ -306,18 +299,12 @@ else
   </pre>
 </p>
 </section>
-<hr>
 <section id="empty-store">
-<h2>&empty; Store</h2>
-<p>
-  There is great value in the idea that everything is an expression
-  <a href="https://wiki.haskell.org/Functional_programming">[Haskel: Functional Programming]</a>
-  <a href="https://fsharpforfunandprofit.com/posts/expressions-vs-statements/">[F# Expressions vs. Statements]</a>
-  but I'm not sure the linguistic rigamarole is worth it, I'd rather still call
-  them statements in some order. ...Idempotent...
-</p>
-<p> From the prior essay on <a href="./index.html">functional C</a>, every
-  <em>statement</em> made must evaluate true, so assuming a <span class="nowrap">
+<a href="#top">top</a>
+<h3>&empty; Store</h3>
+<p> From the prior essay on <a href="./index.html">functional C</a>, the
+  compiler must make every
+  <em>statement</em> made evaluate true, so assuming a <span class="nowrap">
   store (&#8612;)</span>
   operation is at the root every statement, then every store must evaluate
   true.
@@ -325,9 +312,11 @@ else
 <p> Going one step further, this implies that the "store to"
   location must be a reference, not just a pointer i.e. the object being
   stored too must have memory allocated to it per its type (T).
-  This is automatically true for automatic variables in C but it is a
+  This is automatically true for automatic variables in C but it could be a
   <span class="nowrap">logic error (&empty;)</span> to store to a
-  <span class="nowrap"><span class="C">NULL</span> pointer (a = &empty;)</span>,
+  <span class="nowrap"><span class="C">NULL</span>
+    reference (&empty; &equiv; (a * &empty;) &#8612; b)
+  </span>,
   as the logic connectives imply.
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
@@ -343,17 +332,64 @@ else
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>
   </tr>
 </table>
-<p> However, what does <span class="C">a &#8612; &empty;;</span> mean?
-  For this we need a detour back to what we propose {T, &empty;} mean.
-  <ul>
-    <li>T &equiv; <em>the object exists at the referenced location and follows its specific type</em></li>
-    <li>&empty; &equiv; <em>the object referenced does not exist or its type has zero size</em></li>
-  </ul>
+<p> However, what does <span class="highlight">a &#8612; &empty; &equiv; T</span>
+  mean? The semantics of declaring an automatic variable in C is:
+  <span class="highlight">a &#8612; &empty;;</span>
+  a trivially true statement that tells us nothing about the truth of
+  <span class="nowrap">a &isin; A</span>?
 </p>
-<p> These are mutually exclusive propositions about an object, but interestingly
-  if we asked ourselves whether a generic type would be T or &empty;, both
-  could potentially be used for different genera systems.
-
+<p> Unfortunately many implementations
+  implicitely convert this implicit store &empty; to store 0.
+  Although this ensures variables are automatically true (T), it conflates
+  <span class="C">void</span> and <span class="C">NULL</span>, which
+  semantically separate compile time truth from runtime truth.
+  A more desirable solution would be <em>allowing proof by contradiction,
+  because statements are tautologies.</em>
+  <div class="C">
+    int a;
+    a &lt;-+ a;    // proves a &isin; int
+    a &lt;-+ !a;   // proves a &isin; int without a runtime instruction
+  </div>
+</p>
+</section>
+<section id="classical-c">
+<hr>
+<a href="#top">top</a>
+<h3>Classical C</h3>
+<ul>
+  <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
+  <li>&empty; &equiv; <em>the object does not exist or its type has zero information</em></li>
+</ul>
+<p> It is well established
+  <a href="https://homepages.inf.ed.ac.uk/wadler/papers/lineartaste/lineartaste-revised.pdf">[Wadler</a>,
+  <a href="https://en.wikipedia.org/wiki/Intuitionistic_logic">Wikipedia]</a>
+  in intuitionistic logic <em>to not offer not</em> !! as
+  <a href="./index.html#boolean-algebra">a base connective</a>,
+  instead constructing negation from implication and false
+  <span class="nowrap">!a &equiv; (a &rarr; &empty;)</span>.
+  Further, a purely functional language would not admit a function of type
+  <span class="nowrap">T &rarr; &empty;</span> into its type system,
+  so its semantics could have no type negation&mdash;and indeed no false types.
+</p>
+<p> But looking again at the propositions for <span class="nowrap">{&empty;, T}</span>
+  in C, an &empty; object could just mean <em>empty of type information</em>,
+  which proves useful for function composition because
+  <span class="C">void*</span> can be used for generic types.
+  In this way C is <em>more classically functional than purely functional.</em>
+</p>
+<p> Also associated with negative types and results,
+  C is <em>more classically than intuitionisticly logical</em> because
+  statements are tautologies. The empty function
+  <span class="C">void free(void*)</span> returns to a tautology,
+  <span class="C">free(a);</span> thus we can conclude
+  its argument is false after free.
+</p>
+<p> Classical semantics provide the freedom to let
+  <em>free() imply nothing</em>, aiding the composition of functions at runtime.
+  However there is still some handwaving around the mathematical
+  definition of functions and around
+  <a href="./ternary-c.html">tautological statements and the zero middle</a>.
+  Stay tuned.
 </p>
 </section>
 <hr>

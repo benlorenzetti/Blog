@@ -45,8 +45,8 @@
     <li>Objects and functions can be composed.</li>
   </ol>
 </p>
-<p> A separate idea, which I call operation-oriented programming, is often
-  conflated with functional programming. Operations are functions of the form
+<p> A third idea, which I call operation-oriented programming, is often
+  associated with functional programming. Operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
   for some type T. For example:
   <div class="C">
@@ -59,9 +59,9 @@
   <span class="C">a mul b</span> instead of
   <span class="C">mul(a, b)</span>.
   Since operations &sube; functions, its easy to see how the conflation arises
-  and its not such a bad con; I will happily use this "functional" syntax as
-  if C could do it.
+  and its not such a bad con; I wish C had more such macros.
 </p>
+<section id="boolean-algebra">
 <hr>
 <p> A nice basis for Boolean algebra is one unary
   plus two binary operators, operating on the set of values
@@ -91,26 +91,26 @@
     <td class="C"></td>
   </tr><tr>
     <td>Disjuction</td>
-    <td>a + b</td>
+    <td>a &or; b</td>
     <td>T if a = T or b = T (min function)</td>
     <td class="C">OR</td>
     <td class="C"></td>
   </tr><tr>
     <td>Conjunction</td>
-    <td>a &times; b</td>
+    <td>a &otimes; b</td>
     <td>T if a = T and b = T (max function)</td>
     <td class="C">AND</td>
     <td class="C">struct</td>
   </tr><tr>
     <td>Exclusive Disjunction</td>
     <td>a &oplus; b</td>
-    <td>(a &times; &not;b) + (b &times; &not;a)</td>
+    <td>(a &otimes; &not;b) &or; (b &otimes; &not;a)</td>
     <td class="C">XOR</td>
     <td class="C">union</td>
   </tr><tr>
     <td>Logical Implication</td>
     <td>a &rarr; b</td>
-    <td>&not;a + b</td>
+    <td>&not;a &or; b</td>
     <td class="C"></td>
     <td class="C">functions</td>
   </tr>
@@ -125,13 +125,12 @@
 <p>
   Finally, any three of the 16 operations could be chosen as bases and
   more than three can be offered as intrinsic/built-in. The most common for
-  type systems are {&oplus;, &times;, &rarr;}.
+  type systems are {&oplus;, &otimes;, &rarr;}.
 </p>
-  </form>
-</p>
+</section>
 <hr>
 <p> I claim that C already has five functional connectives built into the
-  compiler: &times;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
+  compiler: &otimes;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
   function, store, and statement. The connectives operate on the
   proposition that all objects follow their type once they are born.
   The compiler operates on the predicate that every statement the programmer
@@ -140,7 +139,7 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&otimes;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
   </tr><tr>
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
   </tr><tr>
@@ -153,11 +152,11 @@
 </table>
 <ol>
   <li><h3>"times"</h3>
-<p> The first operator &times;, called <em>and</em> in classical logic,
-  <em>times</em> in Girards' logic, and <span class="C">struct</span>
-  in Richie's, allows us to define a larger object
-  type in memory from a concatenation of smaller ones, corresponding to a cross
-  product of the state spaces of the substructs. For example the
+<p> The first operator &otimes;, called <em>and</em> in classical logic,
+  <em>times</em> in Girard's,
+  or <span class="C">struct</span> in Richie's, allows us to define a larger
+  object type in memory from a concatenation of smaller ones, corresponding to
+  a cross product of the state spaces of the substructs. For example the
   <span class="C">struct</span> type
   <span class="C">char &times; char</span> has
   <span class="nowrap">|char|*|char| = 256*256</span> possible values.
@@ -310,6 +309,13 @@
   if a store operation or an argument could ever fail to be true,
   the compiler should prevent this contradiction.
 </p>
+<p>
+  There is great value in the idea that everything is an expression
+  <a href="https://wiki.haskell.org/Functional_programming">[Haskel: Functional Programming]</a>
+  <a href="https://fsharpforfunandprofit.com/posts/expressions-vs-statements/">[F# Expressions vs. Statements]</a>
+  but I'm not sure the linguistic rigamarole is worth it, I'd rather still call
+  them statements in some order. ...Idempotent...
+</p>
 </li>
 <hr>
 <h3>Functional C</h3>
@@ -322,10 +328,10 @@
   from C's syntax and its depth of analysis of structures, unions, and function
   types, leaving room for improvement in newer languages.
 </p>
-<p> Finally, many functional languages go further,
-  by emphasizing a few special functions that can <em>operate</em> on the
-  abstract syntax tree and generic types at compile time (macros) or by
-  emphasizing all proceedures should be proper mathematical functions
+<p> In C we can compose functions at runtime, but many functional languages go
+  further by emphasizing a special functions that can <em>operate</em> on
+  the abstract syntax tree to compose at compile time (macros). Many also
+  emphasize that functions should be proper mathematical functions
   (no side effects).
 </p>
 <p> Giving special status to a subset of functions seems useful (macros), but
@@ -340,8 +346,7 @@
 <p> These and other controversial cases/connectives will be the topic of
   my next essay,
   <a href="./classical-c.html">
-    <span class="nowrap">Classical C</span>, or, printf implies nothing,
-    which implies nothing.
+    <span class="nowrap">Classical C</span>, or, freedom implies nothing.
   </a>
 </p>
 <hr>
