@@ -11,11 +11,11 @@
         }
     h2  { font-size: 150%;
           margin: 0;
-          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
         }
     h3  { font-size: 150%;
           margin: 0;
-          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
+          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
         }
     hr { width: 25em; }
     a { text-decoration: none; }
@@ -63,6 +63,7 @@
 </p>
 <section id="boolean-algebra">
 <hr>
+<h2>Background</h2>
 <p> A nice basis for Boolean algebra is one unary
   plus two binary operators, operating on the set of values
   <span class="nowrap">&Bopf; = {T, &empty;}</span> storable in a single bit
@@ -97,14 +98,14 @@
     <td class="C"></td>
   </tr><tr>
     <td>Conjunction</td>
-    <td>a &otimes; b</td>
+    <td>a &times; b</td>
     <td>T if a = T and b = T (max function)</td>
     <td class="C">AND</td>
     <td class="C">struct</td>
   </tr><tr>
     <td>Exclusive Disjunction</td>
     <td>a &oplus; b</td>
-    <td>(a &otimes; &not;b) &or; (b &otimes; &not;a)</td>
+    <td>(a &times; &not;b) &or; (b &times; &not;a)</td>
     <td class="C">XOR</td>
     <td class="C">union</td>
   </tr><tr>
@@ -125,12 +126,14 @@
 <p>
   Finally, any three of the 16 operations could be chosen as bases and
   more than three can be offered as intrinsic/built-in. The most common for
-  type systems are {&oplus;, &otimes;, &rarr;}.
+  type systems are {&oplus;, &times;, &rarr;}.
 </p>
 </section>
+<section>
 <hr>
+<h2>Connectives</h2>
 <p> I claim that C already has five functional connectives built into the
-  compiler: &otimes;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
+  compiler: &times;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
   function, store, and statement. The connectives operate on the
   proposition that all objects follow their type once they are born.
   The compiler operates on the predicate that every statement the programmer
@@ -139,7 +142,7 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&otimes;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
   </tr><tr>
     <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
   </tr><tr>
@@ -152,7 +155,7 @@
 </table>
 <ol>
   <li><h3>"times"</h3>
-<p> The first operator &otimes;, called <em>and</em> in classical logic,
+<p> The first operator &times;, called <em>and</em> in classical logic,
   <em>times</em> in Girard's,
   or <span class="C">struct</span> in Richie's, allows us to define a larger
   object type in memory from a concatenation of smaller ones, corresponding to
@@ -317,8 +320,10 @@
   them statements in some order. ...Idempotent...
 </p>
 </li>
+</section>
+<section>
 <hr>
-<h3>Functional C</h3>
+<h2>Functional C</h2>
 <p> The C programming language has fundamentally functional semantics,
   including connective features
   <span class="C">struct</span>, <span class="C">union</span>,
@@ -349,6 +354,7 @@
     <span class="nowrap">Classical C</span>, or, freedom implies nothing.
   </a>
 </p>
+</section>
 <hr>
 <footer>
   <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">

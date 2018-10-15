@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Classical C</title>
+  <title>Ternary C</title>
   <style>
     article { width: 40em; margin: auto; }
     h1  { font-size: 200%;
@@ -40,10 +40,23 @@
 </head>
 <body>
 <article id="top">
-<h1>Classical C</h1>
-<h3>freedom implies nothing</h3>
-<p> This is the second of a series of essays exploring functional semantics
-  in a C-like programming language.
+<h1>Ternary C</h1>
+<p> The <a href="./classical-c.html">previous essay</a> argues C's
+  functional connectives <span class="nowrap">{&rarr;, **, &#8612;}</span>
+  are used with classical logic rather than intuitionistic logic,
+  along with other built-ins
+  <span class="nowrap">{&empty;, &not;, &times;, &oplus;, ;}</span>
+  to keep a valid state. The <a href="./index.html">prior essay</a> introduced
+  the built-in connectives in terms of classical logic with boolean values,
+  <ul>
+    <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
+    <li>&empty; &equiv; <em>the object does not exist, does not fit its type, or its type has zero information</em></li>
+  </ul>
+</p>
+<p> The ambiguity in the interpretation and use of &empty; is part of what makes
+  the C phenomenon so interesting. As an experiment, this essay attempts to
+  develop separate symbols for the four concepts in the interpretations
+  above. I call the result the firth of fourth diagram.
 </p>
 <ol>
   <li><a href="./index.html">Functional C</a></li>
@@ -360,7 +373,7 @@ else
 <h2>Classical C</h2>
 <ul>
   <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
-  <li>&empty; &equiv; <em>the object does not exist, does not fit its type, or its type has zero information</em></li>
+  <li>&empty; &equiv; <em>the object does not exist or does not follow its type</em></li>
 </ul>
 <p> It is well established
   <a href="https://homepages.inf.ed.ac.uk/wadler/papers/lineartaste/lineartaste-revised.pdf">[Wadler</a>,
