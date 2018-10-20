@@ -168,7 +168,7 @@ else
   of a more general issue: <em>must all arguments and results be explicit?</em>
   For example,
   <div class="C">
-    char *str = (char*) calloc(1024);
+    char *str = (char*) calloc(1024, 1);
     int n = 6;
 
     for (int i=1; i<=n; i++)
@@ -215,17 +215,18 @@ else
   argument-modifying feature of <span class="C">strcat()</span> by instead
   composing functions.
 <div class="C">
-  char* str_tot = (char*) calloc(1024);
-  char* str = (char*) calloc (1024);
-  int n = 6;
-
   char* recurse(char* str_tot, char* str, int n) {
     if(!n)
-      return str;
-    else
+      return str_tot;
+    else {
       str = strcat(str, "a");
       return recurse(strcat(str_tot, str), str, n-1);
+    }
   }
+
+  char* str_tot = (char*) calloc(1024, 1);
+  char* str = (char*) calloc (1024, 1);
+  int n = 6;
 
   printf(recurse(str_tot, str, n));
 </div>
