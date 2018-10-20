@@ -41,22 +41,27 @@
 <body>
 <article id="top">
 <h1>Ternary C</h1>
-<p> The <a href="./classical-c.html">previous essay</a> argues C's
-  functional connectives <span class="nowrap">{&rarr;, **, &#8612;}</span>
-  are used with classical logic rather than intuitionistic logic,
-  along with other built-ins
-  <span class="nowrap">{&empty;, &not;, &times;, &oplus;, ;}</span>
-  to keep a valid state. The <a href="./index.html">prior essay</a> introduced
-  the built-in connectives in terms of classical logic with boolean values,
+<p> The <a href="./classical-c.html">previous essay</a> argues the functional
+  connectives in C <span class="nowrap">{&rarr;, **, &#8612;}</span>
+  are paired with classical logic rather than intuitionistic logic
+  and how, along with other built-ins
+  <span class="nowrap">{&not;, &times;, &oplus;, ;}</span>
+  they help keep valid program state.
+  The <a href="./index.html">next prior essay</a> had introduced these
+  connectives in terms of boolean logic with the classical truth propositions,
   <ul>
     <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
-    <li>&empty; &equiv; <em>the object does not exist, does not fit its type, or its type has zero information</em></li>
+    <li>F &equiv; <em>the object does not exist, does not fit its type, or has zero type information</em></li>
   </ul>
 </p>
-<p> The ambiguity in the interpretation and use of &empty; is part of what makes
-  the C phenomenon so interesting. As an experiment, this essay attempts to
-  develop separate symbols for the four concepts in the interpretations
-  above. I call the result the firth of fourth diagram.
+<p> Part of what makes C so interesting is how False was hacked together.
+  As an experiment, this essay attempts to develop separate symbols to
+  disambiguate the propositions above.
+  I call the result the firth of fourth diagram.
+</p>
+<img src="firth-of-fourth.jpg" width="200px">
+<p>
+
 </p>
 <ol>
   <li><a href="./index.html">Functional C</a></li>

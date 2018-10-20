@@ -60,9 +60,8 @@
   For now we will use the symbols <span class="nowrap">{&empty;, T}</span> to
   represent falsehood and truth.
 </p>
-<p> There are several <span class="highlight">use cases</span> of &empty;
-  and implications in C that are debatable from a functional point of view.
-  What is the meaning of a
+<p> There are several use cases of &empty; and implications in C that are
+  debatable from a functional point of view. What is the meaning of a
   <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a
   <a href="#vacuous-function">vacuous function</a>? Can a
   <a href="#negation">function return &empty;</a> and can
@@ -81,7 +80,7 @@
     <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight">T</td>  <td>&empty;</td>
   </tr>
 </table>
-<p> The <a href="./index.html">previous essay</a>
+<p> For background, the <a href="./index.html">previous essay</a>
   introduced connectives
   <span class="nowrap">(&times;, &oplus;, and ;)</span>
   and two forms of implication in C,
@@ -99,11 +98,10 @@
 <a href="#top">top</a>
 <h2>&empty; Pointers</h2>
 <p>
-  A good example of <span class="C">NULL</span> pointers is dynamic C-strings,
-  which have a pointer to a
-  location in memory containing a sequence of characters which ends at the
-  first occurance of the &empty; character (all 255 other
-  <span class="C">char</span> values are T).
+  A good example of <span class="C">NULL</span> pointers is in C-strings,
+  which have a pointer to a location in memory containing a sequence of
+  characters which ends at the first occurance of the
+  <span class="C">NULL</span> character.
 </p>
 <img class="figure" src="c-string.png" width="50%">
 <p> However consider the undefined code below (using ** for pointers and * for references):
@@ -118,11 +116,11 @@ else
   </div>
 </p>
 <p> Because the <span class="C">NULL</span> character has integer value 0,
-  any length of zeros is equivalent to an empty string with no
-  memory allocated, represented by the &empty; pointer.
+  any length of zeros could be considered equivalent to an empty string with no
+  memory allocated, represented by the 0 pointer.
   On the other hand, a <span class="C">wizard</span> type might not consider the
-  &empty; pointer to indicate valid object of that type. Thus these two object
-  types represent the
+  <span class="C">NULL</span> pointer to indicate valid object of that type.
+  Thus these two object types represent the
   <span class="highlight-done">
     two vacuous cases <span class="nowrap">(a = &empty;)</span> for **;
   </span>
@@ -143,14 +141,14 @@ else
   </tr><tr>
     <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>                  <td>&empty;</td>
   </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight-done">T</td> <td>&empty;</td>
+    <td class="highlight">&empty;</td>  <td class="highlight">T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight-done">T</td> <td>&empty;</td>
   </tr><tr>
     <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight-done">T</td> <td>&empty;</td>
   </tr>
 </table>
 <h2>(&empty; &rarr; x) Functions</h2>
 <p> Next, can useful functions be vacuously true
-  <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
+  <span class="nowrap">(<span class="highlight">&empty; &rarr; T &equiv; T</span>)</span>?
   Recall that operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
   for some specific type T, but the practical operation
@@ -170,13 +168,11 @@ else
   of a more general issue: <em>must all arguments and results be explicit?</em>
   For example,
   <div class="C">
-    const char *arg = "a";
-    char *str = (char*) malloc(1024);
-    *str = 0;
+    char *str = (char*) calloc(1024);
     int n = 6;
 
     for (int i=1; i<=n; i++)
-      printf(strcat(str, arg));
+      printf(strcat(str, "a"));
   </div>
 </p>
 <p> In this example, the composed function
@@ -193,33 +189,54 @@ else
   </caption>
 </figure>
 <p> The example shows that even when all arguments are explicit, a function's
-  stored result can still vary if any arguments live outside the function's
+  result can still vary if any arguments lived outside the function's
   stack frame. Again, this goes against the mathematical definition of a function
   because it returns different results for same arguments. The problem is threefold,
   <ol>
-    <li>not all argument and result objects are referenced on the function stack</li>
+    <li>not all argument and result objects are referenced in the parameter stack</li>
     <li>arguments living outside the stack may be modified without a visible store</li>
     <li>arguments living outside the stack may be modified by other processes</li>
   </ol>
 </p>
 <p> First, there is little gained in securing (1) unless (2) and (3) are also
-  dealt with, but there are some benefits to fixing all three and thereby
-  making functions referentially transparent.
+  dealt with, but there are some benefits to offering fixes for all three and
+  thereby making functions referentially transparent.
 </p>
 <p> Second, C has keywords <span class="C">const</span> and
   <span class="C">volatile</span> to deal with problems (2) and (3), so it
   is possible to signal that a function is referentially transparent in C.
   The <span class="C">const</span> keyword is a unfortunately verbose though.
 </p>
-<p> Finally, with regard to the use of the word "function", there is no
-  procedure available in a classic computer that is not deterministic, although
-  there are variable objects in memory and some of these may change outside the
-  current scope of code; so it is not innacurate to use the word "function" or
-  "variable" for these in C, given the link and stack machine model C runs on.
-  C's functional semantics could be improved by introducing
-  <a href="#">linear types</a> as a superset of functions, to annotate
-  referential transparency and help manage the link-loaded function
-  stack&mdash;a part of our machine models unlikely to be replaced.
+<p> Finally, with regard to the use of the words <em>variable</em> and
+  <em>functions</em>, some would claim a <em>functional language</em> would force
+  you to write the <em>aaaaaa</em> loop recursively, and then the compiler would
+  tail-call optimize back into the loop above.
+  With this version we avoid the many looping statements and use of the
+  argument-modifying feature of <span class="C">strcat()</span> by instead
+  composing functions.
+<div class="C">
+  char* str_tot = (char*) calloc(1024);
+  char* str = (char*) calloc (1024);
+  int n = 6;
+
+  char* recurse(char* str_tot, char* str, int n) {
+    if(!n)
+      return str;
+    else
+      str = strcat(str, "a");
+      return recurse(strcat(str_tot, str), str, n-1);
+  }
+
+  printf(recurse(str_tot, str, n));
+</div>
+</p>
+<p> However, I'm not sure the nice referential transparency of this version
+  is enough to preclude the use of the word <em>variable</em> or <em>function</em>
+  to describe the argument-modifying version above, especially given the stack
+  machine model C compiles to. Perhaps C's functional semantics could be improved by
+  introducing <a href="#">linear types</a> as a superset of functions, to help
+  annotate referential transparency and help manage stack memory&mdash;a part
+  of our machine models unlikely to ever be replaced.
 </p>
 <p class="blockquote">
   Conventional programming languages are basically high level, complex versions
@@ -288,15 +305,9 @@ else
   <span class="nowrap">(&not;p &equiv; (p &rarr; &empty;))</span> is being used;
   the type declaration for <span class="C">free</span> suggests that <em>its
   argument must be false when a statement calling <span class="C">free</span>
-  becomes true</em>. Unfortunately C does not actually use its '!' operator in
-  this context, for example I would prefer free statements be made
-  explicitely true
-  <pre>
-    *Obj obj &lt;-+ malloc(sizeof(obj));
-    free(obj) -> &empty;;
-    - OR -
-    !free(obj);
-  </pre>
+  becomes true</em>. Similarly the other use for <span class="C">void</span>
+  and type negation in C is type casting to make generic functions like
+  <span class="C">void* malloc()</span> pass the type checker.
 </p>
 </section>
 <section id="empty-store">
@@ -335,7 +346,7 @@ else
 <p> However, what does <span class="nowrap">
     <span class="highlight">a &#8612; &empty; &equiv; T</span>
   </span>
-  mean? The semantics of declaring an automatic variable in C is:
+  mean? The semantics of declaring an automatic variable in C is
   <span class="nowrap"><span class="highlight">a &#8612; &empty;;</span></span>
   a trivially true statement that tells us nothing about the truth of
   <span class="nowrap">a &isin; A</span>?
@@ -349,8 +360,8 @@ else
   because statements are tautologies.</em>
   <div class="C">
     int a;
-    a &lt;-+ a;    // proves a &isin; int
-    a &lt;-+ &not;a;   // proves a &isin; int without a runtime instruction
+    a &lt;-+ a;   // proves a &isin; int
+    a &lt;- &not;a;   // proves a &isin; int without a runtime instruction
   </div>
 </p>
 </section>
@@ -371,7 +382,7 @@ else
   <span class="nowrap">&not;a &equiv; (a &rarr; &empty;)</span>.
   Further, a purely functional language would not admit a function of type
   <span class="nowrap">T &rarr; &empty;</span> into its type system,
-  so its semantics could have no type negation&mdash;and indeed no false types.
+  so its semantics would have no type negation&mdash;and no false objects.
 </p>
 <p> But looking again at the propositions for <span class="nowrap">{&empty;, T}</span>
   in C, an &empty; object could just mean <em>empty of type information</em>,
@@ -387,9 +398,11 @@ else
   its argument is false after free.
 </p>
 <p> Classical semantics provide the freedom to let
-  <em>free() imply nothing</em>, aiding the composition of functions at runtime.
-  However there is still some handwaving around the mathematical
-  definition of functions and around
+  <em>free() imply nothing</em> and <em>malloc() imply anything</em>,
+  aiding state management and function composition across
+  compile, link, and runtime time.
+  However there is still some uncertainty around the mathematical
+  vs. C definition of function and around
   <a href="./ternary-c.html">tautological statements and the zero middle</a>.
   Stay tuned.
 </p>
