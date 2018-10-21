@@ -75,7 +75,7 @@
   i.e. there are 16 possible binary operators. For
   <span class="nowrap">unary &Bopf; &rarr; &Bopf;, there are 2^(2)</span>
   possible: negation, buffer, always zero, and always true.
-  Five of the 16 possible operations are listed in the table below.
+  Six of the 16 possible operations are listed in the table below.
 </p>
 <table>
   <tr>
@@ -114,11 +114,24 @@
     <td>&not;a &or; b</td>
     <td class="C"></td>
     <td class="C">functions</td>
+  </tr><tr>
+    <td>Equivalence</td>
+    <td>a &amp; b</td>
+    <td>(a &rarr; b) &times; (b &rarr; a)</td>
+    <td class="C"></td>
+    <td class="C">union</td>
+  </tr>
+  <tr>
+    <td>Negation</td>
+    <td>&not;a</td>
+    <td>a &rarr; &empty;</td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
-<p> Exclusive or and implication demonstrate how the other operations can be
-  constructed algebraically from the basic three, given two propositions
-  (a and b) that could be either true (T) or false (&empty;).
+<p> Exclusive or, implication, and equivalence demonstrate how the other
+  operations can be constructed algebraically from some basic three, given two
+  propositions (a and b) that could be either true (T) or false (&empty;).
   This is classical logic, and in the sense of functional programming,
   the proposition is
   <em>that an object exists in memory and fits its type</em>.
@@ -132,8 +145,9 @@
 <section>
 <hr>
 <h2>Connectives</h2>
-<p> I claim that C already has five functional connectives built into the
-  compiler: &times;, &oplus;, &rarr;, &#8612;, and ";" or structure, union,
+<p> I claim C has six functional connectives built-in to the language:
+  <span class="nowrap">&times;, &amp;, &oplus;, &rarr;, &#8612;, and ";"</span>
+  or structure, union,
   function, store, and statement. The connectives operate on the
   proposition that all objects follow their type once they are born.
   The compiler operates on the predicate that every statement the programmer
@@ -142,19 +156,19 @@
 </p>
 <table border="0" cellspacing="0" cellpadding="2em">
   <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
+    <th>a</th>        <th>b</th>        <th>|</th>  <th>&times;</th>  <th>&amp;</th>    <th>&oplus;</th>  <th>&rarr;</th>   <th>&#8612;</th>  <th>;</th>
   </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
+    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>T</td>
   </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>
+    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>T</td>
   </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
+    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
   </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
+    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>T</td>        <td>&empty;</td>  <td>&empty;</td>
   </tr>
 </table>
 <ol>
-  <li><h3>"times"</h3>
+  <li><h3>"and"</h3>
 <p> The first operator &times;, called <em>and</em> in classical logic,
   <em>times</em> in Girard's,
   or <span class="C">struct</span> in Richie's, allows us to define a larger
@@ -174,17 +188,35 @@
   It is unfortunate in C that structures and arguement lists cannot be conflated.
 </p>
 </li>
-<li><h3>"xor"</h3>
-<p> The second operator &oplus;, called <em>exclusive or</em>, <em>plus</em>,
-  or <span class="C">union</span> has the meaning in C that this block of
-  memory could be interpreted as either type A or type B, but the
-  compiler has no idea which one is correct. In set space, its cardinality
-  is probably <span class="nowrap">|A&oplus;B| = |A| + |B|</span>, like the
-  disjoint union of sets, but we rarely actually care to calculate the
-  cardinality of our types so specifying this seems unproductive. It is
-  unfortunate in C that the union type cannot have any nominal intersection
-  of substructures.
+<li><h3>"with"</h3>
+<p> The second operator &amp;, called <em>equivalence</em>, <em>with</em>, or
+  <em>intersection</em> means this
+  block of memory could be interpreted as either type A or type B, but the
+  compiler has no more information about which is more correct.
+  In set space, its cardinality is
+  <span class="nowrap">|A&amp;B| = max(|A|, |B|)</span>, like the
+  intersection of sets.
 </p>
+</li>
+<li><h3>"xor"</h3>
+<p> The next operator &oplus;, called <em>xor</em> in classical logic,
+  <em>plus</em> in Girard's, and <span class="C">union</span> in C is
+  complimentary to &amp;; in fact C does not bother to distiguish between
+  intersections and disjoint unions for data types. However it does use xor
+  specifically with one the most commonly unioned values in
+  programming&mdash;nullable pointers.
+</p>
+<p> In set space, a disjoint union has cardinality
+  <span class="nowrap">|A&oplus;B| = |A| + |B|</span>, hence the name "plus"
+  in many functional languages. For many pointers there are
+  <span class="nowrap">(2^n - 1)</span> valid values, plus the invalid
+  <span class="C">NULL</span>, for total cardinality
+  <span class="nowrap">|pointer| = (2^n)</span> for n-bit pointers.
+</p>
+<p> Unfortunately this is the only case where xor has built-in functionality in
+  C tooling. Isolating &amp; from &oplus;
+  (and <span class="C">NULL</span> from <span class="C">void</span>) will be the
+  subject of a <a href="./ternary-c.html">future essay</a>.
 </li>
 <li><h3>"functional imp"</h3>
 <table border="0" cellspacing="0" cellpadding="2em">
