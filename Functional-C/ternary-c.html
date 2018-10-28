@@ -50,20 +50,12 @@
   </span>
   help keep valid program state.
   The <a href="./index.html">next prior essay</a> had introduced these
-<<<<<<< HEAD
-  connectives in terms of boolean logic with classical truth propositions,
-=======
-  connectives in terms of classical logic, with truth propositions
->>>>>>> 4b4593135fee436f4a7af7f0715ff2a41ef35813
+  connectives in terms of boolean algebra with classical truth propositions,
   <ul>
     <li>T &equiv; <em>the object exists at the referenced location and follows its type (1)</em></li>
     <li>F &equiv; <em>the object does not exist, does not fit its type (3), or has zero type information (2)</em></li>
   </ul>
 </p>
-<p> This essay experiments with splitting this classical logic into a
-  ternary type system.
-</p>
-<hr>
 <p> Part of what makes C so interesting is how True and False were hacked
   together. To represent true and false, C has two idempotent symbols,
   <span class="C">void</span> and <span class="C">NULL</span>.
@@ -73,12 +65,10 @@
 <p> The <span class="C">void</span> object is
   special since <em>it is always true because its size is zero</em>,
   and we say its only enumerable value is 1. Any type unioned or crossed with
-  <span class="C">void</span> (or crossed by another empty tag) is
+  <span class="C">void</span> (or crossed by another enumerated tag) is
   interpreted as storing the exact same set of information.
   <div class="C">
-    (int &amp; 1) a;
-    (int &times; 1) b;
-    (int &times; 0) c;
+    (int &amp; 1) a, (int &times; 1) b, (int &times; 2) c;
     a &lt;-+ 0x0f;                // a = 15
     b &lt;-+ a;                   // b = 15
     c &lt;-+ b;                   // c = 15
@@ -93,7 +83,6 @@
   any type of object.
   <div class="C">
     Compl = (real, imag) &isin; Float &times; Float;
-
     *Float r1 &lt;-+ malloc(sizeof(r1));
     *Compl c1 &lt;-+ malloc(sizeof(c1));
   </div>
@@ -112,346 +101,57 @@
 </p>
 </li>
 </ol>
-<p> Essentially, in trying to interpret C's connective logic as binary,
-  there is a conflation of objects being false at compile time or runtime, and
-  consequently being proven true at runtime and compile time.
-  For type casting, we pass an object through false at compile time.
-  For pointers, the object may fail at runtime.
-</p>
-<p> There are several <span class="highlight">use cases</span> of &empty;
-  and implications in C that are debatable from a functional point of view.
-  What is the meaning of a
-  <a href="#empty-pointer"><span class="C">NULL</span> pointer</a> or a
-  <a href="#vacuous-function">vacuous function</a>? Can a
-  <a href="#negation">function return &empty;</a> and can
-  <a href="#empty-store">&empty; be stored</a>?
-</p>
-<table border="0" cellspacing="0" cellpadding="2em">
-  <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>**</th>                   <th>*</th>
-  </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                    <td>T</td>
-  </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>  <td>&empty;</td>              <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight">T</td>        <td class="highlight">T</td>  <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight">T</td>  <td>&empty;</td>
-  </tr>
-</table>
-<p> The <a href="./index.html">previous essay</a>
-  introduced connectives
-  <span class="nowrap">(&times;, &oplus;, and ;)</span>
-  and two forms of implication in C,
-  <span class="nowrap"><em>stores</em> (&#8612;)</span> and
-  <span class="nowrap"><em>functions</em> (&rarr;)</span> but
-  there is another form,
-  <span class="nowrap"><em>pointers</em> (**)</span>,
-  which have the semantics that a T pointer references a true
-  object but <span class="C">NULL</span> pointers may or may not
-  indicate a T object. For comparison a <em>reference</em> (*) can never
-  have a false (&empty;) pointer and always points to a true (T) object.
+<p> This essay experiments with splitting this binary system into a
+  ternary type system.
 </p>
 <hr>
-<section id="empty-pointer">
-<a href="#top">top</a>
-<h2>&empty; Pointers</h2>
-<p>
-  A good example of <span class="C">NULL</span> pointers is dynamic C-strings,
-  which have a pointer to a
-  location in memory containing a sequence of characters which ends at the
-  first occurance of the &empty; character (all 255 other
-  <span class="C">char</span> values are T).
+<p> We can embed the existing binary logic in a balanced ternary scheme by
+  merging <span class="C">NULL</span> and <span class="C">*void</span>
+  into a single concept of False, which is the
+  negation of True. However between them is a sentinel
+  <span class="C">()</span>, understood to signal the possibility of a
+  runtime null.
 </p>
-<img class="figure" src="c-string.png" width="50%">
-<p> However consider the undefined code below (using ** for pointers and * for references):
-  <div class="C">
-char**a = NULL;
-char**b = (char**) calloc(42);
+<table>
+  <tr>
+    <th>T</th><td>true</td><td class="C">(void)</td><td></td><td></td>
+  </tr><tr>
+    <th>F</th><td>runtime false</td><td class="C">(NULL)</td><td>or compile time false <span class="C">(*void)</span></td>
+  </tr><tr>
+    <th></th><td>&darr;</td><td>&darr;</td><td>&darr;</td>
+  </tr><tr>
+    <th>T</th><td>enumerated true</td><td>(<span class="C">void</span>)</td>
+  </tr><tr>
+    <th>0</th><td>unknown</td><td></td><td>(forces runtime testing of enumerated truth)</td>
+  </tr><tr>
+    <th>F</th><td>false</td><td>(<span class="C">*void</span>)</td><td>(<span class="C">NULL</span>)</td>
+  </tr>
+</table>
+<table>
+<tr>
+  <th>a</th><th>b</th><td>|</td><th>+</th><th>&times;</th><th>&</td><th>&oplus;</th><th>&rarr;</th><th>a+&not;b</th>
+  <th>b&oplus;a&oplus;b</th><th>(a&larr;b)&times;(a&larr;&not;b)</th>
+</tr><tr>
+  <td>T</td><td>T</td><td>|</td><td>T</td><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td>
+</tr><tr>
+  <td>T</td><td>0</td><td>|</td><td>T</td><td>0</td><td>0</td><td>0</td><td>0</td><td>T</td><td>0</td><td>T</td>
+</tr><tr>
+  <td>T</td><td>F</td><td>|</td><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td>
+</tr><tr>
+  <td>0</td><td>T</td><td>|</td><td>T</td><td>0</td><td>0</td><td>0</td><td>T</td><td>0</td><td>0</td><td>0</td>
+</tr><tr>
+  <td>0</td><td>0</td><td>|</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+</tr><tr>
+  <td>0</td><td>F</td><td>|</td><td>0</td><td>F</td><td>0</td><td>0</td><td>0</td><td>T</td><td>0</td><td>0</td>
+</tr><tr>
+  <td>F</td><td>T</td><td>|</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td>
+</tr><tr>
+  <td>F</td><td>0</td><td>|</td><td>0</td><td>F</td><td>0</td><td>0</td><td>T</td><td>0</td><td>0</td><td>0</td>
+</tr><tr>
+  <td>F</td><td>F</td><td>|</td><td>F</td><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td>
+</tr>
+</table>
 
-if (!strcmp(a, b))
-    printf("true");
-else
-    printf("false");
-  </div>
-</p>
-<p> Because the <span class="C">NULL</span> character has integer value 0,
-  any length of zeros is equivalent to an empty string with no
-  memory allocated, represented by the &empty; pointer.
-  On the other hand, a <span class="C">wizard</span> type might not consider the
-  &empty; pointer to indicate valid object of that type. Thus these two object
-  types represent the
-  <span class="highlight-done">
-    two vacuous cases <span class="nowrap">(a = &empty;)</span> for **;
-  </span>
-  i.e. the ** connective does not provide enough
-  information to determine if
-  <span class="C">**wizard he-who-cannot-be-named = NULL;</span>
-  either doesn't exist at all or if his soul lives on at 0.
-  <span class="nowrap">(&empty; ** &empty; &equiv; &empty; ** T &equiv; T)</span>.
-</p>
-</section>
-<section id="vacuous-function">
-<a href="#top">top</a>
-<table border="0" cellspacing="0" cellpadding="2em">
-  <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&rarr;</th>               <th>**</th>                       <th>*</th>
-  </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                        <td>T</td>
-  </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>&empty;</td>                  <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td class="highlight">T</td>  <td class="highlight-done">T</td> <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>T</td>                    <td class="highlight-done">T</td> <td>&empty;</td>
-  </tr>
-</table>
-<h2>(&empty; &rarr; x) Functions</h2>
-<p> Next, can useful functions be vacuously true
-  <span class="nowrap">(&empty; &rarr; T &equiv; <span class="highlight">T</span>)</span>?
-  Recall that operations are functions of the form
-  <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
-  for some specific type T, but the practical operation
-  <span class="nowrap">time: &empty; &rarr; &Zopf;&times;&Zopf;&times;&Zopf;</span>
-  does not always return the same value. So we have something that is
-  a useful operation but not a function, despite the fact
-  <span class="nowrap">operations &sube; functions</span>.
-  There are several more useful examples:
-  <div class="C">
-    nop();
-    rand();
-    malloc(size_t);
-    gets(NULL);
-  </div>
-</p>
-<p> The question posed by this contradiction is actually a specific instance
-  of a more general issue: <em>must all arguments and results be explicit?</em>
-  For example,
-  <div class="C">
-    const char *arg = "a";
-    char *str = (char*) malloc(1024);
-    *str = 0;
-    int n = 6;
-
-    for (int i=1; i<=n; i++)
-      printf(strcat(str, arg));
-  </div>
-</p>
-<p> In this example, the composed function
-  <span class="nowrap">printf &#8728; strcat()</span> is called
-  n times on the same arguments but the output will print
-  <span class="nowrap"><em>1 + 2 + 3 + &middot;&middot;&middot; + n = n(n + 1)/2
-  aaaaaa's</span></em> instead of <em></span>n aaa's</span></em> because the variable
-  <span class="C">str</span> is being modified on each iteration.
-</p>
-<figure>
-  <img class="figure" width="50%" src="./monty-python-and-the-holy-grail.jpg">
-  <caption>He who is valient and pure of function, may find the Holy Grail in
-    the Castle of Aaaaaaaa.
-  </caption>
-</figure>
-<p> The example shows that even when all arguments are explicit, a function's
-  stored result can still vary if any arguments live outside the function's
-  stack frame. Again, this goes against the mathematical definition of a function
-  because it returns different results for same arguments. The problem is threefold,
-  <ol>
-    <li>not all argument and result objects are referenced on the function stack</li>
-    <li>arguments living outside the stack may be modified without a visible store</li>
-    <li>arguments living outside the stack may be modified by other processes</li>
-  </ol>
-</p>
-<p> First, there is little gained in securing (1) unless (2) and (3) are also
-  dealt with, but there are some benefits to fixing all three and thereby
-  making functions referentially transparent.
-</p>
-<p> Second, C has keywords <span class="C">const</span> and
-  <span class="C">volatile</span> to deal with problems (2) and (3), so it
-  is possible to signal that a function is referentially transparent in C.
-  The <span class="C">const</span> keyword is a unfortunately verbose though.
-</p>
-<p> Finally, with regard to the use of the word "function", there is no
-  procedure available in a classic computer that is not deterministic, although
-  there are variable objects in memory and some of these may change outside the
-  current scope of code; so it is not innacurate to use the word "function" or
-  "variable" for these in C, given the link and stack machine model C runs on.
-  C's functional semantics could be improved by introducing
-  <a href="#">linear types</a> as a superset of functions, to annotate
-  referential transparency and help manage the link-loaded function
-  stack&mdash;a part of our machine models unlikely to be replaced.
-</p>
-<p class="blockquote">
-  Conventional programming languages are basically high level, complex versions
-  of the von Neumann computer...Although I refer to conventional languages as
-  "von Neumann languages" to take note of their origin and style, I do not, of
-  course, blame the great mathematician for their complexity. In fact, some
-  might say that I bear some responsibility for that problem.
-</p>
-<p class="blockquote">
-  Von Neumann programming languages use variables to imitate the computer's
-  storage cells; control statements elaborate its jump and test instructions;
-  and assignment statements imitate its fetching, storing, and arithmetic. The
-  assignment statement is the von Neumann bottleneck of programming languages
-  and keeps us thinking in word-at-a-time terms in much the same the computer's
-  bottleneck does.
-</p>
-<p>
-  &mdash;John Backus, <em>Can Programming Be Liberated from the von Neumann Style?
-  A Functional Style and Its Algebra of Programs.</em> 1997 ACM Turing
-  Award Lecture.
-</p>
-</section>
-<section id="negation">
-<a href="#top">top</a>
-<h2>&not; Negation</h2>
-<p> So far I've defended C's permissiveness around missing function
-  arguments and referential transparency
-  <span class="highlight-done">(&empty; &rarr; T)</span>, including
-  <span class="C">malloc()</span>, which returns a <em>pointer</em>
-  (not a reference) by consulting a hidden memory oracle, but even more
-  questionable is its sibling
-  <span class="C">free()</span>, which returns nothing
-  <span class="highlight">(T &rarr; &empty;)</span>!
-  This violates the definition of a mathematical function, which cannot map
-  somethings to nothing, and this is reflected in the the logic:
-</p>
-<table border="0" cellspacing="0" cellpadding="2em">
-  <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>                     <th>**</th>                       <th>*</th>
-  </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>                          <td>T</td>                        <td>T</td>
-  </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>  <td>&empty;</td>                  <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td class="highlight-done">T</td>   <td class="highlight-done">T</td> <td>&empty;</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>                          <td class="highlight-done">T</td> <td>&empty;</td>
-  </tr>
-</table>
-<p> The purely functional form has a lot to recommend it, because it makes
-  transparent the memory allocation pool being updated.
-  <pre>
-    malloc: Global_Heap &times; &Nopf;   -> Global_Heap &times; &Nopf;*T;
-    free:   Global_heap &times; &Nopf;*T -> Global_Heap;
-  </pre>
-</p>
-<p> But so does the functionally irreverent, <em>classical C</em> form: it is
-  simpler to read and hides the <span class="C">Global_Heap</span> variable
-  from the namespace/userspace.
-  <pre>
-    malloc: &Nopf;   -> &Nopf;*T;
-    free:   &Nopf;*T -> &empty;
-  </pre>
-</p>
-<p> Why does the classical form compile? Because logical negation
-  <span class="nowrap">(&not;p &equiv; (p &rarr; &empty;))</span> is being used;
-  the type declaration for <span class="C">free</span> suggests that <em>its
-  argument must be false when a statement calling <span class="C">free</span>
-  becomes true</em>. Unfortunately C does not actually use its '!' operator in
-  this context, for example I would prefer free statements be made
-  explicitely true
-  <pre>
-    *Obj obj &lt;-+ malloc(sizeof(obj));
-    free(obj) -> &empty;;
-    - OR -
-    !free(obj);
-  </pre>
-</p>
-</section>
-<section id="empty-store">
-<a href="#top">top</a>
-<h2>&empty; Store</h2>
-<p> From the prior essay on <a href="./index.html">functional C</a>, the
-  compiler must make every
-  <em>statement</em> made evaluate true, so assuming a <span class="nowrap">
-  store (&#8612;)</span>
-  operation is at the root every statement, then every store must evaluate
-  true.
-</p>
-<p> Going one step further, this implies that the "store to"
-  location must be a reference, not just a pointer i.e. the object being
-  stored too must have memory allocated to it per its type (T).
-  This is automatically true for automatic variables in C but it could be a
-  <span class="nowrap">logic error (&empty;)</span> to store to a
-  <span class="nowrap"><span class="C">NULL</span>
-    reference (&empty; &equiv; (a * &empty;) &#8612; b)
-  </span>,
-  as the logic connectives imply.
-</p>
-<table border="0" cellspacing="0" cellpadding="2em">
-  <tr>
-    <th>a</th>        <th>b</th>        <th>|</th>  <th>&#8612;</th>              <th>&rarr;</th>
-  </tr><tr>
-    <td>&empty;</td>  <td>&empty;</td>  <td>|</td>  <td>&empty;</td>              <td>T</td>
-  </tr><tr>
-    <td>&empty;</td>  <td>T</td>        <td>|</td>  <td>&empty;</td>              <td>T</td>
-  </tr><tr>
-    <td>T</td>        <td>&empty;</td>  <td>|</td>  <td class="highlight">T</td>  <td class="highlight">&empty;</td>
-  </tr><tr>
-    <td>T</td>        <td>T</td>        <td>|</td>  <td>T</td>                    <td>T</td>
-  </tr>
-</table>
-<p> However, what does <span class="nowrap">
-    <span class="highlight">a &#8612; &empty; &equiv; T</span>
-  </span>
-  mean? The semantics of declaring an automatic variable in C is:
-  <span class="nowrap"><span class="highlight">a &#8612; &empty;;</span></span>
-  a trivially true statement that tells us nothing about the truth of
-  <span class="nowrap">a &isin; A</span>?
-</p>
-<p> Unfortunately many implementations
-  implicitely convert this implicit store &empty; to store 0.
-  Although this ensures variables are automatically true (T), it conflates
-  <span class="C">void</span> and <span class="C">NULL</span>, which
-  semantically separate compile time truth from runtime truth.
-  A more desirable solution would be <em>allowing proof by contradiction,
-  because statements are tautologies.</em>
-  <div class="C">
-    int a;
-    a &lt;-+ a;    // proves a &isin; int
-    a &lt;-+ &not;a;   // proves a &isin; int without a runtime instruction
-  </div>
-</p>
-</section>
-<section id="classical-c">
-<hr>
-<a href="#top">top</a>
-<h2>Classical C</h2>
-<ul>
-  <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
-  <li>&empty; &equiv; <em>the object does not exist or does not follow its type</em></li>
-</ul>
-<p> It is well established
-  <a href="https://homepages.inf.ed.ac.uk/wadler/papers/lineartaste/lineartaste-revised.pdf">[Wadler</a>,
-  <a href="https://en.wikipedia.org/wiki/Intuitionistic_logic">Wikipedia]</a>
-  in intuitionistic logic <em>to not offer not</em> (&not;) as
-  <a href="./index.html#boolean-algebra">a base connective</a>,
-  instead constructing negation from implication and false
-  <span class="nowrap">&not;a &equiv; (a &rarr; &empty;)</span>.
-  Further, a purely functional language would not admit a function of type
-  <span class="nowrap">T &rarr; &empty;</span> into its type system,
-  so its semantics could have no type negation&mdash;and indeed no false types.
-</p>
-<p> But looking again at the propositions for <span class="nowrap">{&empty;, T}</span>
-  in C, an &empty; object could just mean <em>empty of type information</em>,
-  which proves useful for function composition because
-  <span class="C">void*</span> can be used for generic types.
-  In this way C is <em>more classically functional than purely functional.</em>
-</p>
-<p> Also associated with negative types and results,
-  C is <em>more classically logical than intuitionistically logical</em>
-  because statements are tautologies. The empty function
-  <span class="C">void free(void*)</span> returns to a tautology,
-  <span class="C">free(a);</span> thus we can conclude
-  its argument is false after free.
-</p>
-<p> Classical semantics provide the freedom to let
-  <em>free() imply nothing</em>, aiding the composition of functions at runtime.
-  However there is still some handwaving around the mathematical
-  definition of functions and around
-  <a href="./ternary-c.html">tautological statements and the zero middle</a>.
-  Stay tuned.
-</p>
-</section>
 <hr>
 <footer>
   <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
