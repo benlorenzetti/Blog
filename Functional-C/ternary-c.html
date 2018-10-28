@@ -44,39 +44,75 @@
 <p> The <a href="./classical-c.html">previous essay</a> argues the functional
   connectives in C <span class="nowrap">{&rarr;, **, &#8612;}</span>
   are paired with classical logic rather than intuitionistic logic
-  and how, along with other built-ins
-  <span class="nowrap">{&not;, &times;, &oplus;, ;}</span>
-  they help keep valid program state.
+  and, along with other connectives
+  <span class="nowrap">
+    {<span class="C">void</span>, <span class="C">NULL</span>, !, &times;, &amp;, ;}
+  </span>
+  help keep valid program state.
   The <a href="./index.html">next prior essay</a> had introduced these
-  connectives in terms of boolean logic with the classical truth propositions,
+  connectives in terms of boolean logic with classical truth propositions,
   <ul>
-    <li>T &equiv; <em>the object exists at the referenced location and follows its type</em></li>
-    <li>F &equiv; <em>the object does not exist, does not fit its type, or has zero type information</em></li>
+    <li>T &equiv; <em>the object exists at the referenced location and follows its type (1)</em></li>
+    <li>F &equiv; <em>the object does not exist, does not fit its type (3), or has zero type information (2)</em></li>
   </ul>
 </p>
-<p> Part of what makes C so interesting is how False was hacked together.
-  As an experiment, this essay attempts to develop separate symbols to
-  disambiguate the propositions above.
-  I call the result the firth of fourth diagram.
+<p> This essay experiments with splitting this classical logic into a
+  ternary type system.
 </p>
-<img src="firth-of-fourth.jpg" width="200px">
-<p>
-
+<hr>
+<p> Part of what makes C so interesting is how True and False were hacked
+  together. To represent true and false, C has two idempotent symbols,
+  <span class="C">void</span> and <span class="C">NULL</span>.
 </p>
 <ol>
-  <li><a href="./index.html">Functional C</a></li>
-  <li><a href="./classical-c">
-    Classical C, or, freedom implies nothing</a>
-  </li>
-  <li><a href="./ternary-c.html">Ternary C</a></li>
+<li>
+<p> The <span class="C">void</span> object is
+  special since <em>it is always true because its size is zero</em>,
+  and we say its only enumerable value is 1. Any type unioned or crossed with
+  <span class="C">void</span> (or crossed by another empty tag) is
+  interpreted as storing the exact same set of information.
+  <div class="C">
+    (int &amp; 1) a;
+    (int &times; 1) b;
+    (int &times; 0) c;
+    a &lt;-+ 0x0f;                // a = 15
+    b &lt;-+ a;                   // b = 15
+    c &lt;-+ b;                   // c = 15
+  </div>
+</p>
+</li>
+<li>
+<p> To generate the vacuously false case
+  <em>the object has zero type information</em>, C uses indirection
+  towards the trivially true case. Thus
+  <span class="C">*void malloc(size_t)</span> can be used to provide memory for
+  any type of object.
+  <div class="C">
+    Compl = (real, imag) &isin; Float &times; Float;
+
+    *Float r1 &lt;-+ malloc(sizeof(r1));
+    *Compl c1 &lt;-+ malloc(sizeof(c1));
+  </div>
+</p>
+</li>
+<li>
+<p> A <span class="C">NULL</span> object is one <em>that does not exist or does
+  not follow its type</em>, and this false proposition is idempotent for
+  exclusive-or types like pointers,
+  <span class="nowrap">a ** b &equiv; (&not;a &oplus; a * b)</span>.
+  <div class="C">
+    intptr ** Obj_type a;
+    a &lt;-+ NULL;                // a may be NULL
+    a &lt;-+ malloc(sizeof(a));   // or a valid reference
+  </div>
+</p>
+</li>
 </ol>
-<p> The C Language has two <em>false</em> symbols <span class="C">NULL</span>
-  and <span class="C">void</span>, which share a conceptual meaning
-  that <em>the object referenced does not exist or its type has no information</em>
-  (size = 0). The opposite, <em>true</em>, has no symbol in C but means
-  <em>the object exists at the referenced location and follows its type</em>.
-  For now we will use the symbols <span class="nowrap">{&empty;, T}</span> to
-  represent falsehood and truth.
+<p> Essentially, in trying to interpret C's connective logic as binary,
+  there is a conflation of objects being false at compile time or runtime, and
+  consequently being proven true at runtime and compile time.
+  For type casting, we pass an object through false at compile time.
+  For pointers, the object may fail at runtime.
 </p>
 <p> There are several <span class="highlight">use cases</span> of &empty;
   and implications in C that are debatable from a functional point of view.
