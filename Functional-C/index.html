@@ -246,8 +246,8 @@
 
     b = mul(a1, a2);
   </div>
-  i.e. by declaring, initializing, and <em>listing</em> <span class="C">c1</span>
-  and <span class="C">c2</span>. The compiler will typically use a case from the
+  i.e. by declaring, initializing, and <em>listing</em> <span class="C">a1</span>
+  and <span class="C">a2</span>. The compiler must use a case from the
   truth table that makes the expression <span class="C">mul(a1, a2)</span> T.
   Thus, if the arguement list
   <span class="nowrap">a &isin; &Copf; &times; &Copf;</span> type checked T,
@@ -255,8 +255,8 @@
   type &Copf;.
 </p>
 <p> Otherwise, if the result object is <span class="C">void</span> (&empty;)
-  then the entire expression would evaluate false, possibly signaling a logic
-  error, which would be the desired compiler behaviour if we think
+  then the entire expression would evaluate false, which would be the desired
+  compiler behaviour if we think
   <span class="C">fprintf(stdout, "Good")</span> is semantically superior to
   <span class="C">printf("Bad")</span>.
   Bjarne Stroustrup already improved C in this regard by introducing
