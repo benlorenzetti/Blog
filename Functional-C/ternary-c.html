@@ -52,51 +52,71 @@
   The <a href="./index.html">next prior essay</a> had introduced these
   connectives in terms of boolean algebra with classical truth propositions,
   <ul>
-    <li>T &equiv; <em>the object exists at the referenced location and follows its type (1)</em></li>
-    <li>F &equiv; <em>the object does not exist, does not fit its type (3), or has zero type information (2)</em></li>
+    <li>T &equiv; <em>the object exists and follows its type (4)</em></li>
+    <li>F &equiv; <em>the object does not fit its type (1), does not exist (2),
+      or is empty of type information (3)</em>
+    </li>
   </ul>
 </p>
-<p> Part of what makes C so interesting is how True and False were hacked
-  together. To represent true and false, C has two idempotent symbols,
-  <span class="C">void</span> and <span class="C">NULL</span>.
+<p> Part of what makes C so interesting is how true and false were hacked
+  together, using <span class="C">void</span> for compile time and
+  a separate symbol <span class="C">NULL</span> for runtime false.
 </p>
 <ol>
 <li>
-<p> The <span class="C">void</span> object is
-  special since <em>it is always true because its size is zero</em>,
-  and we say its only enumerable value is 1. Any type unioned or crossed with
-  <span class="C">void</span> (or crossed by another enumerated tag) is
-  interpreted as storing the exact same set of information.
+<p> A <span class="C">void</span> <em>(]</em> object <em>does not follow
+  its type or is known to not exist</em>, and this false proposition ought to be
+  idempotent for all the union connectives (+, &oplus; &amp;),
+  such as in <span class="C">(] &oplus; b &equiv; b</span>.
+</p>
+</li>
+<li>
+<p> A <span class="C">NULL</span> <em>()</em> object <em>does not exist
+    at runtime</em>, but to the compiler it represents an <em>unknown</em>
+    branch or merge. More than <span class="C">void</span>,
+    <span class="C">NULL</span> is idempotent for reference and cross products
+    <span class="nowrap">(&times;, *)</span> in addition to the union
+    connectives <span class="nowrap">(+, &oplus;, &amp;, *)</span>,
+    as in the definition of pointers
+    <span class="nowrap">a ** b &equiv; !a + a * b</span>.
+    <div class="C">
+      intptr ** Obj_type a;
+      a &lt;- ();                 // a may be FALSE at runtime
+      a &lt;- malloc(sizeof(a));  // or a TRUE reference
+    </div>
+</p>
+</li>
+<li>
+<p> Both <span class="C">NULL</span> <em>()</em> and
+  <span class="C">void</span> <em>(]</em> can be
+  used as negation objects with functional connectives. For example terminating
+  a runtime linked list or asserting a reference is false.
   <div class="C">
-    (int &amp; 1) a, (int &times; 1) b, (int &times; 2) c;
-    a &lt;-+ 0x0f;                // a = 15
-    b &lt;-+ a;                   // b = 15
-    c &lt;-+ b;                   // c = 15
+    A = struct { **A next; Data d };
+
+    **A a +-&gt; malloc(sizeof(A))?!;
+    a[next] +-&gt; ();     // the list terminates after [a]
+                       //   a -&gt; [a] -&gt; ()
+    free: ptr -&gt; (];
+    free(a);           // assert that a is false.
   </div>
 </p>
 </li>
 <li>
-<p> To generate the vacuously false case
-  <em>the object has zero type information</em>, C uses indirection
-  towards the trivially true case. Thus
-  <span class="C">*void malloc(size_t)</span> can be used to provide memory for
-  any type of object.
+<p> The <span class="C">unit</span> <em>[]</em> object is special since
+  <em>it is always true because its type holds zero information</em>,
+  and we say its first enumerable value is 1. Any type crossed or intersected
+  with <em>[]</em> (or by another enumerated tag) would store the
+  exact same set of information. Finally the <span class="C">*unit</span>
+  reference is also used to implement generic pointers along with type
+  casting (?!) to <span class="C">*void</span>.
   <div class="C">
-    Compl = (real, imag) &isin; Float &times; Float;
-    *Float r1 &lt;-+ malloc(sizeof(r1));
-    *Compl c1 &lt;-+ malloc(sizeof(c1));
-  </div>
-</p>
-</li>
-<li>
-<p> A <span class="C">NULL</span> object is one <em>that does not exist or does
-  not follow its type</em>, and this false proposition is idempotent for
-  exclusive-or types like pointers,
-  <span class="nowrap">a ** b &equiv; (&not;a &oplus; a * b)</span>.
-  <div class="C">
-    intptr ** Obj_type a;
-    a &lt;-+ NULL;                // a may be NULL
-    a &lt;-+ malloc(sizeof(a));   // or a valid reference
+    (int &amp; 1) a, (int &times; 1) b;
+    a &lt;- 0x0f;                // a = 15
+    b &lt;- a;                   // b = 15
+
+    malloc: Size -&gt; **[];
+    **A a &lt;- malloc(sizeof(A))?!;  // T &lt;- F vacuous truth
   </div>
 </p>
 </li>
@@ -116,15 +136,15 @@
   <tr>
     <th>T</th><td>true</td><td class="C">(void)</td><td></td><td></td>
   </tr><tr>
-    <th>F</th><td>runtime false</td><td class="C">(NULL)</td><td>or compile time false <span class="C">(*void)</span></td>
+    <th>F</th><td>runtime false</td><td class="C">(NULL)</td><td>or compile time false <span class="C">(void)</span></td>
   </tr><tr>
     <th></th><td>&darr;</td><td>&darr;</td><td>&darr;</td>
   </tr><tr>
-    <th>T</th><td>enumerated true</td><td>(<span class="C">void</span>)</td>
+    <th>T</th><td>true</td><td>(<span class="C">unit</span>)</td>
   </tr><tr>
-    <th>0</th><td>unknown</td><td></td><td>(forces runtime testing of enumerated truth)</td>
+    <th>0</th><td>runtime false</td><td>(<span class="C">NULL</span>)</td><td>(forces runtime testing of enumerated truth)</td>
   </tr><tr>
-    <th>F</th><td>false</td><td>(<span class="C">*void</span>)</td><td>(<span class="C">NULL</span>)</td>
+    <th>F</th><td>false</td><td>(<span class="C">void</span>)</td><td></td>
   </tr>
 </table>
 <table>
