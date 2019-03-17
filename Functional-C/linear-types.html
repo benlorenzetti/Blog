@@ -40,20 +40,21 @@
 </head>
 <body>
 <article id="top">
-<h1>Linear C</h1>
-<p> The <a href="">first essay</a> introduced functional connectives from C,
+<h1>Linear Objects</h1>
+<p> The <a href="">first essay</a> introduced functional connectives for objects
+  in memory,
   <span class="nowrap">{&otimes; &amp; &rarr; * ** &oplus; &empty;}</span>.
-  The <a href="">second essay</a> showed how classical logic semantics with
+  The <a href="">second essay</a> showed how classical logic semantics and
   statements <span class="nowrap">{&top; &perp; ;}</span>
-  make imperative programming in C more expressive.
-  This essay develops a bookkeeping method with functions as object/type
-  implications, inspired by linear logic.
+  makes imperative programming more expressive.
+  This essay develops a bookkeeping method for objects inspired by linear logic
+  and C's <span class="C">++</span> operator.
 
   <a target="_blank" href="https://plato.stanford.edu/archives/win2016/entries/logic-linear/">
-    [Linear Logic, Di Cosmo et al]</a>
+    <span class="nowrap">[Linear Logic, Di Cosmo et al]</span></a>
 </p>
-<p> For ledger keeping purposes, there will be dual forms of boolean values
-  based on dual integer types, whole numbers &#120142; and whole numbers &#8469;.
+<p> For ledger keeping purposes, there will be dual forms of boolean types,
+  based on whole numbers &#120142; and natural numbers &#8469;.
   A value in
   <span class="nowrap"><em>&#120142; provides a measure of falseness</em></span>
   while a value in
@@ -80,14 +81,55 @@
   </tr>
 </table>
 <p> Variables have an assiciated count of type &#120142; or
-  &#8469; depending on whether it is first assigned or instatiated. The count
+  &#8469;. The count
   can be operated upon singly by <em>linear negation</em>
-  (<span class="C">^&bottom;</span>), which swaps the &#120142; or &#8469; type
-  of count and by <em>exponentials</em>
+  (<span class="C">~</span>), which swaps the &#120142; or &#8469; count type
+  and by <em>exponentials</em>
     <span>{
       <span class="C">?predec</span> <span class="C">!preinv</span>
       <span class="C">postinc!</span> <span class="C">postinv?</span>
-    }</span>.
+    }</span> which operate on the &#120142; or &#8469; count object.
+  Classical negation is formed <span class="nowrap">&not;a &equiv; ~!a</span>
+  and <span class="nowrap">?0 &equiv; &bottom;</span>,
+  <span class="nowrap">&top;! &equiv; 1</span>.
+  Also <span class="nowrap">~0 &equiv; &top;</span>,
+  <span class="nowrap">0 &equiv; ~&top;</span>,
+  <span class="nowrap">~&bottom; &equiv; 1</span>,
+  <span class="nowrap">&bottom; &equiv; ~1</span>.
+</p>
+<p> Linear functions (<span class="C">A -o C</span>) and linear stores
+  (<span class="C">c o- a</span>) have the effect of post-decrementing their
+  antecedent and pre-incrementing their consequent. Classical functions are
+  formed <span class="C">(A -> C) &equiv; (A!-o C)</span>.
+</p>
+<p> Absorbing and identity elements
+<table>
+  <tr>
+    <td>&empty;</td>
+    <td>1</td>
+    <td>&otimes;</td>
+    <td>multiplicative conjunction</td>
+    <td><em>times</em></td>
+  </tr><tr>
+    <td>&bottom;</td>
+    <td>&top;</td>
+    <td>&amp;</td>
+    <td>additive conjuction</td>
+    <td><em>with</em></td>
+  </tr><tr>
+    <td>1</td>
+    <td>&empty;</td>
+    <td>&oplus;</td>
+    <td>additive disjunction</td>
+    <td><em>plus</em></td>
+  </tr><tr>
+    <td>&top;</td>
+    <td>&bottom;</td>
+    <td>&#8523;</td>
+    <td>multiplicative disjuction</td>
+    <td><em>par</em></td>
+  </tr>
+</table>
 <ol>
   <li id="citation-1">
     Di Cosmo, Roberto and Miller, Dale, "Linear Logic",
