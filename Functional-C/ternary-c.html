@@ -41,12 +41,14 @@
 <body>
 <article id="top">
 <h1>Ternary C</h1>
-<p> The <a href="./classical-c.html">previous essay</a> argues the functional
-  connectives in C <span class="nowrap">{&rarr;, **, &#8612;}</span>
+<p> The <a href="./classical-c.html">previous essay</a> argues the arrow
+  connectives in C <span class="nowrap">{&rarr;, **, &larr;}</span>
   are paired with classical logic rather than intuitionistic logic
   and, along with other connectives
   <span class="nowrap">
-    {<span class="C">void</span>, <span class="C">NULL</span>, !, &times;, &amp;, ;}
+    {<span class="C">void</span>, <span class="C">void*</span>,
+      <span class="C">NULL</span>, !, &times;, &amp;, &oplus;, ;
+    }
   </span>
   help keep valid program state.
   The <a href="./index.html">next prior essay</a> had introduced these
@@ -94,9 +96,8 @@
   <div class="C">
     A = struct { **A next; Data d };
 
-    **A a +-&gt; malloc(sizeof(A))?!;
-    a[next] +-&gt; ();     // the list terminates after [a]
-                       //   a -&gt; [a] -&gt; ()
+    **A a2.next &lt;-+ ();  // the list terminates after [a]
+    **A a1.next &lt;-+ a2;  //   a1 -&gt; [a1] -&gt; ()
     free: ptr -&gt; (];
     free(a);           // assert that a is false.
   </div>

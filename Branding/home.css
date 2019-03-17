@@ -11,6 +11,12 @@ p, ul, ol, table, h2 {
 	font-size: 11pt;
 	font-family: verdana, arial, serif;
 }
+.block-quote {
+	font-style: italic;
+}
+.block-quote-citation {
+	padding-left: 24em;
+}
 section p, section img {
     margin-left: 2em;
     margin-right: 2em;
@@ -29,16 +35,16 @@ hr { height: 3px;
 }
 
 header { margin: 0px; border-style: none; padding: 0px; }
-aside { margin: 20px; border-style: none; padding: 0px; 
+aside { margin: 20px; border-style: none; padding: 0px;
 	float: left;
     min-width: 306px;
 }
-#vertical-div-containing-article-and-navigation { 
+#vertical-div-containing-article-and-navigation {
 	margin: 0px; border-style: none; padding: 0px;
 	width: 700px; /* Verdana 12pt font, 70 characters per line? */
 	float: left;
 }
-nav { margin: 0px; border-style: none; padding: 0px; 
+nav { margin: 0px; border-style: none; padding: 0px;
 	background-image: url('./footerbackground.gif');
 	background-size: 100% 100%;
 	background-repeat: repeat-y;
@@ -56,8 +62,8 @@ nav ul li a:link, nav ul li a:visited { color: rgb(204,204,204); }
 nav ul li a:hover, nav ul li a:active { background-color: rgb(179,22,35); color: rgb(204,204,204); }
 
 
-footer { margin: 0px; border-style: none; padding: 0px; 
-	clear: both; 
+footer { margin: 0px; border-style: none; padding: 0px;
+	clear: both;
 }
 /* end of style */
 

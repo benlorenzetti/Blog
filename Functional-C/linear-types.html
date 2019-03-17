@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Linear C</title>
+  <style>
+    article { width: 40em; margin: auto; }
+    h1  { font-size: 200%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    h2  { font-size: 150%;
+          margin: 0;
+          padding-left: 0; padding-right: 0; padding-top: 0.25em; padding-bottom: 0;
+        }
+    h3  { font-size: 150%;
+          margin: 0;
+          padding-left: 1em; padding-right: 0; padding-top: 0.25em; padding-bottom: 0.25em;
+        }
+    hr { width: 25em; }
+    a { text-decoration: none; }
+    div { margin-top: 0; margin-bottom: 0.5em;
+          padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
+        }
+    pre { margin-top: 0; margin-bottom: 0em;
+          padding-left: 1em; padding-top: 0em; padding-bottom: 0em; padding-right: 1em;
+        }
+    p { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0;
+        padding: 0;
+      }
+    table { margin: auto; }
+    .figure { display: block; margin: auto; }
+    footer { margin-bottom: 1em; margin-top: 1em; margin-left: 0; margin-right: 0; }
+    .C { font-family: monospace; white-space: pre; }
+    .nowrap { white-space: nowrap; }
+    .highlight { color: red; }
+    .highlight-done { color: blue; }
+    .blockquote { padding-left: 2em; padding-right: 2em; font-style: italic; }
+  </style>
+</head>
+<body>
+<article id="top">
+<h1>Linear C</h1>
+<p> The <a href="">first essay</a> introduced functional connectives from C,
+  <span class="nowrap">{&otimes; &amp; &rarr; * ** &oplus; &empty;}</span>.
+  The <a href="">second essay</a> showed how classical logic semantics with
+  statements <span class="nowrap">{&top; &perp; ;}</span>
+  make imperative programming in C more expressive.
+  This essay develops a bookkeeping method with functions as object/type
+  implications, inspired by linear logic.
+
+  <a target="_blank" href="https://plato.stanford.edu/archives/win2016/entries/logic-linear/">
+    [Linear Logic, Di Cosmo et al]</a>
+</p>
+<p> For ledger keeping purposes, there will be dual forms of boolean values
+  based on dual integer types, whole numbers &#120142; and whole numbers &#8469;.
+  A value in
+  <span class="nowrap"><em>&#120142; provides a measure of falseness</em></span>
+  while a value in
+  <span class="nowrap"><em>&#8469; provides a measure of material truth</em></span>.
+</p>
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>&#120142;</td>
+    <td>&#8469;</td>
+  </tr>
+  <tr>
+    <td class="C">0000</td>
+    <td>|</td>
+    <td>&empty;</td>
+    <td>&top;</td>
+  </tr>
+  <tr>
+    <td class="C">1111</td>
+    <td>|</td>
+    <td>&bottom;</td>
+    <td>1</td>
+  </tr>
+</table>
+<p> Variables have an assiciated count of type &#120142; or
+  &#8469; depending on whether it is first assigned or instatiated. The count
+  can be operated upon singly by <em>linear negation</em>
+  (<span class="C">^&bottom;</span>), which swaps the &#120142; or &#8469; type
+  of count and by <em>exponentials</em>
+    <span>{
+      <span class="C">?predec</span> <span class="C">!preinv</span>
+      <span class="C">postinc!</span> <span class="C">postinv?</span>
+    }</span>.
+<ol>
+  <li id="citation-1">
+    Di Cosmo, Roberto and Miller, Dale, "Linear Logic",
+    The Stanford Encyclopedia of Philosophy (Winter 2016 Edition),
+    Edward N. Zalta (ed.).
+    URL = <a href="https://plato.stanford.edu/archives/win2016/entries/logic-linear/">
+      https://plato.stanford.edu/archives/win2016/entries/logic-linear/
+    </a>
+  </li>
+</ol>
+<hr>
+<footer>
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+    <img alt="Creative Commons License" style="border-width:0"
+    src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+  </a> Ben Lorenzetti<br />
+  This work is licensed under a
+  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+    Commons Attribution 4.0 International License
+  </a>.
+</footer>
+</article>
+</body>
+</html>

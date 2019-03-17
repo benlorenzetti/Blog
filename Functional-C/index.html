@@ -36,8 +36,8 @@
 <body>
 <article>
 <h1>Functional C</h1>
-<p> This essay explores the functional semantics of the C programming language,
-  in particular how C embodies two big ideas:
+<p> This essay explores an object-oriented language with functional semantics,
+  which embodies two big ideas:
   <ol>
     <li>Objects and functions in programs are like propositions and implications
       in logic proofs,
@@ -45,8 +45,8 @@
     <li>Objects and functions can be composed.</li>
   </ol>
 </p>
-<p> A third idea, which I call operation-oriented programming, is often
-  associated with functional programming. Operations are functions of the form
+<p> A third idea, which I call operation-oriented programming, is a devil
+  of detail for functional programming. Operations are functions of the form
   <span class="nowrap">T &times; &middot;&middot;&middot; &times; T &rarr; T</span>
   for some type T. For example:
   <div class="C">
@@ -55,15 +55,18 @@
     struct complex mul(struct complex c1, struct complex c2);
   </div>
   The function <span class="C">mul</span> is an operation on complex numbers,
-  so for operation-oriented language we might write
-  <span class="C">a mul b</span> instead of
-  <span class="C">mul(a, b)</span>.
-  Since operations &sube; functions, its easy to see how the conflation arises
-  and its not such a bad con; I wish C had more such macros.
+  so for an operation-oriented language we might write an expression
+  <span class="C">a mul b</span> instead of <span class="C">mul(a, b)</span>.
+</p>
+<p> Operations are a subset &sube; of functions, so differences in how
+  operator expressions are evaluated should not be a functional litmus test.
+  Indeed, evaluating an operator expression from the top down is taking
+  advantage of the types of functions that are operators;
+  <em>statements and objects can be functional too</em>.
 </p>
 <section id="boolean-algebra">
 <hr>
-<h2>Background</h2>
+<h2>Assembly Connectives</h2>
 <p> A nice basis for Boolean algebra is one unary
   plus two binary operators, operating on the set of values
   <span class="nowrap">&Bopf; = {T, &empty;}</span> storable in a single bit
@@ -144,7 +147,7 @@
 </section>
 <section>
 <hr>
-<h2>Connectives</h2>
+<h2>Functional Connectives</h2>
 <p> I claim C has six functional connectives built-in to the language:
   <span class="nowrap">&times;, &amp;, &oplus;, &rarr;, &#8612;, and ";"</span>
   or structure, union,
