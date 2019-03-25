@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>BL's Blog</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2647559998401134",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+<a href="../index.html"><img src="ooop-fp.jpg" alt="Brand" width="300px;"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<article>
+<h1>Unpacking References in C++</h1>
+<h2>25 MAR 2019</h2>
+<p> C++ added a new type of *pointer, called <em>&amp;references</em> to C using the
+  familiar syntax of the address-of operator. The difference is a
+  reference cannot be <span class="C">NULL</span>; a function passing arguments
+  by reference requires memory for those objects exist prior to the call.
+  References only exist in the context of a function definition or declaration,
+  so the '&amp;' syntax could be unambiguously shared with the (similarly used)
+  address-of operator.
+</p>
+<p> Being semantically similar in use but contextually separate, there was
+  a natural syntactic improvement adopted for arguments passed by reference vs
+  by pointer: an implicit address-of at the call site and implicit dereferencing
+  for uses in the definition. Interestingly for future languages not bound to C,
+  it is likely references' syntactic sugar is more consequential than their
+  original semantic motivation, because being selectively non-NULL is not enough:
+  arguments should be well formed&mdash;by default.
+</p>
+<pre class="code">
+void pstore(int *ptr, int val) { 0[ptr] = val; }
+void rstore(int &ref, int val) {  (ref) = val; }
+
+int main () {
+    int a, c, d;
+    int *b = &d;
+    pstore(&a, 1);
+    pstore(b, 2);
+    rstore(c, 3);
+//  rstore(d, 4); error: cannot convert arg 1 from 'int*' to'int&'
+}
+</pre>
+<h1>The Memory Lambda Function</h1>
+<p> It takes a series of transformations to locate an object in
+	memory. First there is a stable hash map in the compiler from names to
+	registers or stack locations.
+	Then there may be a sequence of any number &isin; {0, 1, 2,...}
+	of <span class="code">*pointers</span> before the base object is reached.
+	The lambda function can be overloaded but every lambda function is a unary
+	function from some type of pointer object to a base object.
+</p>
+<footer>
+<hr>
+<p> Views expressed are those of Mr. Lorenzetti,
+not the Department of Defense.
+</p>
+</footer>
+</article>
+<nav>
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../About/index.html">About</a></li>
+        <li><a href="../Archive/index.html">Archive</a></li>
+    </ul>
+    <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer></footer>
+</div><!--horizontal centering div-->
+</body>
+</html>

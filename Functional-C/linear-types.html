@@ -41,8 +41,8 @@
 <body>
 <article id="top">
 <h1>Linear Objects</h1>
-<p> The <a href="">first essay</a> introduced functional connectives for objects
-  in memory,
+<p> The <a href="./index.html">first essay</a> introduced functional connectives
+  for objects in memory,
   <span class="nowrap">{&otimes; &amp; &rarr; * ** &oplus; &empty;}</span>.
   The <a href="">second essay</a> showed how classical logic semantics and
   statements <span class="nowrap">{&top; &perp; ;}</span>
@@ -56,8 +56,8 @@
 <p> For ledger keeping purposes, there will be dual forms of boolean types,
   based on whole numbers &#120142; and natural numbers &#8469;.
   A value in
-  <span class="nowrap"><em>&#120142; provides a measure of falseness</em></span>
-  while a value in
+  <span class="nowrap"><em>&#120142; provides a measure of falseness
+    </em></span> while a value in
   <span class="nowrap"><em>&#8469; provides a measure of material truth</em></span>.
 </p>
 <table>
@@ -81,14 +81,16 @@
   </tr>
 </table>
 <p> Variables have an assiciated count of type &#120142; or
-  &#8469;. The count
-  can be operated upon singly by <em>linear negation</em>
-  (<span class="C">~</span>), which swaps the &#120142; or &#8469; count type
+  &#8469; depending on whether they represent a value or an object.
+  Variable start uninitialized as &bottom; or &top; but must end
+  as &empty; or &top;.
+  The count can be operated upon singly by <em>linear negation</em>
+  (<span class="C">~</span>), which recasts the &#120142; or &#8469; count type
   and by <em>exponentials</em>
     <span>{
       <span class="C">?predec</span> <span class="C">!preinv</span>
       <span class="C">postinc!</span> <span class="C">postinv?</span>
-    }</span> which operate on the &#120142; or &#8469; count object.
+    }</span> which change the count.
   Classical negation is formed <span class="nowrap">&not;a &equiv; ~!a</span>
   and <span class="nowrap">?0 &equiv; &bottom;</span>,
   <span class="nowrap">&top;! &equiv; 1</span>.
@@ -99,8 +101,9 @@
 </p>
 <p> Linear functions (<span class="C">A -o C</span>) and linear stores
   (<span class="C">c o- a</span>) have the effect of post-decrementing their
-  antecedent and pre-incrementing their consequent. Classical functions are
-  formed <span class="C">(A -> C) &equiv; (A!-o C)</span>.
+  antecedent and pre-setting their consequent. Intuitionist functions are
+  formed <span class="C">(A! -o C)</span> and classical
+  functions <span class="C">(A -> C) &equiv; (A! -o !?C)</span>.
 </p>
 <p> Absorbing and identity elements
 <table>
