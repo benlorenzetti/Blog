@@ -24,24 +24,24 @@
 <article>
 <h1>Operation-Oriented, Functional C</h1>
 <h2>25 MAR 2019</h2>
-<p> I proudly never drink the coolaid (yeah, I failed programming
+<p> I don't drink the coolaid (&rarr; failed programming
     paradigms in college), yet now I find myself proselytizing
-    functional features for a better C...
-    it turns out coolaid is a drink you mix yourself.
-		So what is functional programming?
+    functional features for a better C.
+    Turns out coolaid is a drink you make yourself, so what is functional
+		programming?
 </p>
 <p> Any decent functional language ought to support infix operators
 	(C++ partially improves C in this regard). For example,
 	<span class="code">(a + b) + (c + d)</span> should be equivalent to
   <span class="code">+(+(a, b), +(c,d))</span>. Regardless of parenthesization,
-	the function must be <em>unambiguously named</em> at the call site.
+	the function must be <em>unambiguously identified</em> at the call site.
 	Further, parenthesis should often be unnecessary.
 </p>
 <p> Function signatures should evoke an evaluation order;
   expressions should build that order. For example <em>binary operations</em>
 	(a subset of functions) like
   addition <span class="code">+: U32 &times; U32 &rarr; U32</span> should
-	alternate associativity, such that the defualt parsing of
+	alternate associativity, such that the default parsing of
 	<span class="code">a + b + c + d</span> is
 </p>
 <img alt="[add-abcd.png]" src="add-abcd.png" width="80%;" style="margin-left:10%;">
