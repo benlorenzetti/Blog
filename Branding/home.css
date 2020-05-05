@@ -8,8 +8,9 @@ body {
 	background-position: left bottom;
 }
 p, ul, ol, table, h2 {
-	font-size: 11pt;
-	font-family: verdana, arial, serif;
+	font-size: 12pt;
+	font-family: "Times New Roman", verdana, arial, serif;
+	/* I realize Times New Roman doesn't match verdana, arial, serif...*/
 }
 .block-quote {
 	font-style: italic;
@@ -17,12 +18,15 @@ p, ul, ol, table, h2 {
 .block-quote-citation {
 	padding-left: 24em;
 }
-section p, section img {
+.figure-label {
+	margin-left: auto; margin-right: auto; /* combine with fixed width element */
+}
+section p {
     margin-left: 2em;
     margin-right: 2em;
 }
 h1, h2, nav ul {
-	font-family: georgia;
+	font-family: "Times New Roman", georgia;
     padding: 0;
     margin: 0;
     margin-top: 0.6em;
