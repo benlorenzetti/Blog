@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Linear C</title>
+  <title>Linear Types</title>
   <style>
     article { width: 40em; margin: auto; }
     h1  { font-size: 200%;
@@ -40,7 +40,118 @@
 </head>
 <body>
 <article id="top">
-<h1>Linear Objects</h1>
+<h1>Linear Types</h1>
+<p> Binary, boolean, negative/positive types &Bopf; are defined on natural
+  numbers
+  <span>&Bopf;(&Nopf;)&rarr;{n,&top;}</span>, whole numbers
+  <span>&Bopf;(&Uopf;)&rarr;{&empty;,&bottom;}</span> and integers
+  <span>&Bopf;(&Zopf;)&rarr;{&bottom;,&top;}</span> such that natural
+  numbers describe the degree of truth, whole numbers describe an amount
+  of falseness and integers desribe negative/positive fuzzy truths.
+</p>
+<table>
+  <tr>
+    <td></td><td>&Nopf;</td><td>&Uopf;</td><td>&Zopf;</td>
+  </tr><tr>
+    <td class="C">00</td><td>&top;</td><td>&empty;</td><td>&top;</td>
+  </tr><tr>
+    <td class="C">01</td><td>3</td><td>&bottom;</td><td>&top;</td>
+  </tr><tr>
+    <td class="C">10</td><td>2</td><td>&bottom;</td><td>&bottom;</td>
+  </tr><tr>
+    <td class="C">11</td><td>1</td><td>&bottom;</td><td>&bottom;</td>
+  </tr>
+</table>
+<p> Linear types raise parallel execution and runtime conditionals into the
+  compiler while lowering the high level language toward single static
+  assignment (<a href="">SSA</a>) assembly.
+  What does this mean?
+</p>
+<ul>
+  <li>From classical logic, conjuction and its identity
+    <span class="C">{&and;,&top;}</span> split into multiplicative
+    <span class="C">{&otimes;,1}</span> and additive
+    <span class="C">{&Union;,&top;}</span> forms.
+  </li>
+  <li>From classical logic, disjunction and its identity
+    <span class="C">{&or;,&bottom;}</span> split into multiplicative
+    <span class="C">{||,&bottom;}</span> and additive
+    <span class="C">{&oplus;,&empty;}</span> forms.
+  </li>
+  <li>From C, the multiplicative operator and its identity
+    <span class="C">{struct,void}</span> split into conjunctive
+    <span class="C">{&otimes;,1}</span> and disjunctive
+    <span class="C">{||,&bottom;}</span> forms.
+  </li>
+  <li>From C, the additive operator and its identity
+    <span class="C">{union,&empty;}</span> split into conjunctive
+    <span class="C">{&Union;,&top;}</span> and disjunctive
+    <span class="C">{&oplus;,&empty;}</span> forms.
+  </li>
+  <li>From C and classical logic, functions, stores, increment and decrement
+    <span class="C">{-&gt;,&lt;-,++,--}</span> split into linear functions
+    <span class="C">{-o,o-}</span> and exponential
+    <span class="C">{!,?}</span> forms.
+  </li>
+</ul>
+<p> The symmetric operators describe how objects exist together in memory and
+  threads of execution.
+</p>
+<table>
+  <tr>
+    <td></td><td></td><td>ID</td><td>AN</td><td></td>
+  </tr><tr>
+    <td><span class="C">&otimes;</span></td><td>times</td><td>1</td><td>&empty;</td>
+    <td><span class="C">A&otimes;B</span> objects A and B are adjacent in memory</td>
+  </tr><tr>
+    <td><span class="C">||</span></td><td>par</td><td>&bottom;</td><td>&top;</td>
+    <td><span class="C">A||B</span> objects A and B exist at separate locations in memory</td>
+  </tr><tr>
+    <td><span class="C">&Union;</span></td><td>with</td><td>T</td><td></td>
+    <td><span class="C">A&Union;B</span> objects A and B coincide in memory (symbol=?)</td>
+  </tr><tr>
+    <td><span class="C">&oplus;</span></td><td>plus</td><td>&empty;</td><td></td>
+    <td><span class="C">A&oplus;B</span> either object A or B exists at the same location</td>
+  </tr>
+</table>
+<p> Times and par are multiplicative, meaning both objects exist in separate
+  locations at the same time. With and plus are additive, meaning the same set
+  of bits in memory. Par and plus are disjunctive, meaning the compiler can
+  assume different threads act on the two arguments. Times and with are
+  conjunctive, meaning the same thread acts on both.
+</p>
+<p> The compiler maintains a reference count/control flow graph to each
+  runtime variable in &Nopf;. The symmetric operators help describe how objects
+  are arranged/rearranged but do not provide for the creation of new
+  information or destruction of old datums.
+</p>
+<p> The unitary and asymmetric operators provide for destructive updates of
+  memory and depict a duality for reversable operations.
+</p>
+<table>
+  <tr>
+    <td><span class="C">A -o C</span></td><td>linear function</td>
+    <td>consume/post dec argument A and pre inc/produce consequent C</td>
+  </tr><tr>
+    <td><span class="C">C o- A</span></td><td>linear store</td>
+    <td>copy/post dec the argument A to pre-inc/store the consequent C</td>
+  </tr><tr>
+    <td><span class="C">A*</span></td><td>linear invert</td>
+    <td>invert type of A between &Nopf; and &Wopf;</td>
+  </tr><tr>
+    <td><span class="C">!A</span></td><td>binary pre invert</td>
+  </tr><tr>
+    <td><span class="C">A!</span></td><td>post increment</td>
+  </tr><tr>
+    <td><span class="C">?A</span></td><td>pre decrement</td>
+  </tr><tr>
+    <td><span class="C">A?</span></td><td>binary post invert</td>
+  </tr>
+</table>
+<p> For ledger keeping purposes, let linear inversion, the four exponentials
+  and the linear arrows operate both upon the reference count/control flow
+  graph associated with the variable and upon runtime values themself.
+</p>
 <p> The <a href="./index.html">first essay</a> introduced functional connectives
   for objects in memory,
   <span class="nowrap">{&otimes; &amp; &rarr; * ** &oplus; &empty;}</span>.
@@ -53,33 +164,6 @@
   <a target="_blank" href="https://plato.stanford.edu/archives/win2016/entries/logic-linear/">
     <span class="nowrap">[Linear Logic, Di Cosmo et al]</span></a>
 </p>
-<p> For ledger keeping purposes, there will be dual forms of boolean types,
-  based on whole numbers &#120142; and natural numbers &#8469;.
-  A value in
-  <span class="nowrap"><em>&#120142; provides a measure of falseness
-    </em></span> while a value in
-  <span class="nowrap"><em>&#8469; provides a measure of material truth</em></span>.
-</p>
-<table>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>&#120142;</td>
-    <td>&#8469;</td>
-  </tr>
-  <tr>
-    <td class="C">0000</td>
-    <td>|</td>
-    <td>&empty;</td>
-    <td>&top;</td>
-  </tr>
-  <tr>
-    <td class="C">1111</td>
-    <td>|</td>
-    <td>&bottom;</td>
-    <td>1</td>
-  </tr>
-</table>
 <p> Variables have an assiciated count of type &#120142; or
   &#8469; depending on whether they represent a value or an object.
   Variable start uninitialized as &bottom; or &top; but must end
