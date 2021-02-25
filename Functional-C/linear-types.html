@@ -40,28 +40,84 @@
 </head>
 <body>
 <article id="top">
-<h1>Linear Types</h1>
+<h1>Object-Oriented, Functional Programming with Linear Types</h1>
+<p>The fundamental aspect of functional programming is a relationship
+  between objects and functions with types and logic. The analogy is
+  <em>objects: types; functions: logic</em>. Constructive logic
+  corresponds better to objects than classical logic because of how we
+  initialize objects to fit their type.</p>
+<p>Booleans have classically been
+  represented in unsigned binary numbers, &Uopf;, by
+  <span>&Bopf;(&Uopf;)&rarr;{&bottom;, &top;} = not_zero(&Uopf;)</span>,
+  i.e. if an integer is zero it is &bottom; and any non-zero integer is &top;.
+  However signed integers, &Zopf;, can be used to describe negative/positive
+  fuzzy or enumerated truths.
+</p>
+<table>
+  <tr>
+    <td></td><td>&Zopf;</td><td>&Uopf;</td><td>&Nopf;</td>
+  </tr><tr>
+    <td class="C">00</td><td>&empty;</td><td>&empty;</td><td>&top;</td>
+  </tr><tr>
+    <td class="C">01</td><td>&bottom;</td><td>&bottom;</td><td>3</td>
+  </tr><tr>
+    <td class="C">10</td><td>&top;</td><td>&bottom;</td><td>2</td>
+  </tr><tr>
+    <td class="C">11</td><td>1</td><td>&bottom;</td><td>1</td>
+  </tr>
+</table>
+<p> Unsigned integers of type &Uopf; enumerate if a false proof exists.
+  Unsigned integers of type &Nopf; enumerate the number of true proofs or if
+  all proofs are true. Signed integers of type &Zopf; have the full range
+  of these posibilities. We define unary and binary operators:
+</p>
+<table>
+<tr>
+  <td>a*</td><td><em>1's complement</em></td><td>inverts the uppermost bit of a &in; &Zopf; or casts a &in; &Uopf; to &Nopf; and vice versa</td>
+</tr><tr>
+  <td>!a</td><td><em>pre increment</em></td><td>decrements a &in; &Zopf; or &Uopf; and increments a &in; &Nopf;</td>
+</tr><tr>
+  <td>a?</td><td><em>post increment</em></td><td>increments a &in; &Zopf; or &Uopf; and decrements a &in; &Nopf;</td>
+</tr>
+</table>
+<table>
+  <tr>
+    <td></td><td></td><td>UNIT</td><td>Effect on Operands in &Zopf;</td>
+  </tr><tr>
+    <td>&amp;</td><td><em>and</em></td><td>1</td><td>applies binary AND on upper bit and AND on lower bits</td>
+  </tr></tr>
+    <td>=</td><td><em>equivalent</em></td><td>&top;</td><td>applies binary EQ on upper bit and XOR on lower bits</td>
+</tr></tr>
+    <td>&oplus;</td><td><em>exclusive or</em></td><td>&empty;</td><td>applies binary XOR on upper bit and XOR on lower bits</td>
+</tr></tr>
+    <td>|</td><td><em>or</em></td><td>&bottom;</td><td>applies binary AND on upper bit and OR on lower bits</td>
+</tr>
+</table>
+<p> These operands are basically a more complicated version of integer
+  operands and types in C. The point of the added complexity is to
+  create an analogy to structures, unions and disjoint unions.</p>
+  <table>
+    <tr>
+      <td></td><td></td><td></td><td>Effect on Operands in &Zopf;</td>
+    </tr><tr>
+      <td>&otimes;</td><td><em>times</em></td><td>struct</td><td>applies binary AND on upper bit and AND on lower bits</td>
+    </tr></tr>
+      <td>=</td><td><em>with</em></td><td>union</td><td>applies binary EQ on upper bit and XOR on lower bits</td>
+  </tr></tr>
+      <td>&oplus;</td><td><em>plus</em></td><td>disjoint union</td><td>applies binary XOR on upper bit and XOR on lower bits</td>
+  </tr></tr>
+      <td>||</td><td><em>par</em></td><td>stack</td><td>applies binary AND on upper bit and OR on lower bits</td>
+  </tr>
+  </table>
 <p> Binary, boolean, negative/positive types &Bopf; are defined on natural
   numbers
   <span>&Bopf;(&Nopf;)&rarr;{n,&top;}</span>, whole numbers
   <span>&Bopf;(&Uopf;)&rarr;{&empty;,&bottom;}</span> and integers
   <span>&Bopf;(&Zopf;)&rarr;{&bottom;,&top;}</span> such that natural
   numbers describe the degree of truth, whole numbers describe an amount
-  of falseness and integers desribe negative/positive fuzzy truths.
+  of falseness and integers describe negative/positive fuzzy truths.
 </p>
-<table>
-  <tr>
-    <td></td><td>&Nopf;</td><td>&Uopf;</td><td>&Zopf;</td>
-  </tr><tr>
-    <td class="C">00</td><td>&top;</td><td>&empty;</td><td>&top;</td>
-  </tr><tr>
-    <td class="C">01</td><td>3</td><td>&bottom;</td><td>&top;</td>
-  </tr><tr>
-    <td class="C">10</td><td>2</td><td>&bottom;</td><td>&bottom;</td>
-  </tr><tr>
-    <td class="C">11</td><td>1</td><td>&bottom;</td><td>&bottom;</td>
-  </tr>
-</table>
+
 <p> Linear types raise parallel execution and runtime conditionals into the
   compiler while lowering the high level language toward single static
   assignment (<a href="">SSA</a>) assembly.
