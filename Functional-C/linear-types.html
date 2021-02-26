@@ -190,6 +190,7 @@
   functions <span class="C">(A -> C) &equiv; (A! -o !?C)</span>.
 </p>
 <p> Absorbing and identity elements
+</p>
 <table>
   <tr>
     <td>&empty;</td>
@@ -215,6 +216,52 @@
     <td>&#8523;</td>
     <td>multiplicative disjuction</td>
     <td><em>par</em></td>
+  </tr>
+</table>
+<p>Multiplication distributes over addition if one is conjunction and the
+  other is disjunction
+</p>
+<p>A&otimes;(B&oplus;C)=(A&otimes;B)&oplus;(A&otimes;C)
+</p>
+<p>A||(B&amp;&amp;C)=(A||B)&amp;&amp;(A||C)
+</p>
+<p> The <a href="./index.html">first essay</a> introduced functional connectives
+  for objects in memory,
+  <span class="nowrap">{&otimes; &amp; &rarr; * ** &oplus; &empty;}</span>.
+  The <a href="">second essay</a> showed how classical logic semantics and
+  statements <span class="nowrap">{&top; &perp; ;}</span>
+  makes imperative programming more expressive.
+  This essay develops a bookkeeping method for objects inspired by linear logic
+  and C's <span class="C">++</span> operator.
+
+  <a target="_blank" href="https://plato.stanford.edu/archives/win2016/entries/logic-linear/">
+    <span class="nowrap">[Linear Logic, Di Cosmo et al]</span></a>
+</p>
+<p> For ledger keeping purposes, there will be dual forms of boolean types,
+  based on whole numbers &#120142; and natural numbers &#8469;.
+  A value in
+  <span class="nowrap"><em>&#120142; provides a measure of falseness
+    </em></span> while a value in
+  <span class="nowrap"><em>&#8469; provides a measure of material truth</em></span>.
+</p>
+<table>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>&#120142;</td>
+    <td>&#8469;</td>
+  </tr>
+  <tr>
+    <td class="C">0000</td>
+    <td>|</td>
+    <td>&empty;</td>
+    <td>&top;</td>
+  </tr>
+  <tr>
+    <td class="C">1111</td>
+    <td>|</td>
+    <td>&bottom;</td>
+    <td>1</td>
   </tr>
 </table>
 <ol>
