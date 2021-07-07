@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>BL's Blog</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2647559998401134",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+<a href="../index.html"><img src="./sparkplug.jpeg" alt="Brand"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>Mortgage Calculator</h1>
+<h2>Jul. 05, 2021</h2>
+<p> Most mortgage calculators help determine <em>is this property affordable?</em>
+This calculator helps evaluate <em>if it is a good deal</em>.
+</p>
+<div>
+	<ol>
+		<li>
+  		<input type="number" id="yrs" value="30">
+  		(years) Loan Period <br>
+  		<input type="number" id="apr" value="2.125">
+  		(%) Annual Percentage Rate
+		</li><li>
+      <input type="number" id="price" value="222700">
+      ($) Purchase Price <br>
+      <input type="number" id="down_pct" value="10">
+      (%) Percent Down Payment
+		</li><li>
+			<input type="number" id="closing_costs" value="3000">
+			($) Additional Closing Costs <br>
+      <input type="number" id="income" value="756">
+      ($) Estimated Monthly Income <br>
+  		<button type="button" onclick="calculate()">Calculate</button>
+		</li>
+	</ol>
+	<ol>
+		<li>
+			payment coefficient: <span id="payment-coefficient"></span>
+  		(12 x <span id="years">30</span> = <span id="months">360</span>) <br>
+			limiting external dividend %: <span id="limiting_dividend"></span>
+		</li><li>
+  		Down Payment ($) <span id="down_pymt"></span> <br>
+      Monthly Payment ($) <span id="pymt"></span>
+		</li><li>
+			internal dividend %: <span id="int_div"></span> <br>
+			external dividend %: <span id="ext_div"></span>
+		</li>
+	</ol>
+
+  <script>
+  function calculate() {
+
+    var yrs = document.getElementById("yrs").value;
+    var apr = document.getElementById("apr").value;
+		var price = document.getElementById("price").value;
+    var down_pct = document.getElementById("down_pct").value;
+		var costs = Number(document.getElementById("closing_costs").value);
+    var income = document.getElementById("income").value;
+
+		var months = yrs * 12;
+		var mr = Math.pow((1 + apr/100),1/12);
+		var num = 1 - Math.pow(mr, -months);
+		var denom = 1 - 1/mr;
+		var limiting_dividend = Math.round(100*12*100*denom/num)/100;
+
+    var down_pymt = Math.ceil(price*down_pct)/100;
+		var principal = price - down_pymt;
+    var pymt = Math.round(100*principal/(num/denom))/100;
+
+		var total_upfront = down_pymt + costs;
+		var int_multiplier = Math.pow(price/total_upfront, (1/30));
+		var int_div = Math.round(100*100*(int_multiplier-1))/100;
+    var profit = 12*(income-pymt);
+		var ext_div = Math.round(100*100*profit/total_upfront)/100;
+
+		document.getElementById("payment-coefficient").innerHTML = Math.round(num/denom);
+		document.getElementById("years").innerHTML = yrs;
+		document.getElementById("months").innerHTML = months;
+		document.getElementById("limiting_dividend").innerHTML = limiting_dividend;
+		document.getElementById("pymt").innerHTML = pymt;
+		document.getElementById("down_pymt").innerHTML = down_pymt.toLocaleString();
+		document.getElementById("int_div").innerHTML = int_div;
+		document.getElementById("ext_div").innerHTML = ext_div;
+  }
+  </script>
+</div>
+<h2>About the Calculation</h2>
+<p> The calculation assumes monthly interest compounding, based on an annualized
+	percentage yield, and a fixed monthly payment that covers the entire monthly
+	interest with the remainder reducing principal owed. This is the starting
+	point in the proof below, where Pi is principal owed in the i'th month,
+	r the monthly compounding rate, and p the monthly payment.
+	Lower case terms r, p, and n number of months (loan period) are constant for
+	the duration of a mortgage.
+</p>
+<p> From the proof, there is a <em>linear relationship
+	between initial loan principal and monthly mortgage payment</em>.
+	I call this (the parenthetical value in the last line of the proof) the
+	<em>payment coefficient</em>, or its inverse the limiting annual dividend.
+  The maximum possible value for the payment coefficient is n, the number of
+	payments made over the lifetime of the loan.
+</p>
+<p> The <em>internal dividend</em> is an artificial value describing
+	how the owner's equity grows from the initial down payment,
+	useful for comparing real estate to other investments.
+	The <em>external dividend</em> is based on thinking of yourself as
+	landlord and tenant rather than as a homeowner. If there is a difference
+	between what could be made from a tenant in rent income, compared to the
+	monthly mortgage payment, this difference is like a stock dividend in your
+	pocket!
+</p>
+<h2>Should I Rent or Buy?</h2>
+<p> Unlike more complex calculators, this calculator is organized into three
+	clean dependencies to deliver key takeaways:
+	<ul>
+		<li>the <em>payment coefficient</em> is independent of loan size (and is
+			mostly set by federal policy), and</li>
+		<li>the <em>external dividend</em> can change after date of purchase, for
+			example due to home improvements, local economic trends, and inflation.
+		</li>
+	</ul>
+</p>
+<p>Both of these are explored further to develop a
+	<a href="#">property price model</a>,
+	which can be used to quantify estimated monthly income.
+	This is the first article of a series
+	<a href="index.html">Should I Buy or Rent?</a>
+</p>
+
+<h2>Proof</h2>
+<img src="principal-payment-line.png" width="400px" alt="math proof">
+<p>Note for a loan of n months, the principal owed at the nth month, Pn,
+	is zero.
+</p>
+<footer>
+<hr>
+</footer>
+</article>
+<nav>
+    <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../About/index.html">About</a></li>
+        <li><a href="../Archive/index.html">Archive</a></li>
+    </ul>
+    <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer></footer>
+</div><!--horizontal centering div-->
+</body>
+</html>

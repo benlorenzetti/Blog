@@ -1,0 +1,14 @@
+\begin{align*}
+& P_{1}=rP_{0}-p\\
+& P_{2}=rP_{1}-p=r^2 P_{0}-p(r+1)\\
+& P_{3}=rP_{2}-p=r^3 P_{0}-p(r^2+r+1)\\
+& ...\\
+& P_{n}=r^n P_{0}-p(r^{n-1}+r^{n-2}+...+r^{0})\\
+& P_{n}=r^n \left[P_{0}-p(r^{-1}+r^{-2}+...+r^{-n})\right]\\
+& P_{n}=r^n \left[P_{0}-p \sum_{i=1}^{n}(r^{-1})^{i}\right]\\
+& \frac{P_{n}}{r^{n}} = P_{0}-p \left[\sum_{i=1}^{\infty}(r^{-1})^{i} -
+r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
+& \frac{P_{n}}{r^{n}} = P_{0}-p \left[\frac{1}{1-r^{-1}} -
+\frac{r^{-n}}{1-r^{-1}}\right]\\
+& P_{0} = P_{n}r^{-n} + p \left(\frac{1-r^{-n}}{1-r^{-1}}\right)\\
+\end{align*}

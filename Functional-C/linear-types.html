@@ -46,6 +46,18 @@
   <em>objects: types; functions: logic</em>. Constructive logic
   corresponds better to objects than classical logic because of how we
   initialize objects to fit their type.</p>
+<p> Linear logic allows for object reuse by adding values for transitory
+  truths to the eternal true/false of classical logic, allowing
+  previously contradictory imperative statements to be consistently
+  expressed with their change over time.</p>
+<p> Linear types burden the programmer by lowering the language to the level of
+  <a href="#">single static assignment</a>
+  (SSA), which is normally a compiler optimization.
+  However linear types raise SSA to the high level language, making
+  termination points visible for higher level resources than stack variables.
+  To reduce burden on the programmer, this resource logic should be consistent
+  with low level operations of the machine.
+</p>
 <p>Booleans have classically been
   represented in unsigned binary numbers, &Uopf;, by
   <span>&Bopf;(&Uopf;)&rarr;{&bottom;, &top;} = not_zero(&Uopf;)</span>,
