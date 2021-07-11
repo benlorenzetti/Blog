@@ -18,7 +18,7 @@
 <div id="horizontal-div-containing-entire-page">
 <header></header>
 <aside>
-	<a href="../index.html"><img src="../Profile-Pictures/colosseum.jpg" alt="Brand Image"></a>
+	<a href="../index.html"><img src="../Profile-Pictures/colosseum.jpg" alt="snth.us"></a>
 </aside>
 <div id="vertical-div-containing-article-and-navigation">
 <hr/>
@@ -26,7 +26,7 @@
 <h1>Counting from 1 to N</h1>
 <p>What is the <em>first</em> natural number? Well, when phrased this way
 the answer is clearly 1. The Romans knew this, they didn't even have a
-numeral for zero, instead using X for 10 and C, M for 100, 1000. 
+numeral for zero, instead using X for 10 and C, M for 100, 1000.
 [<a href="#footnote1">1</a>]
 Yet today most programming languages, and digital systems in general,
 start their numbering at zero.</p>
@@ -35,9 +35,9 @@ start their numbering at zero.</p>
 <a href="https://www.cs.utexas.edu/users/EWD/ewd08xx/EWD831.PDF" target="_blank">
 "Why numbering should start at zero"</a>.
 However I respectfully disagree with his conclusion, it is often
-more natural to define the set a posteriori 
+more natural to define the set a posteriori
 <span style="white-space:nowrap;">&#8469;={1, 2, 3, 4,...}</span>
-than to start counting at zero with 
+than to start counting at zero with
 <span style="white-space:nowrap;" >{0, 1, 2, 3,...}&ne;&#8469;.</span>
 </p>
 
@@ -47,14 +47,14 @@ of memory available in RAM, you can uniquely address each location by
 or <span style="white-space:nowrap;">{1, 2, 3, ... , 255, 256}</span>
 equally easily because in binary 0 and 256 have the same representation
 within 8-bits.
-Zero, represented by <span class="code">00000000</span> is not discernable from 
+Zero, represented by <span class="code">00000000</span> is not discernable from
 <span class="code">(1)00000000</span>, which is Two Fifty Six.
 </p>
 
 <p>I think  that starting at 1 is better because if you have N
 elements, then the index of the last elements tells you how many there are
 and accessing the Nth memory location is not out-of-bounds.
-However C starts counting at zero and always identifies larger 
+However C starts counting at zero and always identifies larger
 blocks of data from the leftmost byte.
 </p>
 <p>To have a successful systems language use 1-to-N indexing,
@@ -68,13 +68,13 @@ by preserving the location of the Nth byte, even as the value of N changes.
 <img src="left-vs-right-addressing.png" alt="Left vs. Right Edge Addressing" width="500px"/>
 <p>32-bit words addressed from the left vs the right</p>
 
-<p>A pragmatic advantage of a right vs left memory model is easy 
+<p>A pragmatic advantage of a right vs left memory model is easy
 type casting for big-endian byte order,
 which is the character/digit order English speakers read and write in.
 It is also the byte order of the internet. (Easier to change a machine to the
-network than a network to the machine.) 
+network than a network to the machine.)
 </p>
- 
+
 <img src="big-endian-and-alphabetical-order.png"
 alt="Big-endian byte order matches alphabetical order" width="500px"/>
 
@@ -101,7 +101,7 @@ close half the distance to zero.</p>
 
 <img src="closing-the-gap-to-zero.png" alt="Closing the gap to zero"/>
 
-<p>Second, simple geometric series becomes sort-of invertible if you 
+<p>Second, simple geometric series becomes sort-of invertible if you
 start at 1 and negate the result.
 This also leads to a strange situation where
 convolving with z^n from 0 to &#x221e; (i.e. the unilateral Z-transform)
@@ -114,10 +114,10 @@ me either. But stay tuned for more!</p>
 
 <hr/>
 <footer id="footnote1">[1] This is a little bit cheeky, most would say
-the Romans had not yet discoverd zero. 
+the Romans had not yet discoverd zero.
 The Romans had the word nulla to indicate the lack of any countable items,
-but they did not have the concept of zero as a placeholder in a decimal number system. 
-This was invented in India and it was not until the middle ages that 
+but they did not have the concept of zero as a placeholder in a decimal number system.
+This was invented in India and it was not until the middle ages that
 "this precious knowledge of nothing"
 made its way to Europe through Arab trade in Moorish Spain.
 Fun fact, there is no year 0 BC or 0 AD.
@@ -126,9 +126,9 @@ Fun fact, there is no year 0 BC or 0 AD.
 </article>
 <nav>
 	<ul>
-		<li><a href="../index.html">Home</a></li>
-		<li><a href="../About/index.html">About</a></li>
+		<li><a href="../1.html">Back</a></li>
 		<li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
 	</ul>
 	<div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
 </nav>

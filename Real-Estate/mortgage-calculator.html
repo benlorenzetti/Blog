@@ -18,7 +18,7 @@
 <div id="horizontal-div-containing-entire-page">
 <header></header>
 <aside>
-<a href="../index.html"><img src="./sparkplug.jpeg" alt="Brand"></a>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
 </aside>
 <div id="vertical-div-containing-article-and-navigation">
 <hr/>
@@ -32,19 +32,22 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 	<ol>
 		<li>
   		<input type="number" id="yrs" value="30">
-  		(years) Loan Period <br>
+  		(yrs) Loan Period <br>
   		<input type="number" id="apr" value="2.125">
   		(%) Annual Percentage Rate
 		</li><li>
       <input type="number" id="price" value="222700">
       ($) Purchase Price <br>
       <input type="number" id="down_pct" value="10">
-      (%) Percent Down Payment
-		</li><li>
+      (%) Percent Down Payment <br>
 			<input type="number" id="closing_costs" value="3000">
 			($) Additional Closing Costs <br>
-      <input type="number" id="income" value="756">
-      ($) Estimated Monthly Income <br>
+		</li><li>
+			<input type="number" id="yrs_owned" value="0">
+			(yrs) Time Since Purchase <br>
+      <input type="number" id="income" value="0">
+      ($) Monthly Income
+			(from <a href="#">property price model</a>)<br>
   		<button type="button" onclick="calculate()">Calculate</button>
 		</li>
 	</ol>
@@ -52,13 +55,14 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		<li>
 			payment coefficient: <span id="payment-coefficient"></span>
   		(12 x <span id="years">30</span> = <span id="months">360</span>) <br>
-			limiting external dividend %: <span id="limiting_dividend"></span>
+			limiting dividend %: <span id="limiting_dividend"></span>
 		</li><li>
   		Down Payment ($) <span id="down_pymt"></span> <br>
-      Monthly Payment ($) <span id="pymt"></span>
+      Monthly Payment ($) <span id="pymt"></span> <br>
+			internal dividend %: <span id="int_div"></span>
 		</li><li>
-			internal dividend %: <span id="int_div"></span> <br>
 			external dividend %: <span id="ext_div"></span>
+			&times;<span id="lev_ratio"></span> (leverage ratio)
 		</li>
 	</ol>
 
@@ -71,6 +75,7 @@ This calculator helps evaluate <em>if it is a good deal</em>.
     var down_pct = document.getElementById("down_pct").value;
 		var costs = Number(document.getElementById("closing_costs").value);
     var income = document.getElementById("income").value;
+		var yrs_owned = document.getElementById("yrs_owned").value;
 
 		var months = yrs * 12;
 		var mr = Math.pow((1 + apr/100),1/12);
@@ -86,7 +91,10 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		var int_multiplier = Math.pow(price/total_upfront, (1/30));
 		var int_div = Math.round(100*100*(int_multiplier-1))/100;
     var profit = 12*(income-pymt);
-		var ext_div = Math.round(100*100*profit/total_upfront)/100;
+		var mkt_val = income*num/denom;
+		var ext_div = Math.round(100*100*profit/mkt_val)/100;
+		var lev_ratio = (100/down_pct)/Math.pow(int_multiplier, yrs_owned);
+		lev_ratio = Math.round(100*lev_ratio)/100;
 
 		document.getElementById("payment-coefficient").innerHTML = Math.round(num/denom);
 		document.getElementById("years").innerHTML = yrs;
@@ -96,6 +104,7 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		document.getElementById("down_pymt").innerHTML = down_pymt.toLocaleString();
 		document.getElementById("int_div").innerHTML = int_div;
 		document.getElementById("ext_div").innerHTML = ext_div;
+		document.getElementById("lev_ratio").innerHTML = lev_ratio;
   }
   </script>
 </div>
@@ -149,18 +158,27 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 </p>
 <footer>
 <hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+</a> Ben Lorenzetti<br />
+This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
 </footer>
 </article>
 <nav>
-    <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../About/index.html">About</a></li>
-        <li><a href="../Archive/index.html">Archive</a></li>
-    </ul>
-    <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+  <ul>
+    <li><a href="../index.html">Back</a></li>
+    <li><a href="../Archive/index.html">RSS</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
 </nav>
 </div><!--article+nav wrapper-->
-<footer></footer>
+<footer>
+</footer>
 </div><!--horizontal centering div-->
 </body>
 </html>
