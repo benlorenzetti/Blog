@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>BL's Blog</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2647559998401134",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>Estimating Value</h1>
+<h2>Jul. 11, 2021</h2>
+<img src="value-model.png" width="75%">
+
+<div>
+  <table>
+    <tr>
+      <td style="text-align:center;">
+        Market APR (%)
+			</td><td>
+        <input type="number" id="apr" value="2.125">
+			</td><td style="text-align:center;">
+				Rmortgage
+			</td><td style="text-align:center;">
+				<span id="Rmort"></span>
+      </td>
+    </tr><tr>
+      <td style="text-align:center;">
+				Income Tax (%)
+			</td><td>
+        <input type="number" id="inc_pct" value="27">
+			</td><td style="text-align:center;">
+				Rinc.tax
+			</td><td style="text-align:center;">
+				<span id="Rinc"></span>
+      </td>
+		</tr><tr>
+      <td style="text-align:center;">
+				Rprop.tax
+			</td><td>
+        <input type="number" id="Rprop" value="780">
+			</td><td style="text-align:center;">
+				Rvacancy
+			</td><td>
+				<input type="number" id="Rvac" value="2800">
+			</td>
+		</tr><tr>
+      <td style="text-align:center;">
+				Rlocation
+			</td><td>
+        <input type="number" id="Rloc" value="157">
+			</td><td style="text-align:center;">
+				Rcapital
+			</td><td>
+				<input type="number" id="Rcap" value="384">
+			</td>
+		</tr><tr>
+      <td style="text-align:center;">
+				Rutilities
+			</td><td>
+				<input type="number" id="Rutil" value="1027">
+			</td><td>
+				Rent per month
+			</td><td style="text-align:center;">
+				<input type="number" id="Irent" value="1600">
+			</td>
+    </tr>
+	</tr><tr>
+		<td style="text-align:center;">
+			Rth (months)
+		</td><td style="text-align:center;">
+			<span id="Rth"></span>
+		</td><td style="text-align:center;">
+			Estimated Value
+		</td><td style="text-align:center;">
+			<span id="Vfairmkt"></span>
+		</td>
+	</tr><tr>
+		<td>
+		</td><td style="text-align:center;">
+			<button type="button" onclick="calculate()">Calculate</button>
+		</td><td style="text-align:center;">
+			Net Income
+		</td><td style="text-align:center;">
+			<span id="Inet"></span>
+		</td>
+	</tr>
+
+
+
+
+  </table>
+  <script>
+  function par(r1, r2) {
+    if(isFinite(r1)&&isFinite(r2)) { return (r1*r2)/(r1+r2); }
+    else if(isFinite(r1)) {return r1;}
+    else if(isFinite(r2)) {return r2;}
+    else {return Infinity;}
+  }
+
+  function calculate() {
+    var apr = document.getElementById("apr").value;
+		var inc_pct = document.getElementById("inc_pct").value;
+		var Rprop = Number(document.getElementById("Rprop").value);
+		var Rvac = Number(document.getElementById("Rvac").value);
+		var Rloc = Number(document.getElementById("Rloc").value);
+		var Rcap = Number(document.getElementById("Rcap").value);
+		var Rutil = Number(document.getElementById("Rutil").value);
+		var Irent = Number(document.getElementById("Irent").value);
+
+    var mr = Math.pow((1 + apr/100),1/12);
+    var Rmort = (1 - Math.pow(mr, -30*12))/(1-1/mr);
+    var Rinc = Rmort*100/inc_pct;
+		var Rtax = par(Rinc, Rprop);
+		var Rmkt = par(Rutil,Rloc+Rcap);
+		var Rth = par(par(Rtax,Rmkt), par(Rmort, Rvac));
+		var Vfairmkt = Math.round(100*Irent*Rth)/100;
+		var Inet = Math.round(100*Vfairmkt/Rmort)/100;
+
+		document.getElementById("Rmort").innerHTML = Math.round(10*Rmort)/10;
+		document.getElementById("Rinc").innerHTML = Math.round(10*Rinc)/10;
+		document.getElementById("Rth").innerHTML = Math.round(10*Rth)/10;
+		document.getElementById("Vfairmkt").innerHTML = Vfairmkt.toLocaleString();
+		document.getElementById("Inet").innerHTML = Inet.toLocaleString();
+  }
+  </script>
+</div>
+
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+</a> Ben Lorenzetti<br />
+This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="../index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>

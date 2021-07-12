@@ -43,18 +43,19 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 			<input type="number" id="closing_costs" value="3000">
 			($) Additional Closing Costs <br>
 		</li><li>
+			<input type="number" id="income" value="0">
+			($) Estimated Monthly Income
+			(0 for homeowner or
+			<a href="estimating-value.html">estimate value</a>)<br>
 			<input type="number" id="yrs_owned" value="0">
 			(yrs) Time Since Purchase <br>
-      <input type="number" id="income" value="0">
-      ($) Monthly Income
-			(from <a href="#">property price model</a>)<br>
   		<button type="button" onclick="calculate()">Calculate</button>
 		</li>
 	</ol>
 	<ol>
 		<li>
 			payment coefficient: <span id="payment-coefficient"></span>
-  		(12 x <span id="years">30</span> = <span id="months">360</span>) <br>
+  		(12 &times; <span id="years">30</span> = <span id="months">360</span>) <br>
 			limiting dividend %: <span id="limiting_dividend"></span>
 		</li><li>
   		Down Payment ($) <span id="down_pymt"></span> <br>
@@ -145,7 +146,7 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 	</ul>
 </p>
 <p>Both of these are explored further to develop a
-	<a href="#">property price model</a>,
+	<a href="estimating-value.html">value estimator</a>,
 	which can be used to quantify estimated monthly income.
 	This is the first article of a series
 	<a href="index.html">Should I Buy or Rent?</a>
@@ -171,7 +172,7 @@ This work is licensed under a
 <nav>
   <ul>
     <li><a href="../index.html">Back</a></li>
-    <li><a href="../Archive/index.html">RSS</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
 		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
   </ul>
   <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>

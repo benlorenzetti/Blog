@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>BL's Blog</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+    </script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2647559998401134",
+            enable_page_level_ads: true
+        });
+    </script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header></header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>Normal Expenses</h1>
+<h2>Jul. 11, 2021</h2>
+<p> Besides local demand, the
+	<a href="estimating-value.html">value estimator</a> shows
+	the <em>variables</em> most likely to change and with significant
+	weight can be quickly calculated from a few government-published values.
+</p>
+<p> The goal of <em>expense normalization</em> is to extract
+	<em>constants</em> for the myriad other expenses that are either
+	sufficiently small or not expected to change significantly over time
+	or a local area. This is where you do the work to accurately estimate
+	expenses and feed the tools for easier comparisons.
+</p>
+<div>
+  <table>
+    <tr>
+      <td>
+        <input type="number" id="Tloan" value="30">
+        (yrs) Loan Period <br>
+        <input type="number" id="apr" value="2.125">
+        (&cir;/&cir;) APR
+			</td><td style="text-align:center;">
+				Rmort
+      </td><td>
+        <span id="Rmort"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="inc_pct" value="27">
+        (&cir;/&cir;) Income Tax Rate
+			</td><td style="text-align:center;">
+				Rinc
+      </td><td>
+        <span id="Rinc"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="millage" value="38.39">
+        (&cir;/&cir;/1&cir;) Millage Rate
+			</td><td style="text-align:center;">
+				<b>Rprop</b>
+      </td><td>
+        <span id="Rprop"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="assessment_pct" value="40">
+        (&cir;/&cir;) Assessed/Appraised Value
+			</td><td style="text-align:center;">
+				Rgov
+      </td><td>
+        <span id="Rgov"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="rent" value="1750">
+        ($) Monthly Rent
+      </td><td>
+				Vfairmkt
+			</td><td>
+				<span id="Vfairmkt"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="vacancy" value="2">
+        (wks) Vacancy per Year
+			</td><td style="text-align:center;">
+				<b>Rvac</b>
+      </td><td>
+        <span id="Rvac"></span>
+      </td>
+		</tr><tr>
+			<td>
+				<input type="number" id="repairs" value="75">
+				($) Monthly Repair Budget <br>
+			</td><td style="text-align:center;">
+				Rrepairs
+			</td><td>
+				<span id="Rrepairs"></span> <br>
+			</td>
+		</tr><tr>
+			<td>
+				<input type="number" id="capex" value="75">
+				($) Monthly CapEx Budget
+			</td><td style="text-align:center;">
+				Rcapex
+			</td><td>
+				<span id="Rcapex"></span>
+			</td>
+		</tr><tr>
+			<td>
+				<input type="number" id="reg_insur" value="140">
+				($) Monthly Insurance <br>
+			</td><td style="text-align:center;">
+				Rinsur
+			</td><td>
+				<span id="Rinsur"></span> <br>
+			</td>
+		</tr><tr>
+			<td>
+				<input type="number" id="flood_ins" value="61">
+				($) Monthly Flood Insurance
+			</td><td style="text-align:center;">
+				Rflood
+			</td><td>
+				<span id="Rflood"></span>
+			</td>
+		</tr><tr>
+			<td>
+				<input type="number" id="hoa" value="0">
+				($) Monthly HOA Fee
+			</td><td style="text-align:center;">
+				Rhoa
+			</td><td>
+				<span id="Rhoa"></span>
+			</td>
+		</tr><tr>
+			<td>
+				<input type="number" id="Vland" value="29"> /
+				<input type="number" id="Vtot" value="100">
+			</td><td style="text-align:center;">
+				<b>Rloc</b>
+			</td><td>
+				<span id="Rloc"></span>
+			</td>
+		</tr><tr>
+			<td>
+				($) Assessed Land over /
+				($) Assessed Property Value
+			</td><td style="text-align:center;">
+				<b>Rcap</b>
+			</td><td>
+				<span id="Rcap"></span>
+			</td>
+    </tr><tr>
+      <td>
+        <input type="number" id="water" value="50">
+        ($) Monthly Water
+			</td><td style="text-align:center;">
+				Rwater
+      </td><td>
+        <span id="Rwater"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="electric" value="50">
+        ($) Monthly Electric
+			</td><td style="text-align:center;">
+				Relectric
+      </td><td>
+        <span id="Relectric"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="internet" value="35">
+        ($) Monthly Internet
+			</td><td style="text-align:center;">
+				Rinternet
+      </td><td>
+        <span id="Rinternet"></span>
+      </td>
+    </tr><tr>
+      <td>
+        <input type="number" id="lawncare" value="50">
+        ($) Monthly Lawncare
+			</td><td style="text-align:center;">
+				Rlawncare
+      </td><td>
+        <span id="Rlawncare"></span>
+      </td>
+    </tr><tr>
+      <td>
+				<span id="Iexp"></span>
+				($) Itemized Expenses
+			</td><td style="text-align:center;">
+				<b>Rutil</b>
+      </td><td>
+        <span id="Rutil"></span>
+      </td>
+    </tr><tr>
+      <td>
+			  <button type="button" onclick="calculate()">Calculate</button>
+			</td><td style="text-align:center;">
+				Inet
+      </td><td>
+        <span id="net_income"></span>
+			</td>
+    </tr>
+  </table>
+
+  <script>
+  function par(r1, r2) {
+    if(isFinite(r1)&&isFinite(r2)) { return (r1*r2)/(r1+r2); }
+    else if(isFinite(r1)) {return r1;}
+    else if(isFinite(r2)) {return r2;}
+    else {return Infinity;}
+  }
+
+  function calculate() {
+
+    var Tloan = document.getElementById("Tloan").value;
+    var apr = document.getElementById("apr").value;
+		var inc_pct = document.getElementById("inc_pct").value;
+    var millage = document.getElementById("millage").value;
+		var assessment_pct = document.getElementById("assessment_pct").value;
+    var rent = document.getElementById("rent").value;
+    var vacancy = document.getElementById("vacancy").value;
+    var water = Number(document.getElementById("water").value);
+    var electric = Number(document.getElementById("electric").value);
+    var internet = Number(document.getElementById("internet").value);
+    var lawncare = Number(document.getElementById("lawncare").value);
+    var Vland = document.getElementById("Vland").value;
+    var Vtot = document.getElementById("Vtot").value;
+    var repairs = Number(document.getElementById("repairs").value);
+    var capex = Number(document.getElementById("capex").value);
+    var reg_insur = Number(document.getElementById("reg_insur").value);
+    var flood_ins = Number(document.getElementById("flood_ins").value);
+    var hoa = Number(document.getElementById("hoa").value);
+
+    var mr = Math.pow((1 + apr/100),1/12);
+    var Rmort = (1 - Math.pow(mr, -Tloan*12))/(1-1/mr);
+    var Rinc = Rmort*100/inc_pct;
+    var Rprop = 12*1000*100/(millage*assessment_pct);
+		var Rgov = par(Rmort, par(Rprop, Rinc));
+
+    var Iinc = rent*(1-vacancy/52);
+    var Icap = repairs + capex + reg_insur + flood_ins + hoa;
+    var Iexp = Icap + water + electric + internet + lawncare;
+    var Vfairmkt = (Iinc-Iexp)*Rgov;
+
+    var Rvac = Vfairmkt / (rent-Iinc);
+    var Rwater = Vfairmkt / water;
+    var Relectric = Vfairmkt / electric;
+    var Rinternet = Vfairmkt / internet;
+    var Rlawncare = Vfairmkt / lawncare;
+    var Rutil = par(par(Rwater,Relectric),par(Rinternet,Rlawncare));
+
+    var Vloc = Vfairmkt*Vland/Vtot;
+    var Vimp = Vfairmkt - Vloc;
+    var Rrepairs = Vimp/repairs;
+    var Rcapex = Vimp/capex;
+    var Rinsur = Vimp/reg_insur;
+    var Rflood = Vimp/flood_ins;
+    var Rhoa = Vimp/hoa;
+    var Rcap = par(Rhoa,par(par(Rrepairs,Rcapex),par(Rinsur,Rflood)))
+    var Rloc = Vloc/Icap;
+
+    var net_income = Vfairmkt/Rmort;
+
+		document.getElementById("Rmort").innerHTML = Math.round(10*Rmort)/10;
+		document.getElementById("Rinc").innerHTML = Math.round(10*Rinc)/10;
+		document.getElementById("Rprop").innerHTML = Math.round(10*Rprop)/10;
+    document.getElementById("Rgov").innerHTML = Math.round(10*Rgov)/10;
+    document.getElementById("Rvac").innerHTML = Math.round(Rvac);
+    document.getElementById("Rwater").innerHTML = Math.round(Rwater);
+    document.getElementById("Relectric").innerHTML = Math.round(Relectric);
+    document.getElementById("Rinternet").innerHTML = Math.round(Rinternet);
+    document.getElementById("Rlawncare").innerHTML = Math.round(Rlawncare);
+    document.getElementById("Rutil").innerHTML = Math.round(10*Rutil)/10;
+    document.getElementById("Rrepairs").innerHTML = Math.round(Rrepairs);
+    document.getElementById("Rcapex").innerHTML = Math.round(Rcapex);
+    document.getElementById("Rinsur").innerHTML = Math.round(Rinsur);
+    document.getElementById("Rflood").innerHTML = Math.round(Rflood);
+    document.getElementById("Rhoa").innerHTML = Math.round(Rhoa);
+    document.getElementById("Rcap").innerHTML = Math.round(10*Rcap)/10;
+    document.getElementById("Rloc").innerHTML = Math.round(10*Rloc)/10;
+    document.getElementById("Iexp").innerHTML = Iexp;
+    document.getElementById("Vfairmkt").innerHTML = Math.round(Vfairmkt).toLocaleString();
+    document.getElementById("net_income").innerHTML = Math.round(100*net_income)/100;
+
+  }
+  </script>
+</div>
+<h2>The Next Step</h2>
+<p> This is the third article (3) of a series
+	<a href="index.html">Should I Buy or Rent?</a>
+	Write down the <b>bold constants</b> you calculate to plug into the
+	<a href="estimating-value.html">property price model</a> (2) for
+	easy deal comparisons or take the <em>Inet</em> value for estimated
+	monthly income directly to the
+	<a href="mortgage-calculator.html">mortgage calculator</a> (1)
+	to estimate investment returns.
+</p>
+
+<h2>Estimating Expenses</h2>
+
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png" />
+</a> Ben Lorenzetti<br />
+This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="../index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>
