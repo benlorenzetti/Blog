@@ -29,54 +29,116 @@
 This calculator helps evaluate <em>if it is a good deal</em>.
 </p>
 <div>
-	<ol>
-		<li>
-  		<input type="number" id="yrs" value="30">
-  		(yrs) Loan Period <br>
-  		<input type="number" id="apr" value="2.125">
-  		(%) Annual Percentage Rate
-		</li><li>
-      <input type="number" id="price" value="222700">
-      ($) Purchase Price <br>
-      <input type="number" id="down_pct" value="10">
-      (%) Percent Down Payment <br>
-			<input type="number" id="closing_costs" value="3000">
-			($) Additional Closing Costs <br>
-		</li><li>
-			<input type="number" id="income" value="0">
-			($) Estimated Monthly Income
-			(0 for homeowner or
-			<a href="estimating-value.html">estimate value</a>)<br>
-			<input type="number" id="yrs_owned" value="0">
-			(yrs) Time Since Purchase <br>
-  		<button type="button" onclick="calculate()">Calculate</button>
-		</li>
-	</ol>
-	<ol>
-		<li>
-			payment coefficient: <span id="payment-coefficient"></span>
-  		(12 &times; <span id="years">30</span> = <span id="months">360</span>) <br>
-			limiting dividend %: <span id="limiting_dividend"></span>
-		</li><li>
-  		Down Payment ($) <span id="down_pymt"></span> <br>
-      Monthly Payment ($) <span id="pymt"></span> <br>
-			internal dividend %: <span id="int_div"></span>
-		</li><li>
-			external dividend %: <span id="ext_div"></span>
-			&times;<span id="lev_ratio"></span> (leverage ratio)
-		</li>
-	</ol>
+<table>
+	<tr>
+		<td>
+  		<input type="number" id="yrs" value="30" size="12">
+		</td><td>
+			(yrs) Loan Period
+		</td><td style="text-align:center;">
+			payment coefficient
+		</td><td style="text-align:center;">
+			<span id="payment-coefficient"></span>
+		</td><td>
+			<span id="years">30</span> &times; 12 = <span id="months">360</span>
+		</td>
+	</tr><td>
+  		<input type="number" id="apr" value="2.125" size="12">
+		</td><td>
+			(%) APR
+		</td><td style="text-align:center;">
+			limiting dividend
+		</td><td style="text-align:center;">
+			<span id="limiting_dividend"></span>
+		</td><td>
+		</td>
+	</tr><td>
+      <input type="number" id="price" value="222700" size="12">
+		</td><td>
+			($) Purchase Price
+		</td><td style="text-align:center;">
+			Loan Principal
+		</td><td style="text-align:center;">
+			<span id="principal"></span>
+		</td><td>
+		</td>
+	</tr><td>
+      <input type="number" id="down_pct" value="10" size="12">
+		</td><td>
+			(%) Down Payment
+		</td><td style="text-align:center;">
+			Monthly Payment
+		</td><td style="text-align:center;">
+			<span id="pymt"></span>
+		</td><td>
+		</td>
+	</tr><td>
+			<input type="number" id="closing_costs" value="3000" size="12">
+		</td><td>
+			($) Closing Costs
+		</td><td style="text-align:center;">
+			Total Upfront Cost
+		</td><td style="text-align:center;">
+			<span id="total_upfront"></span>
+		</td><td>
+		</td>
+	</tr><td>
+			<input type="number" id="yrs_owned" value="0" size="12">
+		</td><td>
+			(yrs) since purchase
+		</td><td style="text-align:center;">
+			internal dividend
+		</td><td style="text-align:center;">
+			<span id="int_div"></span>
+		</td><td>
+			&times; <span id="equity_buildup1"></span> equity buildup
+		</td>
+	</tr>
+</tr><td>
+		<input type="number" id="inc_yr" value="0" size="12">
+	</td><td>
+		Year of Income
+	</td><td style="text-align:center;">
+		Monthly Income
+	</td><td style="text-align:center;">
+		<input type="number" id="income" value="0" size="8;">
+	</td><td>
+	</td>
+</tr>
+</tr><td>
+		<input type="number" id="infl_pct" value="0" size="12">
+	</td><td>
+		(%) inflation
+	</td><td style="text-align:center;">
+		external dividend
+	</td><td style="text-align:center;">
+		<span id="ext_div"></span>
+	</td><td>
+		&times; <span id="equity_buildup2"></span>
+	</td>
+</tr><td>
+	</td><td>
+	</td><td style="text-align:center;">
+	</td><td style="text-align:center;">
+		<button type="button" onclick="calculate()">Calculate</button>
+	</td><td>
+	</td>
+</tr>
+</table>
+
 
   <script>
   function calculate() {
 
-    var yrs = document.getElementById("yrs").value;
+    var yrs = Number(document.getElementById("yrs").value);
     var apr = document.getElementById("apr").value;
-		var price = document.getElementById("price").value;
+		var price = Number(document.getElementById("price").value);
     var down_pct = document.getElementById("down_pct").value;
 		var costs = Number(document.getElementById("closing_costs").value);
+		var yrs_owned = Number(document.getElementById("yrs_owned").value);
     var income = document.getElementById("income").value;
-		var yrs_owned = document.getElementById("yrs_owned").value;
+    var inc_yr = document.getElementById("inc_yr").value;
+    var infl_pct = document.getElementById("infl_pct").value;
 
 		var months = yrs * 12;
 		var mr = Math.pow((1 + apr/100),1/12);
@@ -87,25 +149,40 @@ This calculator helps evaluate <em>if it is a good deal</em>.
     var down_pymt = Math.ceil(price*down_pct)/100;
 		var principal = price - down_pymt;
     var pymt = Math.round(100*principal/(num/denom))/100;
-
 		var total_upfront = down_pymt + costs;
-		var int_multiplier = Math.pow(price/total_upfront, (1/30));
-		var int_div = Math.round(100*100*(int_multiplier-1))/100;
-    var profit = 12*(income-pymt);
-		var mkt_val = income*num/denom;
-		var ext_div = Math.round(100*100*profit/mkt_val)/100;
-		var lev_ratio = (100/down_pct)/Math.pow(int_multiplier, yrs_owned);
-		lev_ratio = Math.round(100*lev_ratio)/100;
+
+		var finite_num = 1 - Math.pow(mr, -12*yrs_owned);
+		var Pn = 0;
+		var principal_down = 0;
+		if(yrs_owned <= yrs) {
+			Pn = Math.pow(mr,12*yrs_owned)*(principal-pymt*finite_num/denom);
+			principal_down = pymt - Pn*(mr-1);
+		}
+
+		var equity_buildup = Math.round(100*(price-Pn)/price)/100;
+		var int_div = 100*12*principal_down/(costs+price-Pn);
+		int_div = Math.round(100*int_div)/100;
+
+		var infl_yrs = yrs_owned - inc_yr;
+		var infl = Math.pow(1+infl_pct/100, infl_yrs);
+		var infl_income = infl * income;
+		var ext_div = 100*12*(infl_income-pymt)/(price-Pn);
+		if(yrs_owned > yrs) {
+			ext_div = 100*12*infl_income/price;
+		}
+		ext_div = Math.round(100*ext_div)/100;
 
 		document.getElementById("payment-coefficient").innerHTML = Math.round(num/denom);
 		document.getElementById("years").innerHTML = yrs;
 		document.getElementById("months").innerHTML = months;
 		document.getElementById("limiting_dividend").innerHTML = limiting_dividend;
+		document.getElementById("principal").innerHTML = principal.toLocaleString();
 		document.getElementById("pymt").innerHTML = pymt;
-		document.getElementById("down_pymt").innerHTML = down_pymt.toLocaleString();
+		document.getElementById("total_upfront").innerHTML = total_upfront.toLocaleString();
 		document.getElementById("int_div").innerHTML = int_div;
 		document.getElementById("ext_div").innerHTML = ext_div;
-		document.getElementById("lev_ratio").innerHTML = lev_ratio;
+		document.getElementById("equity_buildup1").innerHTML = equity_buildup;
+		document.getElementById("equity_buildup2").innerHTML = equity_buildup;
   }
   </script>
 </div>
