@@ -63,7 +63,7 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		</td><td>
 		</td>
 	</tr><td>
-      <input type="number" id="down_pct" value="10" size="12">
+      <input type="number" id="down_pct" value="4" size="12">
 		</td><td>
 			(%) Down Payment
 		</td><td style="text-align:center;">
@@ -91,7 +91,7 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		</td><td style="text-align:center;">
 			<span id="int_div"></span>
 		</td><td>
-			&times; <span id="equity_buildup1"></span> equity buildup
+		  &times; <span id="lev_ratio"></span> leverage ratio
 		</td>
 	</tr>
 </tr><td>
@@ -101,12 +101,13 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 	</td><td style="text-align:center;">
 		Monthly Income
 	</td><td style="text-align:center;">
-		<input type="number" id="income" value="0" size="8;">
-	</td><td>
+		<input type="number" id="income" value="712" size="8;">
+	</td><td style="text-align:center;">
+		<a href="estimating-value.html">estimate value</a>
 	</td>
 </tr>
 </tr><td>
-		<input type="number" id="infl_pct" value="0" size="12">
+		<input type="number" id="infl_pct" value="2" size="12">
 	</td><td>
 		(%) inflation
 	</td><td style="text-align:center;">
@@ -114,14 +115,16 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 	</td><td style="text-align:center;">
 		<span id="ext_div"></span>
 	</td><td>
-		&times; <span id="equity_buildup2"></span>
+		&div; <span id="equity_buildup"></span> equity buildup
 	</td>
 </tr><td>
 	</td><td>
 	</td><td style="text-align:center;">
+		total dividend
 	</td><td style="text-align:center;">
 		<button type="button" onclick="calculate()">Calculate</button>
-	</td><td>
+	</td><td style="text-align:center;">
+		<span id="total_div"></span>
 	</td>
 </tr>
 </table>
@@ -152,25 +155,25 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		var total_upfront = down_pymt + costs;
 
 		var finite_num = 1 - Math.pow(mr, -12*yrs_owned);
-		var Pn = 0;
-		var principal_down = 0;
-		if(yrs_owned <= yrs) {
-			Pn = Math.pow(mr,12*yrs_owned)*(principal-pymt*finite_num/denom);
-			principal_down = pymt - Pn*(mr-1);
+		var	Pn = Math.pow(mr,12*yrs_owned)*(principal-pymt*finite_num/denom);
+		if(yrs_owned > yrs) {
+			pymt = 0;
+			Pn = 0;
 		}
+		var	principal_down = pymt - Pn*(mr-1);
 
 		var equity_buildup = Math.round(100*(price-Pn)/price)/100;
-		var int_div = 100*12*principal_down/(costs+price-Pn);
-		int_div = Math.round(100*int_div)/100;
+		var lev_ratio = Math.round(100*price/(price-Pn))/100;
 
 		var infl_yrs = yrs_owned - inc_yr;
 		var infl = Math.pow(1+infl_pct/100, infl_yrs);
+		var int_div = 100*12*principal_down/(infl*(costs+price));
+		int_div = Math.round(100*int_div)/100;
+
 		var infl_income = infl * income;
-		var ext_div = 100*12*(infl_income-pymt)/(price-Pn);
-		if(yrs_owned > yrs) {
-			ext_div = 100*12*infl_income/price;
-		}
+		var	ext_div = 100*12*(infl_income-pymt)/(infl*price);
 		ext_div = Math.round(100*ext_div)/100;
+		var total_div = Math.round(100*lev_ratio*(int_div+ext_div))/100;
 
 		document.getElementById("payment-coefficient").innerHTML = Math.round(num/denom);
 		document.getElementById("years").innerHTML = yrs;
@@ -181,8 +184,9 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		document.getElementById("total_upfront").innerHTML = total_upfront.toLocaleString();
 		document.getElementById("int_div").innerHTML = int_div;
 		document.getElementById("ext_div").innerHTML = ext_div;
-		document.getElementById("equity_buildup1").innerHTML = equity_buildup;
-		document.getElementById("equity_buildup2").innerHTML = equity_buildup;
+		document.getElementById("lev_ratio").innerHTML = lev_ratio;
+		document.getElementById("equity_buildup").innerHTML = equity_buildup;
+		document.getElementById("total_div").innerHTML = total_div;
   }
   </script>
 </div>
@@ -202,9 +206,8 @@ This calculator helps evaluate <em>if it is a good deal</em>.
   The maximum possible value for the payment coefficient is n, the number of
 	payments made over the lifetime of the loan.
 </p>
-<p> The <em>internal dividend</em> is an artificial value describing
-	how the owner's equity grows from the initial down payment,
-	useful for comparing real estate to other investments.
+<p> The <em>internal dividend</em> is how the owner's equity grows from the
+	initial down payment, useful for comparing real estate to other investments.
 	The <em>external dividend</em> is based on thinking of yourself as
 	landlord and tenant rather than as a homeowner. If there is a difference
 	between what could be made from a tenant in rent income, compared to the
