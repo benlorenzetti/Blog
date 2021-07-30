@@ -9,7 +9,20 @@
 
 <body>
 <div id="horizontal-div-containing-entire-page">
-<header></header>
+<header>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647559998401134"
+	     crossorigin="anonymous"></script>
+	<!-- header-ad -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-2647559998401134"
+	     data-ad-slot="2556218560"
+	     data-ad-format="auto"
+	     data-full-width-responsive="true"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</header>
 <aside>
 <a href="../index.html"><img src="#" alt="snth.us"></a>
 </aside>
@@ -17,13 +30,14 @@
 <hr/>
 <article>
 <h1>Mortgage Calculator</h1>
-<h2>Jul. 05, 2021</h2>
+<h2>Jul. 30, 2021</h2>
 <p> Most mortgage calculators help determine <em>is this property affordable?</em>
 This calculator helps evaluate <em>if it is a good deal</em>.
 </p>
 <div>
 <table>
 	<tr>
+		<td>I.</td>
 		<td>
   		<input type="number" id="yrs" value="30" size="12">
 		</td><td>
@@ -35,7 +49,9 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		</td><td>
 			<span id="years">30</span> &times; 12 = <span id="months">360</span>
 		</td>
-	</tr><td>
+	</tr><tr>
+		<td></td>
+		<td>
   		<input type="number" id="apr" value="2.125" size="12">
 		</td><td>
 			(%) APR
@@ -45,28 +61,42 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 			<span id="limiting_dividend"></span>
 		</td><td>
 		</td>
-	</tr><td>
-      <input type="number" id="price" value="222700" size="12">
+	</tr><tr>
+		<td>II.</td>
+		<td>
+			<input type="number" id="principal" value="229000" size="12">
 		</td><td>
-			($) Purchase Price
-		</td><td style="text-align:center;">
-			Loan Principal
-		</td><td style="text-align:center;">
-			<span id="principal"></span>
-		</td><td>
-		</td>
-	</tr><td>
-      <input type="number" id="down_pct" value="4" size="12">
-		</td><td>
-			(%) Down Payment
+			($) Loan Estimate
 		</td><td style="text-align:center;">
 			Monthly Payment
 		</td><td style="text-align:center;">
 			<span id="pymt"></span>
 		</td><td>
+			<input type="radio" name="princ_xor_pct" id="use_princ" checked="checked">
+			<label for="use_princ_input">use loan estimate
+			</label>
 		</td>
-	</tr><td>
-			<input type="number" id="closing_costs" value="3000" size="12">
+	</tr><tr>
+		<td></td>
+		<td>
+      <input type="number" id="price" value="222700" size="12">
+		</td><td>
+			($) Purchase Price
+		</td><td style="text-align:center;">
+			Down Payment %
+		</td><td style="text-align:center;">
+			<span id="pct_down"></span>
+		</td><td>
+			<input type="radio" name="princ_xor_pct" id="use_pct_input">
+			<label for="use_pct_input">use
+				<input type="number" id="pct_down_input" value="20" size="3">
+				% down
+			</label>
+		</td>
+	</tr><tr>
+		<td></td>
+		<td>
+			<input type="number" id="closing_costs" value="15000" size="12">
 		</td><td>
 			($) Closing Costs
 		</td><td style="text-align:center;">
@@ -75,7 +105,9 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 			<span id="total_upfront"></span>
 		</td><td>
 		</td>
-	</tr><td>
+	</tr><tr>
+		<td>III.</td>
+		<td>
 			<input type="number" id="yrs_owned" value="0" size="12">
 		</td><td>
 			(yrs) since purchase
@@ -84,42 +116,49 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		</td><td style="text-align:center;">
 			<span id="int_div"></span>
 		</td><td>
+			&div; <span id="equity_buildup"></span> equity buildup
+			(-<span id="closing_frac"></span>)
+		</td>
+	</tr><tr>
+		<td>IV.</td>
+		<td>
+			<input type="number" id="infl_pct" value="2" size="12">
+		</td><td>
+			(%) inflation
+		</td><td style="text-align:center;">
+			short dividend
+		</td><td style="text-align:center;">
+			<span id="sht_div"></span>
+		</td><td>
 		  &times; <span id="lev_ratio"></span> leverage ratio
 		</td>
+	</tr><tr>
+		<td>V.</td>
+		<td>
+			<input type="number" id="income" value="682" size="12;">
+		</td><td style="text-align:center;">
+			($) Monthly Income
+		</td><td style="text-align:center;">
+			external dividend
+		</td><td style="text-align:center;">
+			<span id="ext_div"></span>
+		</td><td style="text-align:center;">
+			<a href="estimating-value.html">estimate income</a>
+		</td>
+	</tr><tr>
+		<td></td>
+		<td>
+			<input type="number" id="inc_yr" value="0" size="12">
+		</td><td>
+			Year of Income
+		</td><td style="text-align:center;">
+			VI. total dividend
+		</td><td style="text-align:center;">
+			<button type="button" onclick="calculate()">Calculate</button>
+		</td><td style="text-align:center;">
+			<span id="total_div"></span>
+		</td>
 	</tr>
-</tr><td>
-		<input type="number" id="inc_yr" value="0" size="12">
-	</td><td>
-		Year of Income
-	</td><td style="text-align:center;">
-		Monthly Income
-	</td><td style="text-align:center;">
-		<input type="number" id="income" value="712" size="8;">
-	</td><td style="text-align:center;">
-		<a href="estimating-value.html">estimate value</a>
-	</td>
-</tr>
-</tr><td>
-		<input type="number" id="infl_pct" value="2" size="12">
-	</td><td>
-		(%) inflation
-	</td><td style="text-align:center;">
-		external dividend
-	</td><td style="text-align:center;">
-		<span id="ext_div"></span>
-	</td><td>
-		&div; <span id="equity_buildup"></span> equity buildup
-	</td>
-</tr><td>
-	</td><td>
-	</td><td style="text-align:center;">
-		total dividend
-	</td><td style="text-align:center;">
-		<button type="button" onclick="calculate()">Calculate</button>
-	</td><td style="text-align:center;">
-		<span id="total_div"></span>
-	</td>
-</tr>
 </table>
 
 
@@ -129,12 +168,14 @@ This calculator helps evaluate <em>if it is a good deal</em>.
     var yrs = Number(document.getElementById("yrs").value);
     var apr = document.getElementById("apr").value;
 		var price = Number(document.getElementById("price").value);
-    var down_pct = document.getElementById("down_pct").value;
+    var principal = document.getElementById("principal").value;
 		var costs = Number(document.getElementById("closing_costs").value);
 		var yrs_owned = Number(document.getElementById("yrs_owned").value);
     var income = document.getElementById("income").value;
     var inc_yr = document.getElementById("inc_yr").value;
     var infl_pct = document.getElementById("infl_pct").value;
+		var princ_xor_pct = document.querySelectorAll('input[name="princ_xor_pct"]');
+    var pct_down_input = document.getElementById("pct_down_input").value;
 
 		var months = yrs * 12;
 		var mr = Math.pow((1 + apr/100),1/12);
@@ -142,10 +183,16 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		var denom = 1 - 1/mr;
 		var limiting_dividend = Math.round(100*12*100*denom/num)/100;
 
-    var down_pymt = Math.ceil(price*down_pct)/100;
-		var principal = price - down_pymt;
+		var pct_down = Math.floor(1000*((price-principal)/principal))/10;
+
+		if(princ_xor_pct[1].checked) {
+			pct_down = pct_down_input;
+			principal = Math.floor(price*(100-pct_down))/100;
+		}
+
+
     var pymt = Math.round(100*principal/(num/denom))/100;
-		var total_upfront = down_pymt + costs;
+		var total_upfront = price + costs - principal;
 
 		var finite_num = 1 - Math.pow(mr, -12*yrs_owned);
 		var	Pn = Math.pow(mr,12*yrs_owned)*(principal-pymt*finite_num/denom);
@@ -155,39 +202,79 @@ This calculator helps evaluate <em>if it is a good deal</em>.
 		}
 		var	principal_down = pymt - Pn*(mr-1);
 
-		var equity_buildup = Math.round(100*(price-Pn)/price)/100;
-		var lev_ratio = Math.round(100*price/(price-Pn))/100;
+		var	equity_buildup = Math.round(100*(price+costs-Pn)/price)/100;
+		var closing_frac = Math.round(100*costs/price)/100;
+		var	lev_ratio = Math.round(100*price/(price+costs-Pn))/100;
 
-		var infl_yrs = yrs_owned - inc_yr;
-		var infl = Math.pow(1+infl_pct/100, infl_yrs);
-		var int_div = 100*12*principal_down/(infl*(costs+price));
+		var price_infl = Math.pow(1+infl_pct/100, yrs_owned);
+		var int_div = 100*12*principal_down/(price_infl*(costs+price));
 		int_div = Math.round(100*int_div)/100;
 
-		var infl_income = infl * income;
-		var	ext_div = 100*12*(infl_income-pymt)/(infl*price);
+		var inc_infl = Math.pow(1+infl_pct/100, yrs_owned-inc_yr);
+		var infl_income = price_infl * income;
+		var	ext_div = 100*12*(infl_income-pymt)/(price_infl*price);
 		ext_div = Math.round(100*ext_div)/100;
-		var total_div = Math.round(100*lev_ratio*(int_div+ext_div))/100;
+
+		var sht_div = Math.round(100*(1-equity_buildup)*infl_pct)/100;
+		var total_div = Math.round(100*lev_ratio*(int_div+ext_div+sht_div))/100;
 
 		document.getElementById("payment-coefficient").innerHTML = Math.round(num/denom);
 		document.getElementById("years").innerHTML = yrs;
 		document.getElementById("months").innerHTML = months;
 		document.getElementById("limiting_dividend").innerHTML = limiting_dividend;
-		document.getElementById("principal").innerHTML = principal.toLocaleString();
+		document.getElementById("pct_down").innerHTML = pct_down;
 		document.getElementById("pymt").innerHTML = pymt;
 		document.getElementById("total_upfront").innerHTML = total_upfront.toLocaleString();
 		document.getElementById("int_div").innerHTML = int_div;
 		document.getElementById("ext_div").innerHTML = ext_div;
 		document.getElementById("lev_ratio").innerHTML = lev_ratio;
 		document.getElementById("equity_buildup").innerHTML = equity_buildup;
+		document.getElementById("closing_frac").innerHTML = closing_frac;
+		document.getElementById("sht_div").innerHTML = sht_div;
 		document.getElementById("total_div").innerHTML = total_div;
   }
   </script>
 </div>
+<p> Unlike inferior calculators, this calculator is organized into six
+	clean dependencies to deliver key takeaways. Results in lower down
+	depend on values from sections above them but higher sections are
+	independent of inputs below them.
+	<ol>
+		<li>the <em>limiting dividend</em> is independent of loan size (and is
+			mostly set by federal policy).</li>
+		<li>for convenience, you can use the loan estimate provided by your
+			lender or estimate total upfront costs yourself with a percent
+			down payment.
+		<li>the <em>internal dividend</em> is your rate of equity buildup
+			(principal repayment) in the loan and is independent of the housing
+			market after date of purchase.</li>
+		<li>the <em>short dividend</em> is based on your "risky" exposure to
+			inflation after accepting a loan.</li>
+		<li>the <em>external dividend</em> can change after date of purchase,
+			depending on home improvements, local markets and management
+			(sublets, rentals, etc.), not just on inflation.</li>
+		<li>unlike its component dividends, the <em>total dividend</em>
+			is weighted by the mortgage leverage for comparison other investments
+			like stocks. (It may seem large
+			but it shrinks quickly each year as your equity builds up.)
+		</li>
+	</ol>
+</p>
+<p>The independence of the payment coefficient/limiting dividend from loan
+	size is proven below; this independence is important because it can be used
+	to estimate fair property prices and monthly income if used as a
+	rental property instead of your home. This relationship between the
+	limiting dividend and external dividend (i.e. rental income less
+	mortgage payment) is explored further in the next article on
+	<a href="estimating-value.html">estimating value</a>.
+	This is the first article of a series
+	<a href="index.html">Should I Buy or Rent?</a>
+</p>
 <h2>About the Calculation</h2>
 <p> The calculation assumes monthly interest compounding, based on an annualized
 	percentage yield, and a fixed monthly payment that covers the entire monthly
 	interest with the remainder reducing principal owed. This is the starting
-	point in the proof below, where Pi is principal owed in the i'th month,
+	point in the proof below, where Pm is principal remaining in the m'th month,
 	r the monthly compounding rate, and p the monthly payment.
 	Lower case terms r, p, and n number of months (loan period) are constant for
 	the duration of a mortgage.
@@ -199,36 +286,28 @@ This calculator helps evaluate <em>if it is a good deal</em>.
   The maximum possible value for the payment coefficient is n, the number of
 	payments made over the lifetime of the loan.
 </p>
-<p> The <em>internal dividend</em> is how the owner's equity grows from the
-	initial down payment, useful for comparing real estate to other investments.
+<p> The <em>internal dividend</em> and <em>short dividend</em> are how the
+	owner's equity and resale value grow from the initial down payment, useful
+	for comparing real estate to stock captital gains.
 	The <em>external dividend</em> is based on thinking of yourself as
 	landlord and tenant rather than as a homeowner. If there is a difference
 	between what could be made from a tenant in rent income, compared to the
 	monthly mortgage payment, this difference is like a stock dividend in your
 	pocket!
 </p>
-<h2>Should I Rent or Buy?</h2>
-<p> Unlike more complex calculators, this calculator is organized into three
-	clean dependencies to deliver key takeaways:
-	<ul>
-		<li>the <em>payment coefficient</em> is independent of loan size (and is
-			mostly set by federal policy), and</li>
-		<li>the <em>external dividend</em> can change after date of purchase, for
-			example due to home improvements, local economic trends, and inflation.
-		</li>
-	</ul>
+<p> The <em>equity buildup</em> and its inverse, <em>leverage ratio</em>,
+	are modified slightly from the proof below by the parenthetical fraction
+	reported by the calculator, such that build up is to slightly &geq;1
+	over the loan period due to closing costs but is always &gt;0 at
+	the start of the loan due to closing costs and down payment.
 </p>
-<p>Both of these are explored further to develop a
-	<a href="estimating-value.html">value estimator</a>,
-	which can be used to quantify estimated monthly income.
-	This is the first article of a series
-	<a href="index.html">Should I Buy or Rent?</a>
-</p>
+
 
 <h2>Proof</h2>
 <img src="principal-payment-line.png" width="400px" alt="math proof">
 <p>Note for a loan of n months, the principal owed at the nth month, Pn,
-	is zero.
+	is zero. Thus, the monthly payment p is linearly related to loan size P0
+	by the parenthetical payment coefficient.
 </p>
 <footer>
 <hr>
@@ -244,7 +323,7 @@ This work is licensed under a
 </article>
 <nav>
   <ul>
-    <li><a href="../index.html">Back</a></li>
+    <li><a href="index.html">Back</a></li>
     <li><a href="../Archive/index.html">Archive</a></li>
 		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
   </ul>
