@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Housing Prices</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647559998401134"
+	     crossorigin="anonymous"></script>
+	<!-- header-ad -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-2647559998401134"
+	     data-ad-slot="2556218560"
+	     data-ad-format="auto"
+	     data-full-width-responsive="true"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>A Housing Bubble or a House of Cards?</h1>
+<h2>Aug. 1, 2021</h2>
+<p> The price to rent ratio (P/R) is a well known litmus test for real
+  estate deals.
+  However, you can stack the deck in your favor by knowing how current
+  market P/Rs compare to the target P/R of federal policy.
+  For example, if you could rent your $180,000 home for $1500/month,
+  your P/R ratio is 120 months.
+</p>
+<img src="prratio.gif">
+<p> One can see below that P/Rs from the past are not equal to
+  today's market
+  from FRED data on median sales price of US homes
+  (<a href="https://fred.stlouisfed.org/series/MSPUS">MSPUS</a>)
+  and a rent index
+  <span style="white-space:nowrap;">
+    (<a href="https://fred.stlouisfed.org/series/CUSR0000SEHC">CUSR0000SEHC</a>)</span>.
+</p>
+<p> The hypothesis of the
+  <a href="limiting-dividend.html">limiting dividend model</a>
+  is that a lower bound on the price to rent ratio (P/R) is set by
+  combination of fiat money policy in parallel with a real-economy
+  resistance to becoming rundown.
+  The Federal Reserve provides plenty of public data to test it out,
+  and the result is plotted in red, with US recessions shown in blue.
+</p>
+
+<img src="resistance-ratio.png" width="100%">
+<h2>Should I Buy or Rent?</h2>
+<p> The model provides a lower bound of where fair market
+  property prices are
+  headed based on federal policy. With the real price ratio (black)
+  normalized to the model (red) in 2016, it looks like property
+  prices in Qtr. 1 2021 were quickly recovering but not yet
+  bubbling.
+  </p>
+<p> Is the model valid?
+  You can read more about the model in
+  <a href="limiting-dividend.html">
+    <span style="white-space:nowrap;">the limiting dividend model</span></a>.
+  Are the inputs good? I used two more FRED datasets
+  <a href="https://fred.stlouisfed.org/series/MORTGAGE30US">MORTGAGE30US</a>
+  and
+  <a href="https://fred.stlouisfed.org/series/JHDUSRGDPBR">JHDUSRGDBPBR</a>
+  but also an unsupported value of 180 months for the
+  run down resistance, based only anecdotally on my own home
+  expenses. Try the MATLAB or
+  <a href="https://www.gnu.org/software/octave/index">Octave</a>
+  code yourself with up to date FRED data:
+</p>
+<pre>
+clear;
+clc;
+function data = import_fred_csv(filename)
+  % Import FRED CSV Data (should be monthly or greater timescale)
+  data=csvread(filename);
+  % Remove Title Row
+  data(1,:)=[];
+  % Convert Year/Month Complex Numbers to month index
+  data(:,1) = real(12*data(:,1))-imag(data(:,1));
+endfunction
+
+function array = stretch_align_index(data, start, stop)
+  m = 0;
+  while(m <= stop - start)
+    i = lookup(data(:,1), m+start);
+    array(m+1) = data(i,2);
+    m = m + 1;
+  endwhile
+endfunction
+
+mort30us = import_fred_csv('C:\Economic-Data\MORTGAGE30US.csv');   % percent apr
+mspus = import_fred_csv('C:\Economic-Data\MSPUS.csv');             % dollars
+rent_index = import_fred_csv('C:\Economic-Data\CUUR0000SEHA.csv'); % unitless
+recessions = import_fred_csv('C:\Economic-Data\JHDUSRGDPBR.csv');  % 0 or 1
+
+start = max([mspus(1,1),mort30us(1,1),rent_index(1,1), recessions(1,1)]);
+stop = min([max(mspus(:,1)), max(mort30us(:,1)), max(rent_index(:,1)), max(recessions(:,1))]);
+
+yr = (start : stop)/12;
+apr = stretch_align_index(mort30us,start,stop);
+mpr = realpow(1 + apr./100, 1/12);
+Rmort = (1-mpr.^(-360)) ./ (1 - 1./mpr);
+Vmed = stretch_align_index(mspus,start,stop);
+Irent = stretch_align_index(rent_index,start,stop);
+Recess = stretch_align_index(recessions, start, stop);
+
+Rreal = 180;
+scale_refpoint = lookup(yr,2016);
+Rth = (Rreal * Rmort)./(Rmort + Rreal);
+scale = Vmed(scale_refpoint)/(Rth(scale_refpoint)*Irent(scale_refpoint));
+
+plot(yr, Vmed./(scale*Irent), 'k', yr, Rth, 'r', yr, 70*Recess+40);
+title("Median Sales Price to Rent Ratio");
+legend("Median Sales Price P/R Index", "Limiting Dividend Minimum Fair P/R Ratio", "US Recession", "location","southeast");
+ylabel("months");
+</pre>
+
+
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png"></a>
+  Ben Lorenzetti<br>
+  This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>
