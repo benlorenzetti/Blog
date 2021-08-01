@@ -54,6 +54,7 @@
   resistance to becoming rundown.
   The Federal Reserve provides plenty of public data to test it out,
   and the result is plotted in red, with US recessions shown in blue.
+	The data starts the year Nixon suspended the gold standard.
 </p>
 
 <img src="resistance-ratio.png" width="100%">
@@ -62,23 +63,49 @@
   property prices are
   headed based on federal policy. With the real price ratio (black)
   normalized to the model (red) in 2016, it looks like property
-  prices in Qtr. 1 2021 were quickly recovering but not yet
-  bubbling.
+  prices in Qtr. 1 2021 were quickly recovering to the target but
+	not yet in a bubble.
   </p>
 <p> Is the model valid?
   You can read more about the model in
   <a href="limiting-dividend.html">
     <span style="white-space:nowrap;">the limiting dividend model</span></a>.
-  Are the inputs good? I used two more FRED datasets
+  Are the inputs good? I used one more FRED datasets
   <a href="https://fred.stlouisfed.org/series/MORTGAGE30US">MORTGAGE30US</a>
-  and
-  <a href="https://fred.stlouisfed.org/series/JHDUSRGDPBR">JHDUSRGDBPBR</a>
   but also an unsupported value of 180 months for the
   run down resistance, based only anecdotally on my own home
   expenses. Try the MATLAB or
   <a href="https://www.gnu.org/software/octave/index">Octave</a>
-  code yourself with up to date FRED data:
+  code yourself with up to date FRED data.
 </p>
+<h2>Citations</h2>
+<p>	U.S. Census Bureau and U.S. Department of Housing and Urban
+	Development, Median Sales Price of Houses Sold for the United
+	States [MSPUS], retrieved from FRED, Federal Reserve Bank of St.
+	Louis;
+	<a href="https://fred.stlouisfed.org/series/MSPUS">https://fred.stlouisfed.org/series/MSPUS</a>,
+	July 31, 2021.
+</p>
+<p> U.S. Bureau of Labor Statistics, Consumer Price Index for All
+	Urban Consumers: Owners' Equivalent Rent of Residences in U.S.
+	City Average [CUSR0000SEHC], retrieved from FRED, Federal Reserve
+	Bank of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/CUSR0000SEHC">https://fred.stlouisfed.org/series/CUSR0000SEHC</a>,
+	July 30, 2021.
+</p>
+<p> Freddie Mac, 30-Year Fixed Rate Mortgage Average in the United
+	States [MORTGAGE30US], retrieved from FRED, Federal Reserve Bank
+	of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/MORTGAGE30US">https://fred.stlouisfed.org/series/MORTGAGE30US</a>,
+	July 31, 2021.
+</p>
+<p> Hamilton, James, Dates of U.S. recessions as inferred by GDP-based
+	recession indicator [JHDUSRGDPBR], retrieved from FRED, Federal
+	Reserve Bank of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/JHDUSRGDPBR">https://fred.stlouisfed.org/series/JHDUSRGDPBR</a>,
+	July 31, 2021.
+</p>
+<h2>Code</h2>
 <pre>
 clear;
 clc;
