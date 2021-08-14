@@ -30,7 +30,7 @@
 <hr/>
 <article>
 <h1>A Housing Bubble or a House of Cards?</h1>
-<h2>Aug. 1, 2021</h2>
+<h2>Aug. 8, 2021</h2>
 <p> The price to rent ratio (P/R) is a well known litmus test for real
   estate deals.
   However, you can stack the deck in your favor by knowing how current
@@ -49,17 +49,19 @@
 </p>
 <p> The hypothesis of the
   <a href="limiting-dividend.html">limiting dividend model</a>
-  is that a lower bound on the price to rent ratio (P/R) is set by
-  combination of fiat money policy in parallel with a real-economy
+  is that a P/R ratio upper bound is set by
+  combination of fiat monetary policy in parallel with a real-economy
   resistance to becoming rundown.
-  The Federal Reserve provides plenty of public data to test it out,
-  and the result is plotted in red, with US recessions shown in blue.
-	The data starts the year Nixon suspended the gold standard.
+  The Federal Reserve provides enough public data for a quick test,
+  and the result is plotted below with a P/R index (black) normalized
+	to the model (red) in 2016. To improve credibility, US recessions
+	are shown and the data starts the year Nixon suspended the gold
+	standard.
 </p>
 
 <img src="resistance-ratio.png" width="100%">
 <h2>Should I Buy or Rent?</h2>
-<p> The model provides a lower bound of where fair market
+<p> The model provides an upper bound of where fair market
   property prices are
   headed based on federal policy. With the real price ratio (black)
   normalized to the model (red) in 2016, it looks like property
@@ -149,7 +151,7 @@ Rth = (Rreal * Rmort)./(Rmort + Rreal);
 scale = Vmed(scale_refpoint)/(Rth(scale_refpoint)*Irent(scale_refpoint));
 
 plot(yr, Vmed./(scale*Irent), 'k', yr, Rth, 'r', yr, 70*Recess+40);
-title("Median Sales Price to Rent Ratio");
+title("Median Sales Price to Rent Index");
 legend("Median Sales Price P/R Index", "Limiting Dividend Minimum Fair P/R Ratio", "US Recession", "location","southeast");
 ylabel("months");
 </pre>

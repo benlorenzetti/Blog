@@ -40,6 +40,6 @@ Rth = (Rreal * Rmort)./(Rmort + Rreal);
 scale = Vmed(scale_refpoint)/(Rth(scale_refpoint)*Irent(scale_refpoint));
 
 plot(yr, Vmed./(scale*Irent), 'k', yr, Rth, 'r', yr, 70*Recess+40);
-title("Median Sales Price to Rent Ratio");
-legend("Median Sales Price P/R Index", "Limiting Dividend Minimum Fair P/R Ratio", "US Recession", "location","southeast");
+title("Median Sales Price to Rent Index");
+legend("Median Sales Price P/R Index", "Limiting Dividend P/R Ratio", "US Recession", "location","southeast");
 ylabel("months");

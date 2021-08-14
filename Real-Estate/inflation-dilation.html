@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Inflation Dilation</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647559998401134"
+	     crossorigin="anonymous"></script>
+	<!-- header-ad -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-2647559998401134"
+	     data-ad-slot="2556218560"
+	     data-ad-format="auto"
+	     data-full-width-responsive="true"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr/>
+<article>
+<h1>Inflation Dilation</h1>
+<h2>Aug. 2021</h2>
+<p> The <a href="mortgage-calculator.html">mortgage calculator</a>
+  proved that mortgage principal and monthly payments are
+  related by a constant, fixed by monthly interest rate
+  and loan period.
+  The next <a href="index.html">three articles</a> used this
+  to build a relationship between mortgage sizes and rent, but
+  did not account for a major difference between borrowing and
+  renting&mdash;building up equity in a home.
+	The next goal is to compare a
+	<a href="#">home price-to-earnings ratio</a>
+	to other investments.
+</p>
+<p> An optimum equivalent dividend yield can be computed
+	(unfortunately not analytically solved) based on mortgage
+	and inflation rates, and MATLAB/Octave functions for this are included
+	below. The most interesting results are that this dividend yield
+	comes from owning the loan liability, not the actual down payment
+	invested, and also the effects of inflation on this yield through
+	price appreciation and refinancing costs.
+</p>
+<img src="liability-dividend-yield.png" width="75%">
+<p> For example, refinancing a 2%, 30-year, fixed rate mortgage at
+	the optimum time could earn a 0.75% annualized return if
+	refinancing cost one year's worth of mortgage payments and home
+	prices appreciated at a 1-2% rate.
+	Further, if the mortgage was 4x the intial down payment,
+	then the annualized capital gain could be 4&times;0.75% (3%).
+</p>
+<h2>How These Results were Derived</h2>
+<p> The equity gained each month is due to the amount
+  of principal repayed (i.e. difference between principal remaining
+  between month m and m+1) and due to exposure to
+  inflation/deflation of the remaining liability.
+</p>
+<img src="single-month-equity.png">
+<p> Summing these monthly gains over 'n' months shows how inflation
+  affects the profitability of selling your home or the safety net you
+  build up if you ever need to refinance (less a transaction cost 'C').
+</p>
+<img src="equity-buildup-final.png">
+<p> The proof is appended below, where 'r' and 'inf' are monthly
+  interest and inflation multiplication factors, 'p' is monthly
+  payment, and 'N' is mortgage period 360 months.
+	The effect of refinancing costs (y-intercept) and inflation
+	rate on the number of months before refinancing can result
+	in a profit are shown:
+</p>
+<img src="nominal-equity-gains.png" width="75%">
+
+<h2>Equity Buildup Proof</h2>
+<p> The equity gained each month is due to the amount
+  of principal repayed (i.e. difference between principal remaining
+  between month m and m+1) and due to exposure to
+  inflation/deflation of the remaining liability.
+</p>
+<img src="single-month-equity.png">
+<p> Equity buildup uses the same mortgage equations proved for the
+  <a href="mortgage-calculator.html">mortgage calculator</a>,
+  except the loan period 'N' is replaced by a number of 'm' months
+  owned. 'P0' is initial loan principal, 'p' the monthly payment,
+  and 'r' the monthly interest multiplication factor.
+</p>
+<img src="mortgage-decay.png">
+<p> The sum of nominal gains over n months '&Delta;En':
+</p>
+<img src="equity-buildup-proof.png">
+<p> Finally, if the mortgage is refinanced or sold before its
+	term ends, there is a transaction cost 'C' which consumes some
+	of the equity gained. This addition limits the model to working
+	best when the inflation is &leq; mortgage rates.
+</p>
+<img src="equity-buildup-final.png">
+<h2>Octave Optimum-Point Function</h2>
+<pre>
+function months = months_eq_equity_buildup(apr, ipr, coverp, N, n)
+  inf = realpow(1+ipr/100, 1/12);
+  r = realpow(1+apr/100, 1/12);
+  c1 = (r-inf)/(1-1/r);
+  c2 = (r^(-N))/(1-1/r);
+  months = n - c1*(n-c2*(r^n - 1)) - coverp*inf^n;
+endfunction
+
+function buildup = buildup_array(apr, ipr, coverp, N)
+  m = 0;
+  do
+    m = m + 1;
+    buildup(m) = months_eq_equity_buildup(apr, ipr, coverp, N, m);
+  until(m == N)
+endfunction
+
+function opt_point = optimum_point(apr, ipr, coverp, N)
+  derivative_zero = buildup_array(apr, ipr, coverp, N);
+  r = (1 + apr/100)^(1/12);
+  inf = (1 + ipr/100)^(1/12);
+  derivative_zero = derivative_zero .- 2*(1+(r - inf)/(1 - 1/r));
+  n = 1 + lookup(derivative_zero, 0);
+  buildup = months_eq_equity_buildup(apr, ipr, coverp, N, n);
+  c = (1 - r^(-N))/(1-1/r);
+  annual_yield_multiplier = (1+buildup/c)^(12/n);
+  annual_div = 100*(annual_yield_multiplier - 1);
+  opt_point = [n, buildup, annual_div];
+endfunction
+</pre>
+
+
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png"></a>
+  Ben Lorenzetti<br>
+  This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>
