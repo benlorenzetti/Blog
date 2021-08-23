@@ -34,3 +34,23 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 \begin{align*}
 & \frac{\Delta E_{n}}{p} = n-\frac{r-i_{nf}}{1-r^{-1}}\left[n-\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)\right]-\frac{C}{p}(i_{nf})^{n}\\
 \end{align*}
+
++++++++++++++++++ Optimal Leverage ++++++++++++++++++++++
+
+\begin{align*}
+& y=\left(\frac{E_{0}+\Delta E_{n}}{E_{0}} \right)^{1/n}-1+\frac{inc-p}{E_{0}}
+\end{align*}
+
+\begin{align*}
+L&=\frac{P-E_{0}}{E_{0}} \implies E_{0}=\frac{P}{L+1} \\
+R_{m}p&=P-E_{0} \implies \frac{p}{E_{0}} = \frac{L}{R_{m}}
+\end{align*}
+
+\begin{align*}
+y&=\frac{inc(L+1)}{P}-\frac{L}{R_{m}} + \left(\frac{\frac{R_{m}}{L_{0}}+\frac{\Delta E_{n}}{p}}{\frac{R_{m}}{L_{0}}} \right)^{1/n} - 1 \\
+y&=\frac{inc}{P}(L+1)-\frac{L}{R_{m}}+\left(1+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{1/n}-1 \\
+\frac{dy}{dL}=0&=\frac{inc}{P}-\frac{1}{R_{m}} + \frac{1}{n}\left(1+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{\frac{1}{n}-1}\times\frac{\Delta E_{n}}{R_{m}p}\\
+n\left(1-\frac{inc \times R_{m}}{P} \right) &= \left(1+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}  \right)^{\frac{1-n}{n}} \times \frac{\Delta E_{n}}{p}\\
+1+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p} &= \left[\frac{np}{\Delta E_{n}}\left(1-\frac{inc \times R_{m}}{P} \right) \right]^{\frac{n}{1-n}} \\
+L_{0} &=\frac{R_{m}p}{\Delta E_{n}}\left[\left(\frac{np}{\Delta E_{n}}\left(1-\frac{inc \times R_{m}}{P} \right) \right)^{\frac{n}{1-n}}-1 \right]
+\end{align*}
