@@ -33,38 +33,44 @@
 <h2>Aug. 2021</h2>
 <p> The <a href="marginal-dividend.html">marginal
   dividend model</a> calculates a target principal size for home
-  loans from rent, expenses, and mortgage rates based on a break
-  even point where monthly income equals expenses for rental
-  properties. Then, expected profits are due to how the purchase
-  price and down payment compare to this target principal size.
+	loans, based on a break even point where monthly mortgage payments
+	equals the net income for rental properties after other expenses.
+	From the <a href="index.html">previous articles in
+  this series</a>, the monthly mortgage payment (p) and loan
+	principal (property price P minus down payment E0) are related
+	by a constant (Rm) that is set by mortgage rates.
 </p>
-<p> The leverage ratio (L) is the ratio of loan size to down
-  payment. From <a href="index.html">previous articles in
-  this series</a>,
-  the loan size (property price P minus down payment E0) is also
-  equal to the monthly mortgage payment (p) times a constant (Rm)
-  set by interest rates.
+<img src="marginal-model-eqs.png">
+<p> The effective leverage ratio (L) is the ratio of loan size to down
+  payment plus closing costs (E0+F). It is always a	rational number
+	greater than or equal to zero.
+	For conveniance, we also define two proper fractions e and f
+	based on closing costs such that e+f=1.
 </p>
 <img src="leverage-ratio.png">
 <p> The net monthly yield of a property is due to net income from
-  rent after expenses and mortgage payments, and due to
+  rent after expenses and mortgage payment, and due to
   <a href="equity-buildup.html">equity buildup</a>
   (&Delta;En) over a period of n months from mortgage payments and
   appreciation.
 </p>
+<img src="combined-yield-start.png">
+<p> Both of these portions depend strongly on the
+	effective leverage ratio.
+  In the past, the leverage ratio would be constrained by
+  federal reserve requirements. Today the effective leverage ratio
+	is only constrained by funding fees and quasi-federal/private
+	bank policies, so it is important to determine the effect of
+	leverage on yield.
+</p>
 <img src="combined-yield.png">
-<p> Both of these portions depend strongly on the leverage ratio.
-  In the past, the leverage ratio has been fairly constrained by
-  federal reserve requirements, federal law, and
-  quasi-public/private entities. However it is still important
-  to know the effect of the leverage ratio when settling on a
-  down payment. The optimum leverage ratio (L0) can be calculated
-  for all reasonable cases where the sales price exceeds the
-  target principal size
-  <span style="white-space:nowrap;">(P > inc*Rm)</span>.
+<p> The optimum effective leverage ratio (L0) can be found
+based on the likely timeframe (n months) before selling or
+refinancing:
 </p>
 <img src="leverage-optimum.png">
-
+<p> Finally, for large n the optimum can be approximated:</p>
+<img src="leverage-optimum-approximation.png">
 <footer>
 <hr>
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">

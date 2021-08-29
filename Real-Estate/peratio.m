@@ -5,6 +5,9 @@ function incl_range = months_range(series1, series2)
   last = min(series1(1,size(series1)(2)), series2(1,size(series2)(2)));
   incl_range = [first, last];
 endfunction
+
+% ldi(data): For data in 2xN, returns greatest i in N such that
+% element (1,i) is non-zero.
 function last_data_index = ldi(row)
   i = size(row)(2);
   while(i != 0 && row(1,i) == 0)
@@ -31,6 +34,7 @@ function series = shiller_series(shiller_data, series_row)
   series(1,:) = shiller_data(1, 1:ldi(shiller_data(series_row,:)));
   series(2,:) = shiller_data(series_row, 1:ldi(shiller_data(series_row,:)));
 endfunction
+
 function fred_data = import_fred_csv(filename)
   fred_data = csvread(filename);
   fred_data(1,:) = []; % remove title row
@@ -48,6 +52,7 @@ function new_data = stretch_align_index(data, incl_range)
     m = m + 1;
   endwhile
 endfunction
+
 function Rm = Rmort(apr, N)
   r = (1+apr(2,:)./100) .^ (1/12);
   Rm(1,:) = apr(1,:);
@@ -58,6 +63,7 @@ function Rth = Rtarget_pr(Rm, Rreal)
   Rth(1,:) = Rm(1,:);
   Rth(2,:) = (Rreal .* Rm(2,:))./(Rm(2,:) .+ Rreal);
 endfunction
+
 function Rpar = parallel_series(R1, R2)
   incl_range = months_range(R1, R2);
   R1sub = stretch_align_index(R1, incl_range);
@@ -73,6 +79,7 @@ function prod = multiply_series(s1, s2)
   prod(1,:) = incl_range(1) : incl_range(2);
   prod(2,:) = s1(2,:).*s2(2,:);
 endfunction
+
 function div = divide_series(s1, s2)
   incl_range = months_range(s1, s2);
   s1 = stretch_align_index(s1, incl_range);
@@ -80,6 +87,7 @@ function div = divide_series(s1, s2)
   div(1,:) = incl_range(1) : incl_range(2);
   div(2,:) = s1(2,:)./s2(2,:);
 endfunction
+
 function pr_index = prindex(Vmedian, Irent)
   incl_range = months_range(Vmedian, Irent);
   V = stretch_align_index(Vmedian, incl_range);
@@ -106,13 +114,13 @@ function mave = moving_ave(data, last_n)
     mave(2,i) = sum(data(2,i:i+last_n))/last_n;
   until(i == last - lend)
 endfunction
+
 function apr = percentage_change(data, k)
   apr(1,:) = data(1,2:size(data)(2));
   mdiff = diff(data(2,:));
   mmult = 1 + mdiff ./ data(2,2:size(data)(2));  
   apr(2,:) = 100*(mmult.^12 - 1);
 endfunction
-
 
 function months = months_eq_equity_buildup(apr, ipr, coverp, N, n)
   inf = realpow(1+ipr/100, 1/12);
@@ -152,7 +160,6 @@ function opt_point = optimum_point(apr, ipr, coverp, N, L0)
   annual_div = 100*(annual_yield_multiplier - 1);
   opt_point = [n, buildup, annual_div];
 endfunction
-
 
 
 function Gl = Gliability_apr(apr, ipr, coverp, N, L0)
