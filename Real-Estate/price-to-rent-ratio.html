@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Price to Rent Ratio</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647559998401134"
+	     crossorigin="anonymous"></script>
+	<!-- header-ad -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-2647559998401134"
+	     data-ad-slot="2556218560"
+	     data-ad-format="auto"
+	     data-full-width-responsive="true"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr>
+<article>
+<h1>Price to Rent Ratio</h1>
+<h2>Sep. 1, 2021</h2>
+<p> The price to rent ratio (P/R) is a well known litmus test for real
+  estate deals. For example, if you could rent a $180,000 home for
+	$1500/month, the P/R ratio is 120 months.
+</p>
+<img src="prratio.gif">
+<p> There is no quick, easy thumbrule for a good P/R ratio. One can
+	see below that the median P/R ratio (black curve) has trended upward
+	over the last 50 years, based on FRED data on median sales price of
+	US homes (<a href="https://fred.stlouisfed.org/series/MSPUS">MSPUS</a>)
+  and a unitless rent index
+  (<a href="https://fred.stlouisfed.org/series/CUUR0000SEHA">CUUR0000SEHA</a>).
+</p>
+<p> The hypothesis of the
+  <a href="marginal-dividend.html">marginal dividend model</a>
+  is that a target P/R ratio is set by combination of fiat monetary
+	policy in parallel with a real-economy "resistance to becoming
+	rundown". The Federal Reserve provides enough public data for a
+	quick test, and the result is plotted below with a P/R index
+	(black) normalized to the model (red) in December 2015.
+	To improve credibility, US recessions are shown and the data
+	starts the year Nixon suspended the gold standard.
+</p>
+<img src="resistance-ratio.png" width="100%">
+<h2>Should I Buy or Rent?</h2>
+<p> The model provides a target of where fair market property prices are
+  headed based on federal policy. With the real price ratio (black)
+  normalized to the model (red) in Dec. 2015, it looks like property
+  prices in April 2021 were quickly recovering to the target but
+	not yet in a bubble.
+  </p>
+<p> Is the model valid?
+  You can read more about the model in the series
+  <a href="index.html">
+    <span style="white-space:nowrap;">Should I Buy or Rent?</span></a>
+  The graph is based on the FRED datasets cited below, but I also relied
+	on an anecdotal value of 180 months for the "run down resistance"
+	<span style="font-family:monospace;">Rreal</span>	based on my personal
+  home expenses. You can test the MATLAB script yourself with my
+	<a href="../Economic-Data/matlab.html">data scripting library</a>
+	<span style="font-family:monospace">econdata.m</span>
+		(its low quality, don't judge).
+</p>
+<h2>MATLAB Script</h2>
+<pre>
+clear;
+clc;
+run('<a href="../Economic-Data/econdata.m">econdata.m</a>'); % Functions for importing and manipulating data
+
+mort30us = import_fred_csv('Data\MORTGAGE30US.csv');   % percent apr
+mspus = import_fred_csv('Data\MSPUS.csv');             % dollars
+rent_index = import_fred_csv('Data\CUUR0000SEHA.csv'); % unitless
+recessions = import_fred_csv('Data\JHDUSRGDPBR.csv');  % 0 or 1
+
+apr_range = months_range(mort30us, mort30us);
+apr = stretch_align_index(mort30us, apr_range);
+mpr = (1 + apr(2,:)./100).^(1/12);
+Rmort = (1-mpr.^(-360)) ./ (1 - 1./mpr);
+Rreal = 180;
+Rth(1,:) = apr(1,:);
+Rth(2,:) = (Rreal * Rmort)./(Rmort + Rreal);
+
+norm_year = 2015;
+norm_month = 12;
+pr_range = months_range(mspus, rent_index);
+Vmed = stretch_align_index(mspus, pr_range);
+Irent = stretch_align_index(rent_index, pr_range);
+ind1 = lookup(Rth(1,:), 12*norm_year + norm_month);
+ind2 = lookup(Vmed(1,:), 12*norm_year + norm_month);
+scale = Rth(2,ind1) / (Vmed(2,ind2)/(Irent(2,ind2)));
+pr_index(1,:) = pr_range(1) : pr_range(2);
+pr_index(2,:) = scale * Vmed(2,:)./Irent(2,:);
+
+plot(pr_index(1,:)/12, pr_index(2,:), 'k');
+hold on;
+plot(Rth(1,:)/12, Rth(2,:), 'r');
+plot(recessions(1,:)/12, 70*recessions(2,:)+40);
+title("Median Sales Price to Rent Index, normalized to Dec. 2015");
+h = ["Median Sales P/R Index"; "Marginal Dividend P/R Ratio"; "US Recessions"];
+legend(h, "location","southeast");
+ylabel("months");
+axis([1968, 2023,40,110]);
+hold off;
+</pre>
+
+<h2>Citations</h2>
+<p>	U.S. Census Bureau and U.S. Department of Housing and Urban
+	Development, Median Sales Price of Houses Sold for the United
+	States [MSPUS], retrieved from FRED, Federal Reserve Bank of St.
+	Louis;
+	<a href="https://fred.stlouisfed.org/series/MSPUS">https://fred.stlouisfed.org/series/MSPUS</a>,
+	July 31, 2021.
+</p>
+<p> U.S. Bureau of Labor Statistics, Consumer Price Index for All
+	Urban Consumers: Rent of Primary Residence in U.S. City Average
+	[CUUR0000SEHA], retrieved from FRED, Federal Reserve Bank of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/CUUR0000SEHA">
+		https://fred.stlouisfed.org/series/CUUR0000SEHA</a>,
+	August 31, 2021.
+</p>
+<p> Freddie Mac, 30-Year Fixed Rate Mortgage Average in the United
+	States [MORTGAGE30US], retrieved from FRED, Federal Reserve Bank
+	of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/MORTGAGE30US">
+		https://fred.stlouisfed.org/series/MORTGAGE30US</a>,
+	July 31, 2021.
+</p>
+<p> Hamilton, James, Dates of U.S. recessions as inferred by GDP-based
+	recession indicator [JHDUSRGDPBR], retrieved from FRED, Federal
+	Reserve Bank of St. Louis;
+	<a href="https://fred.stlouisfed.org/series/JHDUSRGDPBR">https://fred.stlouisfed.org/series/JHDUSRGDPBR</a>,
+	July 31, 2021.
+</p>
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png"></a>
+  Ben Lorenzetti<br>
+  This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>

@@ -32,41 +32,66 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 \end{align*}
 
 \begin{align*}
-& \frac{\Delta E_{n}}{p} = n-\frac{r-i_{nf}}{1-r^{-1}}\left[n-\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)\right]-\frac{C}{p}(i_{nf})^{n}\\
+\frac{\Delta E_{n}}{p} = n-\frac{r-i_{nf}}{1-r^{-1}}\left[n-\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)\right]\\
 \end{align*}
 
 +++++++++++++++++ Optimal Leverage ++++++++++++++++++++++
 
 \begin{align*}
-p &= \frac{P-E_{0}}{P}i_{net}\:\implies\:i_{net}=\frac{P}{R_{m}}\\
-R_{m}p &=P-E_{0} \\
+& Y=\frac{i_{net}-p}{E_{0}+F_{1}}+\left(\frac{E_{0}+\Delta E_{n}-F_{2}}{E_{0}+F_{1}} \right)^{1/n}-1
 \end{align*}
 
 \begin{align*}
-L&=\frac{P-E_{0}}{E_{0}+F} \implies E_{0}=\frac{P-LF}{L+1} \implies E_{0}+F = \frac{P+F}{L+1} \\
-\frac{R_{m}p}{E_{0}+F}&=\frac{P-E_{0}}{E_{0}+F} \implies \frac{L}{R_{m}} = \frac{p}{E_{0}+F} \\
-\implies e &= \frac{P}{P+F}\:\: and \:\:f=\frac{F}{P+F}\
+L=\frac{P-E_{0}}{E_{0}+F} &\implies E_{0}=\frac{P-LF}{L+1} \implies E_{0}+F = \frac{P+F}{L+1} \\
+&\implies e = \frac{P}{P+F}\:\: and \:\:f=\frac{F}{P+F}\
 \end{align*}
 
 \begin{align*}
-& y=\frac{i_{net}-p}{E_{0}+F}+\left(\frac{E_{0}+\Delta E_{n}}{E_{0}+F} \right)^{1/n}-1
+P=R_{m}i_{net} &\implies\:i_{net}=\frac{P}{R_{m}} \\
+R_{m}p =P-E_{0} &\implies
+\frac{R_{m}p}{E_{0}+F}=\frac{P-E_{0}}{E_{0}+F} &\implies \frac{L}{R_{m}} = \frac{p}{E_{0}+F} \\
 \end{align*}
 
 \begin{align*}
-y&=\frac{i_{net}}{{E_{0}+F}}-\frac{L}{R_{m}} + \left(\frac{E_{0}}{E_{0}+F} +\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
-y&=\frac{P(L+1)}{{R_{m}(P+F)}}-\frac{L}{R_{m}} + \left(\frac{P-LF}{P+F} +\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
-y&=\frac{1}{R_{m}}(e-Lf) + \left(e-Lf +\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
+Y&=\frac{\frac{P}{R_{m}}}{{E_{0}+F}}-\frac{L}{R_{m}} + \left(\frac{E_{0}}{E_{0}+F}-\frac{F}{E_{0}+F}+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
+Y&=\frac{P(L+1)}{R_{m}(P+F)}-\frac{L(P+F)}{R_{m}(P+F)} + \left(\frac{P-LF}{P+F}-\frac{F(L+1)}{P+F}+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
+Y&=\frac{1}{R_{m}}\left(\frac{P-LF}{P+F} \right) + \left(e-f(2L+1)+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
+Y&=\frac{1}{R_{m}}(e-Lf) + \left(1-2f(L+1)+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
 \end{align*}
 
 \begin{align*}
-\frac{dy}{dL}=0&=\frac{1}{R_{m}}(e-1)+ \frac{1}{n}\left(e-L_{0}f+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{\frac{1}{n}-1}\times\left(-f + \frac{1}{R_{m}} \frac{\Delta E_{n}}{p} \right) \\
-1-e &= \frac{1}{n}\left(e-L_{0}f+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{\frac{1-n}{n}}\times\left( \frac{ \Delta E_{n}}{p} - R_{m}f \right) \\
-\left(\frac{n(1-e)}{\frac{ \Delta E_{n}}{p} - R_{m}f}\right)^{\frac{n}{1-n}} &=e-L_{0}f+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \\
--e+\left(\frac{\frac{ \Delta E_{n}}{p} - R_{m}f}{nf} \right)^{\frac{n}{n-1}} &=\frac{L_{0}}{R_{m}}\left(\frac{\Delta E_{n}}{p}-R_{m}f \right) \\
-L_{0} &=R_{m}\left(\frac{\left(\frac{\frac{ \Delta E_{n}}{p} - R_{m}f}{nf} \right)^{\frac{n}{n-1}}-e}{\frac{\Delta E_{n}}{p}-R_{m}f} \right)
+\frac{dy}{dL}=0&=\frac{-f}{R_{m}}+ \frac{1}{n}\left(1-2f(L_{0}+1)+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{\frac{1}{n}-1}\times\left(-2f + \frac{1}{R_{m}} \frac{\Delta E_{n}}{p} \right) \\
+f &= \frac{1}{n}\left(1-2f(L_{0}+1)+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{\frac{1-n}{n}}\times\left( \frac{ \Delta E_{n}}{p} - 2fR_{m}\right) \\
+\left(\frac{nf}{\frac{ \Delta E_{n}}{p} - 2fR_{m}}\right)^{\frac{n}{1-n}} &=1-2f(L_{0}+1)+\frac{L_{0}}{R_{m}}\frac{\Delta E_{n}}{p} \\
+-1+\left(\frac{\frac{ \Delta E_{n}}{p} - 2fR_{m}}{nf} \right)^{\frac{n}{n-1}} &=\frac{L_{0}}{R_{m}}\left(\frac{\Delta E_{n}}{p}-2fR_{m} \right) \\
+L_{0} &=R_{m}\left(\frac{\left(\frac{\frac{ \Delta E_{n}}{p} - 2fR_{m}}{nf} \right)^{\frac{n}{n-1}}-1}{\frac{\Delta E_{n}}{p}-2fR_{m}} \right)
 \end{align*}
 
 \begin{align*}
-L_{0} &\approx R_{m}\left(\frac{1}{nf}-\frac{e}{\frac{\Delta E_{n}}{p}-R_{m}f}\right)\\
-L_{0} &\approx \frac{R_{m}}{f}\left(\frac{1}{n}-\frac{e}{\frac{\Delta E_{n}}{p}f^{-1}-R_{m}} \right) \\
+L_{0} &\approx R_{m}\left(\frac{1}{nf}-\frac{1}{\frac{\Delta E_{n}}{p}-2fR_{m}}\right)\\
+L_{0} &\approx \frac{R_{m}}{fn}
+\end{align*}
+
+********************************** Refinancing **************************
+\begin{align*}
+\frac{\Delta E_{n}}{p} &= \left(1-\frac{A}{B}\right)n+\frac{AC}{B^{2}}(r^{n}-1) \\
+\frac{\Delta E_{n}}{p}x^{-n} &= \left(1-\frac{A}{B}\right)nx^{-n}+\frac{AC}{B^{2}}\left(\frac{r}{x}\right)^{n}-\left(\frac{AC}{B^{2}} \right)x^{-n} \\
+\frac{d}{dn}\frac{\Delta E_{n}}{p}x^{-n} &= \left(1-\frac{A}{B}\right)x^{-n}-\ln(x)\left(1-\frac{A}{B}\right)n x^{-n}\\&-\ln\left(\frac{x}{r}\right)\frac{AC}{B^{2}}\left(\frac{r}{x}\right)^{n}+\ln(x)\left(\frac{AC}{B^{2}} \right)x^{-n} \\
+\frac{d}{dn}\frac{\Delta E_{n}}{p}x^{-n} &= \frac{1-\frac{A}{B}}{\ln(x)}-\left(1-\frac{A}{B}\right)n -\left(1-\frac{\ln(r)}{\ln(x)}\right)\frac{AC}{B^{2}}r^{n}+\frac{AC}{B^{2}} \\
+0 &= \frac{1-\frac{A}{B}}{\ln(x)}-\left(1-\frac{A}{B}\right)T -\left(1-\frac{\ln(r)}{\ln(x)}\right)\frac{AC}{B^{2}}r^{T}+\frac{AC}{B^{2}} \\
+\frac{1-\frac{A}{B}}{\ln(x)}+\frac{AC}{B^{2}} &= \left(1-\frac{A}{B}\right)T +\left(1-\frac{\ln(r)}{\ln(x)}\right)\frac{AC}{B^{2}}r^{T}
+\end{align*}
+
+\begin{align*}
+i=1\:\:\implies\:|r-i|&\approx |1-r^{-1}| \: \implies \: \frac{A}{B}\approx1\\
+\implies \: \frac{C}{B} &\approx \left(1-\frac{\ln(r)}{\ln(x)}\right)\frac{C}{B}r^{T} \\
+T_{i=1} &\approx \frac{\ln\left(\frac{\ln(x)}{\ln(x)-\ln(r)}\right)}{\ln(r)} \\
+assume \:\:x \:\:near\:\:1 &\:\:and \:\: R<<X, \\
+\implies \: T_{i=1}&\approx \frac{\frac{X}{X-R}-1}{R}\\
+T_{i=1} &\approx \frac{1}{x-r}
+\end{align*}
+
+\begin{align*}
+i=r\:\:&\implies\:A=0 \\
+&\implies \: T_{i=r} = \frac{1}{\ln(x)} \approx \frac{1}{X}  \\
 \end{align*}
