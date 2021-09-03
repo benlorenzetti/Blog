@@ -30,11 +30,59 @@
 <hr>
 <article>
 <h1>Economic Data Scripts</h1>
-<p style="font-family: monospace; white-space:pre;">
-  run('<a href="econdata.m">econdata.m</a>');
-  second line
-    indented third
+<p> This page serves as a directory for various	scripts I use for
+	plotting economic data.
 </p>
+<p> The MATLAB data format used throughout is [2&times;n]
+	matrices because it makes plotting ok.
+	The first row is usually months since December of
+	1 B.C. and the second row holds the data itself for that matrix.
+</p>
+<h2>Federal Reserve Economic Data (FRED)</h2>
+<p>
+The <a href="https://fred.stlouisfed.org/">FRED</a> online database has
+many authoritative datasets and provides free, conveniant, and easy to use
+downloading to CSV formatted data.
+Importing these CSV files into the MATLAB data format is very simple.
+</p>
+<p class="code">
+% "run-to-load" the data importing and manipulation functions
+  run('<a href="econdata.m">econdata.m</a>');
+
+  a = import_fred_csv("FREDDATA.csv");
+  plot(a(1,:)/12, a(2,:));
+</p>
+<h2>Stock Market Data from <em>Irrational Exuberance</em></h2>
+<p> Professor Robert Shiller makes his research data available to the
+	public at his website
+	<a href="http://www.econ.yale.edu/~shiller/data.htm">Online Data</a>.
+	Again <span class="code">econdata.m</span> provides an importing
+	function for this data (but resave the excel file as a CSV file first).
+</p>
+<p class="code">
+% Row Organization:
+% (1) Month, (2) S&P Price, (3) Dividend, (4) Earnings, (5) CPI, (6) GS10
+  large_table = import_shiller_csv("excel-saved-to-csv.csv");
+  cpi = shiller_series(large_table);
+  plot(cpi(1,:)/12, cpi(2,:));
+</p>
+<h2>Freddie Mac Single-Family Loan-Level Dataset</h2>
+<p>This
+	<a href="http://www.freddiemac.com/research/datasets/sf_loanlevel_dataset.page">
+	dataset</a> is also free to the public but it has terms and
+	conditions, in particular I make sure it is never accidentally post
+	it externally	except for research related graphs that use derived
+	medians/averages to test my equations and hypotheses.
+</p>
+<p> Importing functions in <a href="freddie-mac-origination-data.h">
+	<span class="code">freddie-mac-origination-data.h</span></a>
+  and scripts like <a href="down-payment.c">
+	<span class="code">down-payment.c</span></a> convert this large
+	amount of data to usable series for short scripts in MATLAB/Octave.
+</p>
+
+
+
 
 <footer>
 <hr>

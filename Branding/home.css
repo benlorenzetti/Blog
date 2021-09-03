@@ -72,7 +72,8 @@ footer { margin: 0px; border-style: none; padding: 0px;
 /* end of style */
 
 article {}
-.code { font-family: monospace; font-size: 10pt; white-space: pre;}
+.code { font-family: monospace; font-size: 10pt; white-space: pre;
+margin-top:0; padding-top:0;}
 
 span.math1 {
     white-space: nowrap;
