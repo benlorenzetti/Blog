@@ -13,6 +13,8 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 & P_{0} = P_{n}r^{-n} + p \left(\frac{1-r^{-n}}{1-r^{-1}}\right)\\
 \end{align*}
 
+************************* Equity Buildup *************************
+
 \begin{align*}
 & P_{m+1}=rP_{m}-p\\
 & \frac{P_{m}}{r^{m}}=P_{0}-p\left(\frac{1-r^{-m}}{1-r^{-1}}\right)\\
@@ -32,7 +34,7 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 \end{align*}
 
 \begin{align*}
-\frac{\Delta E_{n}}{p} = n-\frac{r-i_{nf}}{1-r^{-1}}\left[n-\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)\right]\\
+\frac{\Delta E_{n}}{p} = n+\frac{r-i_{nf}}{1-r^{-1}}\left[\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)-n\right]\\
 \end{align*}
 
 +++++++++++++++++ Optimal Leverage ++++++++++++++++++++++
@@ -70,6 +72,14 @@ L_{0} &=R_{m}\left(\frac{\left(\frac{\frac{ \Delta E_{n}}{p} - 2fR_{m}}{nf} \rig
 \begin{align*}
 L_{0} &\approx R_{m}\left(\frac{1}{nf}-\frac{1}{\frac{\Delta E_{n}}{p}-2fR_{m}}\right)\\
 L_{0} &\approx \frac{R_{m}}{fn}
+\end{align*}
+
+\begin{align*}
+Y=\frac{1-f(L+1)}{R_{m}}+\left(1-2f(L+1)+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p} \right)^{1/n}-1,\:\:and\:\:L_{0}=Max
+\begin{cases}
+\approx \frac{R_{m}}{fn}\\
+\vee\:Funding\:Limit
+\end{cases}
 \end{align*}
 
 ********************************** Refinancing **************************

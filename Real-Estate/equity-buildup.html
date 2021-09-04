@@ -30,62 +30,39 @@
 <hr>
 <article>
 <h1>Equity Buildup</h1>
-<h2>Aug. 2021</h2>
+<h2>Sep. 2021</h2>
 <p> The <a href="mortgage-calculator.html">mortgage calculator</a>
-  proved that mortgage principal and monthly payments are
-  related by a constant, fixed by monthly interest rate
-  and loan period.
+  proved that mortgage principal and monthly payments (p) are
+  related by an independent constant, set by interest rates (r)
+	and loan period (N).
   The next <a href="index.html">three articles</a> used this
-  to build a relationship between mortgage sizes and rent, but
+  to build a relationship between home prices and rent, but
   did not account for a major difference between borrowing and
   renting&mdash;building up equity in a home.
-	The next goal is calculating a
-	<a href="leverage-ratio.html">combined yield</a> and ultimately comparing
-	<a href="#">home price-to-earnings ratio</a>
-	to other investments.
-</p>
-<p> An optimum equity yield can be computed
-	(unfortunately not analytically solved) based on mortgage
-	and inflation rates, and MATLAB/Octave functions for this can be
-	found <a href="#">here</a>.
-	The most significant results are that this yield
-	comes from owning the loan liability, leveraging the actual down
-	payment invested, and the optimum yield and time for refinancing are
-	significantly impacted by inflation and refinancing costs.
-</p>
-<p> For example, with 20% down payment (Leverage Ratio = 4)
-	on a 2%, 30-year, fixed rate mortgage, refinancing at
-	the optimum time with a fee equal to one year's
-	worth of mortgage payments would return an &approx; 2%
-	annualized rate on the down payment if home prices
-	appreciated 0-2%.
-</p>
-<img src="liability-yield.png" alt="liability-yields-with-inflation" width="100%">
-
-<h2>Yield Derivation</h2>
-<p> The equity gained each month is due to the amount
-  of principal repayed (i.e. difference between principal remaining
-  between month m and m+1) and due to exposure to
-  inflation/deflation of the remaining liability.
-</p>
-<img src="single-month-equity.png">
-<p> Summing these monthly gains over 'n' months shows how inflation
-  affects the profitability of selling your home or the safety net you
-  build up if you ever need to refinance (less a transaction cost 'C').
 </p>
 <img src="equity-buildup-summary.png">
-<p> The proof is appended below, where 'r' and 'inf' are monthly
-  interest and inflation multiplication factors, 'p' is monthly
-  payment, and 'N' is mortgage period 360 months.
-	The effect of refinancing costs (y-intercept) and inflation
-	rate on the number of months before refinancing can result
-	in a profit are shown:
+<p> Similarly, the results show the rate of nominal equity buildup
+	(&Delta;En) is independent of the price tag and can be applied
+	equivalently to any sized mortgage (&Proportional;p). The second significant
+	result is the impact of inflation on the gains from the
+	loan liability, making equity buildup much more biased towards
+	a straight line that the exponential curve typically associated
+	with mortgages due to paying off a growing portion of principal
+	each month.
 </p>
-<img src="nominal-equity-gains.png" width="100%">
-
+<img src="equity-buildup.png" width="100%">
+<p> Unlike <a href="https://www.mortgagecalculator.org/">
+	inferior mortgage calculators</a> with admittedly pretty,
+  quasi-exponential interactive graphics, this site's calculator
+	and articles emphasize the linear aspects of mortgages in
+	the 21st Century. The
+	<a href="leverage-ratio.html">next article</a> continues down
+	this path by defining the leverage ratio and also accounting
+	for closing costs, which are not included in the proof below.
+</p>
 <h2>Equity Buildup Proof</h2>
-<p> The equity gained each month is due to the amount
-  of principal repayed (i.e. difference between principal remaining
+<p> The equity gained each month is due to the amount of principal
+  repayed (i.e. difference between principal remaining
   between month m and m+1) and due to exposure to
   inflation/deflation of the remaining liability.
 </p>
@@ -100,13 +77,19 @@
 <p> The sum of nominal gains over n months '&Delta;En':
 </p>
 <img src="equity-buildup-proof.png">
-<p> Finally, if the mortgage is refinanced or sold before its
-	term ends, there is a transaction cost 'C' which consumes some
-	of the equity gained. This addition limits the model to working
-	best when the inflation is &leq; mortgage rates.
+<p> All that remains is slight rearrangement for aesthetics
+	and description. This equation describes equity buildup of
+	the loan liability itself, the
+	<a href="leverage-ratio.html">next article</a> accounts for closing
+	costs and financing fees which are not included in this equation.
 </p>
 <img src="equity-buildup-summary.png">
-
+<p> One degenerate result is if inflation was zero, the final
+  value reached over the loan period is equal to Rm, but one
+	interesting results is that this equation devolves into a straight
+	line if inflation rates equal interest rates. This will be
+	explored further later in this <a href="index.html">series</a>.
+</p>
 <footer>
 <hr>
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
