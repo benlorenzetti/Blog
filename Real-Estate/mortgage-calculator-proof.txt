@@ -13,28 +13,43 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 & P_{0} = P_{n}r^{-n} + p \left(\frac{1-r^{-n}}{1-r^{-1}}\right)\\
 \end{align*}
 
+\begin{align*}
+P_{n+1}&=rP_{n}-p\\
+P_{n}&=r^{n}(pR_{N}-pR_{n})\\
+R_{n}&=
+\begin{cases}
+\frac{1-r^{-n}}{1-r^{-1}},&r\neq1\\
+n,&r=1
+\end{cases}
+\end{align*}
+
 ************************* Equity Buildup *************************
 
 \begin{align*}
-& P_{m+1}=rP_{m}-p\\
-& \frac{P_{m}}{r^{m}}=P_{0}-p\left(\frac{1-r^{-m}}{1-r^{-1}}\right)\\
-& P_{0}=p \left( \frac{1-r^{-N}}{1-r^{-1}} \right) \\
+\Delta E_{n}&=(P_{n-1}-P_{n})+P_{n}I\:\:for\:\:n \in [0,N-1]\\
+&=P_{n}i-(rP_{n}-p),\:\:for\:\:i=1+I\\
+&=(i-r)r^{n}(pR_{N}-pR_{n})+p\\
+\frac{\Delta E_{n}}{p}&=1+(i-r)r^{n}\frac{-r^{-N}+r^{-n}}{1-r^{-1}},\:\:for\:\:r\neq1\\
+\frac{\Delta E_{n}}{p}&=
+\begin{cases}
+1+(i-r)\frac{1-r^{n-N}}{1-r^{-1}},\:&r\neq1\\
+1+(i-r)(N-n),&r=1
+\end{cases}
 \end{align*}
 
 \begin{align*}
-& \Delta E_{n} = \sum_{m=0}^{n-1}\frac{I_{nf}}{100%}\times P_{m}+P_{m}-P_{m+1} \\
-& \Delta E_{n} = \sum_{m=0}^{n-1}P_{m}\left(\frac{I_{nf}}{100%}+1-r \right)+p \\
-& \Delta E_{n} = pn+(i_{nf}-r)\sum_{m=0}^{n-1}P_{m} \\
-& \Delta E_{n} = pn+(i_{nf}-r)\sum_{m=0}^{n-1}P_{0}r^{m}-pr^{m}\left(\frac{1-r^{-m}}{1-r^{-1}}\right)\\
-& \Delta E_{n} = pn+(i_{nf}-r)\left[\frac{pn}{1-r^{-1}}+\sum_{m=0}^{n-1}P_{0}r^{m}-pr^{m}\left(\frac{1}{1-r^{-1}}\right)\right ]\\
-& \Delta E_{n} = pn+(i_{nf}-r)\left[\frac{pn}{1-r^{-1}}+\left(P_{0}-\frac{p}{1-r^{-1}}\right)\sum_{m=0}^{n-1}r^{m}\right ]\\
-& \Delta E_{n} = pn+(i_{nf}-r)\left[\frac{pn}{1-r^{-1}}-\left(\frac{pr^{-N}}{1-r^{-1}}\right)r^{n}\sum_{m=0}^{n-1}r^{m-n}\right]\\
-& \Delta E_{n} = pn+\frac{i_{nf}-r}{1-r^{-1}}\left[pn-pr^{-N}r^{n}\sum_{i=1}^{n}r^{-i}\right]\\
-& \frac{\Delta E_{n}}{p} = n+\frac{i_{nf}-r}{1-r^{-1}}\left[n-r^{-N}\frac{r^{n}-1}{1-r^{-1}}\right]\\
+\frac{\Sigma_{n}}{p}&=\sum_{m=1}^{n}1+(i-r)\frac{1-r^{n-N}}{1-r^{-1}},\:\:for\:\:r\neq1\\
+\frac{\Sigma_{n}}{p}&=n+\frac{i-r}{1-r^{-1}}\left[n-\sum_{m=1}^{n}r^{n-N} \right]\\
+\frac{\Sigma_{n}}{p}&=n+\frac{i-r}{1-r^{-1}}\left[n-r^{1-N}\frac{1-r^{-n}}{1-r} \right]\\
+\frac{\Sigma_{n}}{p}&=n+\frac{r-i}{1-r^{-1}}\left[\frac{r^{-N}}{r^{-1}-1}(1-r^{-n})-n \right]\\
 \end{align*}
 
 \begin{align*}
-\frac{\Delta E_{n}}{p} = n+\frac{r-i_{nf}}{1-r^{-1}}\left[\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)-n\right]\\
+\frac{\Sigma_{n}}{p}&=
+\begin{cases}
+n+\frac{r-i}{1-r^{-1}}\left[\frac{r^{-N}}{1-r^{-1}}(r^{n}-1)-n \right],&r\neq1\\
+n+n(i-1)(N-n),&r=1
+\end{cases}
 \end{align*}
 
 +++++++++++++++++ Optimal Leverage ++++++++++++++++++++++

@@ -61,34 +61,40 @@
 	for closing costs, which are not included in the proof below.
 </p>
 <h2>Equity Buildup Proof</h2>
-<p> The equity gained each month is due to the amount of principal
-  repayed (i.e. difference between principal remaining
-  between month m and m+1) and due to exposure to
-  inflation/deflation of the remaining liability.
-</p>
-<img src="single-month-equity.png">
-<p> Equity buildup uses the same mortgage equations proved for the
+<p> Equity buildup is based on the same mortgage equations used in the
   <a href="mortgage-calculator.html">mortgage calculator</a>,
-  except the loan period 'N' is replaced by a number of 'm' months
-  owned. 'P0' is initial loan principal, 'p' the monthly payment,
+  where 'n' is the number of the month, 'N' the loan period, 'P0'
+	initial loan principal, 'p' the monthly payment,
   and 'r' the monthly interest multiplication factor.
 </p>
-<img src="mortgage-decay.png">
-<p> The sum of nominal gains over n months '&Delta;En':
+<img src="mortgage-calculator-summary.png">
+<p> The equity gained each month is due to the amount of principal
+  being repayed (i.e. difference between principal remaining
+  between months n-1 and n) and due to exposure to
+  inflation/deflation (I%) of the remaining loan liability (Pn).
 </p>
-<img src="equity-buildup-proof.png">
-<p> All that remains is slight rearrangement for aesthetics
-	and description. This equation describes equity buildup of
-	the loan liability itself, the
-	<a href="leverage-ratio.html">next article</a> accounts for closing
-	costs and financing fees which are not included in this equation.
+<img src="equity-delta.png">
+
+<p> The sum of nominal gains from the month the liability was incurred
+	to the nth month, for the general case:
+</p>
+<img src="equity-buildup-sum.png">
+<p> All that remains is accounting for the possibility of 0% interest rates,
+	(when the geometric series does not apply). This final equation
+	describes equity buildup due to the loan liability, the next article
+	will account for inflation of the existing equity and for closing
+	costs and financing fees by defining an
+	<a href="leverage-ratio.html">effective leverage ratio</a>.
 </p>
 <img src="equity-buildup-summary.png">
-<p> One degenerate result is if inflation was zero, the final
-  value reached over the loan period is equal to Rm, but one
+
+<p> One
 	interesting results is that this equation devolves into a straight
 	line if inflation rates equal interest rates. This will be
 	explored further later in this <a href="index.html">series</a>.
+	A second degenerate result is 0% inflation
+	(<span style="white-space:nowrap;">i = 1</span>), where the equity
+	buildup approaches R(N) at the end of the loan term.
 </p>
 <footer>
 <hr>
