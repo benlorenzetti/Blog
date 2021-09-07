@@ -32,36 +32,26 @@
 <h1>Leverage Ratio</h1>
 <h2>Aug. 2021</h2>
 <p> For a landlord, both monthly cash flow and rate of
-	equity buildup depended on their initial down payment,
-	or their leverage gained with a mortgage. Later we will
-	determine how the <a href="refinance-window.html">timeframe
-	of the mortgage before refinancing or sale</a> also
+	equity buildup depended on the leverage gained with a mortgage
+	(i.e. down payment) and inflation relative to this leverage.
+	Later we will analyze how the <a href="refinance-window.html">
+	timeframe of the mortgage before refinancing or sale</a> also
 	affects the rate of equity buildup.
 </p>
-<p> The net monthly yield of a property is due to net income from
-  rent after expenses, less the mortgage payment (p), and due to
-  <a href="equity-buildup.html">equity buildup</a>
-  (&Delta;En) over a period of n months from mortgage payments and
-  appreciation.
-</p>
-<img src="combined-yield-start.png">
-<p> The effective leverage ratio (L) is the ratio of loan size (P-E0)
-	to the down payment plus closing costs and financing fees (E0+F).
-	It is always a	rational number greater than or equal to zero.
-	For conveniance, we also define two proper fractions e and f
-	based on closing fees such that e+f=1.
+<p> The effective leverage ratio (L) for a property of value (V) is the
+	ratio of loan size (V-E0) to the down payment plus closing costs and
+	financing fees (E0+F). It is always a	rational number greater than or
+	equal to zero. For conveniance, we also define a proper fraction f
+	based on closing fees and several other rearrangements.
 </p>
 <img src="leverage-ratio.png">
-<p> The <a href="marginal-dividend.html">marginal
-  dividend model</a> calculates a target for home prices, based
-	on a break even point where monthly mortgage payments equal
-	the net income for rental properties after other expenses.
-	From the <a href="index.html">previous articles in
-  this series</a>, the monthly mortgage payment (p) and loan
-	principal (property price, P, minus down payment, E0) are related
-	by a constant (Rm) that is set by mortgage rates.
+<p> The inflation-adjusted, monthly yield of a property is due to net
+	income from rent after expenses (q), less the inflation-adjusted
+	mortgage payment (p), and due to inflation-adjusted
+	<a href="equity-buildup.html">equity buildup</a> (&Sigma;n) over a period
+	of n months.
 </p>
-<img src="marginal-model-eqs.png">
+<img src="adjusted-yield-start.png">
 <p> Both portions of the monthly yield depend strongly on the
 	effective leverage ratio.
   In the past, the leverage ratio would be constrained by
@@ -69,12 +59,25 @@
 	Today the effective leverage ratio is constrained by funding
 	fees and quasi-federal/private policies/regulations.
 	With a strong history of constraints but evolving loan
-	standards, can we confirm the optimum leverage ratio
-	for yield is above or at the constraints?
-	First we rewrite the yield equation in terms of the leverage
-	ratio.
+	standards, it is desirable to express the inflation-adjusted
+	yield in terms of the leverage ratio.
 </p>
-<img src="combined-yield.png">
+<p> From the <a href="index.html">previous articles in
+  this series</a>, the monthly mortgage payment (p) and loan
+	principal (property price, V, minus down payment, E0) are related
+	by a constant R(N) that is set by mortgage rates.
+</p>
+<img src="leverage-payments-ratio.png">
+<p> Rewriting the inflation-adjusted yield in these terms:</p>
+<img src="lingering-p-yield.png">
+<p> The <a href="marginal-dividend.html">marginal dividend model</a>
+	is based on a price point q&times;R(N) where every dollar paid down earns the
+	monthly marginal dividend rate 1/R(N). However the sales prices
+	could be at a premium or discount to this price point, represented
+	by a scalar c. Using this premium allows to express the monthly cash
+	flow ratio (q/p) in terms of the leverage ratio (i.e. down payment).
+</p>
+<img src="cash-flow-ratio.png">
 <p> The optimum effective leverage ratio (L0) can be found
 based on the likely timeframe (n months) before selling or
 refinancing:
@@ -97,7 +100,7 @@ refinancing:
 	how the <a href="refinance-window.html">time of ownership or
 	refinancing</a> affects the yield from building up equity.
 </p>
-<img src="leverage-ratio-summary.png">
+<img src="combined-yield-summary.png">
 <footer>
 <hr>
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">

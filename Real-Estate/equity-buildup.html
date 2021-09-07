@@ -41,12 +41,12 @@
   renting&mdash;building up equity in a home.
 </p>
 <img src="equity-buildup-summary.png">
-<p> Similarly, the results show the rate of nominal equity buildup
-	(&Delta;En) is independent of the price tag and can be applied
+<p> Similarly, the results show the inflation-adjusted equity buildup
+	(&Sigma;n/p) is independent of the price tag and can be applied
 	equivalently to any sized mortgage (&Proportional;p). The second significant
 	result is the impact of inflation on the gains from the
-	loan liability, making equity buildup much more biased towards
-	a straight line that the exponential curve typically associated
+	loan liability, making inflation-ajusted equity buildup much more biased
+	towards a straight line that the exponential curve typically associated
 	with mortgages due to paying off a growing portion of principal
 	each month.
 </p>
@@ -68,7 +68,7 @@
   and 'r' the monthly interest multiplication factor.
 </p>
 <img src="mortgage-calculator-summary.png">
-<p> The equity gained each month is due to the amount of principal
+<p> The real equity gained each month is due to the amount of principal
   being repayed (i.e. difference between principal remaining
   between months n-1 and n) and due to exposure to
   inflation/deflation (I%) of the remaining loan liability (Pn).
@@ -81,15 +81,14 @@
 <img src="equity-buildup-sum.png">
 <p> All that remains is accounting for the possibility of 0% interest rates,
 	(when the geometric series does not apply). This final equation
-	describes equity buildup due to the loan liability, the next article
-	will account for inflation of the existing equity and for closing
+	describes the inflation-adjusted equity buildup due to the loan
+	liability, the next article will account for closing
 	costs and financing fees by defining an
 	<a href="leverage-ratio.html">effective leverage ratio</a>.
 </p>
 <img src="equity-buildup-summary.png">
 
-<p> One
-	interesting results is that this equation devolves into a straight
+<p> One interesting results is that this equation devolves into a straight
 	line if inflation rates equal interest rates. This will be
 	explored further later in this <a href="index.html">series</a>.
 	A second degenerate result is 0% inflation

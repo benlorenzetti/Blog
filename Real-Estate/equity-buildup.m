@@ -24,12 +24,27 @@ function exp = exp_array(frac, N)
     exp(m) = frac^m;
   until(m == N)
 endfunction
+function array = buildup_x_array(f, L, APR, IPR, N, c)
+  m = 0;
+  do
+    m = m + 1;
+    array(m) = x_yield(m,f,L,APR,IPR,N,c);
+  until(m == N)  
+endfunction
+function array = buildup_t_array(f, L, APR, IPR, N)
+  m = 0;
+  do
+    m = m + 1;
+    array(m) = t_yield(m,f,L,APR,IPR,N);
+  until(m == N)  
+endfunction
 
 f = 0.07;
 L = 4;
 APR = 2;
 IPR = 2;
 N = 360;
+c = 1;
 n = 1:N;
 
 mul2 = buildup_time_array(APR, 2*APR, N);
@@ -37,6 +52,18 @@ pos1 = buildup_time_array(APR, APR, N);
 zero = buildup_time_array(APR, 0, N);
 neg1 = buildup_time_array(APR, -APR, N);
 
+plus2f = buildup_frac_array(f, L, APR, IPR, N);
+zerof = buildup_frac_array(f, L, APR, 0, N);
+minus2f = buildup_frac_array(f, L, APR, -IPR, N);
+
+pt1 = opt_pt(f, L, APR, IPR, N);
+eq_exp = exp_array(pt1(3), N);
+start = ceil(pt1(1)+1);
+op2 = start + lookup(plus2f(start:N) .-eq_exp(start:N), 0);
+pt2 = other_pt(op2, f, L, APR, IPR, N);
+
+% PART I: Equity Buildup Graph
+%{
 plot(n,mul2,";4% Inflation;", n, pos1,";2% Inflation;");
 hold on
 plot(n,zero,";0% Inflation;", n, neg1,";-2% Inflation;");
@@ -51,21 +78,13 @@ set(l, "fontsize", 12);
 set(t, "fontsize", 14);
 set(y, "fontsize", 14);
 set(x, "fontsize", 12);
+%}
 
+% PART II: Quadratic Formula Graphs
 %{
-plus2 = buildup_frac_array(f, L, APR, IPR, N);
-zero = buildup_frac_array(f, L, APR, 0, N);
-minus2 = buildup_frac_array(f, L, APR, -IPR, N);
-
-pt1 = opt_pt(f, L, APR, IPR, N);
-eq_exp = exp_array(pt1(3), N);
-start = ceil(pt1(1)+1);
-op2 = start + lookup(plus2(start:N) .-eq_exp(start:N), 0);
-pt2 = other_pt(op2, f, L, APR, IPR, N);
-
-plot(n/12, plus2, ";2% Inflation (IPR = APR);", n/12, zero, ";0% Inflation;");
+plot(n/12, plus2f, ";2% Inflation (IPR = APR);", n/12, zerof, ";0% Inflation;");
 hold on 
-plot(n/12, minus2, ";-2% Inflation;", n/12, eq_exp, ":k;eq. yield approx. (7.2%);");
+plot(n/12, minus2f, ";-2% Inflation;", n/12, eq_exp, ":k;eq. yield approx. (7.2%);");
 plot(pt1(1)/12, pt1(2), "xk", pt2(1)/12, pt2(2), "xk");
 t = title("L = 4, f = 0.07 Refinance Window for 30-Year, 2% APR Mortgage");
 l = legend("location","northwest");
@@ -76,3 +95,21 @@ set(l, "fontsize", 12);
 set(t, "fontsize", 14);
 set(y, "fontsize", 14);
 %}
+
+% PART III: Peak Shifting
+
+external = 100*((1+buildup_x_array(f,L,APR,IPR,N,c)).^12 - 1);
+internal = 100*((1+buildup_t_array(f,L,APR,IPR,N)).^12 - 1);
+plot(n/12, external.+internal, ";(Y) Net Yield (2% Inflation);");
+hold on;
+plot(n/12, internal, ";(y-1) Equiv. Equity Yield (2% Infl.);");
+plot(n/12, external, ";(X) External Dividend (2% Inflation);");
+plot(pt1(1)/12, pt1(4), "xk;INF = INT Quadratic Point;");
+hold off;
+l = legend("location","northeast");
+t = title("Cash Flow Peak Shift for L = 4, f = .07, c = 1, 30-year, 2% APR Mortgage");
+y = ylabel("Annual Percentage Rate");
+axis([0,30,0,14]);
+set(l, "fontsize", 12);
+set(t, "fontsize", 14);
+set(y, "fontsize", 14);

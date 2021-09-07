@@ -28,3 +28,12 @@ function point = other_pt(n, f, L, apr, ipr, N)
   apr = 100*(mfrac^12 - 1);
   point = [n, equity, mfrac, apr];
 endfunction
+function ext_yield = x_yield(n, f, L, APR, IPR, N, c)
+  num = (L+1)*(1-f)/(c*L) - (1+IPR/100)^(-n/12);
+  denom = 1 + (L/Rmort(APR,N))*equity_buildup_time(n,APR,IPR,N);
+  ext_yield = (L/Rmort(APR,N))*num/denom;
+endfunction
+function int_yield = t_yield(n, f, L, APR, IPR, N)
+  frac = equity_buildup_frac(n, f, L, APR, IPR, N);
+  int_yield = frac^(1/n) - 1;
+endfunction

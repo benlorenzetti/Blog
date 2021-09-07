@@ -55,25 +55,41 @@ n+n(i-1)(N-n),&r=1
 +++++++++++++++++ Optimal Leverage ++++++++++++++++++++++
 
 \begin{align*}
-& Y=\frac{i_{net}-p}{E_{0}+F_{1}}+\left(\frac{E_{0}+\Delta E_{n}-F_{2}}{E_{0}+F_{1}} \right)^{1/n}-1
+L=\frac{V-E_{0}}{E_{0}+F} &\implies E_{0}=\frac{V-LF}{L+1}
+\implies E_{0}+F = \frac{V+F}{L+1}\:\:and\:\:V=E_{0}(L+1)+LF \\
+f=\frac{F}{V+F} &\implies \frac{F}{E_{0}+F}=f(L+1)\:\:and\:\:
+\frac{E_{0}}{E_{0}+F}=\frac{V-LF}{V+F}=1-f(L+1)\
 \end{align*}
 
 \begin{align*}
-L=\frac{P-E_{0}}{E_{0}+F} &\implies E_{0}=\frac{P-LF}{L+1} \implies E_{0}+F = \frac{P+F}{L+1} \\
-&\implies e = \frac{P}{P+F}\:\: and \:\:f=\frac{F}{P+F}\
+Y=\frac{q-pi^{-n}}{E_{0}+F+\Sigma_{n}}+\left(\frac{E_{0}+\Sigma_{n}-F_{2}}{E_{0}+F} \right)^{1/n}-1\\
 \end{align*}
 
 \begin{align*}
-P=R_{m}i_{net} &\implies\:i_{net}=\frac{P}{R_{m}} \\
-R_{m}p =P-E_{0} &\implies
-\frac{R_{m}p}{E_{0}+F}=\frac{P-E_{0}}{E_{0}+F} &\implies \frac{L}{R_{m}} = \frac{p}{E_{0}+F} \\
+\frac{pR_{N}}{E_{0}+F}=\frac{V-E_{0}}{E_{0}+F} &\implies \frac{L}{R_{N}} = \frac{p}{E_{0}+F} \\
 \end{align*}
 
 \begin{align*}
-Y&=\frac{\frac{P}{R_{m}}}{{E_{0}+F}}-\frac{L}{R_{m}} + \left(\frac{E_{0}}{E_{0}+F}-\frac{F}{E_{0}+F}+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
-Y&=\frac{P(L+1)}{R_{m}(P+F)}-\frac{L(P+F)}{R_{m}(P+F)} + \left(\frac{P-LF}{P+F}-\frac{F(L+1)}{P+F}+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
-Y&=\frac{1}{R_{m}}\left(\frac{P-LF}{P+F} \right) + \left(e-f(2L+1)+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
-Y&=\frac{1}{R_{m}}(e-Lf) + \left(1-2f(L+1)+\frac{L}{R_{m}}\frac{\Delta E_{n}}{p}\right)^{1/n} - 1 \\
+Y&=\frac{L}{R_{N}}\times\frac{q-pi^{-n}}{p+\frac{p\Sigma_{n}}{E_{0}+F}}
++\left(\frac{E_{0}-F+\Sigma_{n}}{E_{0}+F} \right)^{1/n}-1\\
+Y&=\frac{L}{R_{N}}\times\frac{\frac{q}{p}-i^{-n}}{1+\frac{\Sigma_{n}}{E_{0}+F}}
++\left(1-2f(L+1)+\frac{\Sigma_{n}}{E_{0}+F} \right)^{1/n}-1\\
+Y&=\frac{L}{R_{N}}\times\frac{\frac{q}{p}-i^{-n}}{1+\frac{L}{R_{N}}\frac{\Sigma_{n}}{p}}
++\left(1-2f(L+1)+\frac{L}{R_{N}}\frac{\Sigma_{n}}{p} \right)^{1/n}-1\\
+\end{align*}
+
+\begin{align*}
+V&=c(qR_{N})\implies q=\frac{V}{cR_{N}}\\
+\frac{q}{p}&=\frac{V}{cR_{N}}\frac{R_{N}}{V-E_{0}}=\frac{E_{0}(L+1)+LF}{cL(E_{0}+F)}
+=\frac{(1-f(L+1))(L+1)+fL(L+1)}{cL}\\
+\frac{q}{p}&=\frac{(L+1)(1-f)}{cL}
+\end{align*}
+
+\begin{align*}
+Y&=\frac{\frac{1}{c}(1-f)(L+1)-Li^{-n}}{R_{N}+L\times\frac{\Sigma_{n}}{p}}
++\left(1-2f(L+1)+\frac{L}{R_{N}}\frac{\Sigma_{n}}{p} \right)^{1/n}-1\\
+Y&=X+y-1\:\:\:\:\:\:\:\:\:for\:\:\:\:\:\:\:\:\:
+y=\left(1-2f(L+1)+\frac{L}{R_{N}}\frac{\Sigma_{n}}{p} \right)^{1/n}\\
 \end{align*}
 
 \begin{align*}

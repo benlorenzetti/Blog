@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
-	<title>Refinancing</title>
+	<title>Refinance Window</title>
 	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
 	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -29,33 +29,65 @@
 <div id="vertical-div-containing-article-and-navigation">
 <hr>
 <article>
-<h1>Refinancing</h1>
-<h2>Sep. 2021</h2>
-<p> From
-  <a href="index.html">previous results</a>, the combined yield (Y)
-  of the down payment and mortgage liability depends on the
+<h1>When Should I Sell or Refinance?</h1>
+<p> This is the seventh part of a series <a href="index.html">Should
+	I Buy or Rent?</a>
+</p>
+<p> As a powerful argument on the nature of fiat currency, as
+	<a href="https://voxeu.org/article/towards-global-narrative-long-term-real-interest-rates">
+	real interest rates trend toward zero</a>,
+	the optimum period for owning a mortgage liability becomes approximatable
+	analytically! But, without getting sidetracked into economic debate, the
+	goal here is find the peak yield for owning a property and mortgage.
+</p>
+<img src="combined-yield-summary.png">
+<p> The inflation (i) adjusted yield depends on the
 	<a href="leverage-ratio.html">leverage ratio</a> (L) and the
-  <a href="equity-buildup.html">equity buildup</a> &Delta;E(n)/p.
-  The optimum for both of these depends on the timeframe (n)
-  the mortgage is owned before being resold or refinanced.
+	<a href="equity-buildup.html">equity buildup</a> &Sigma;(n)/p,
+	and these equation and all the other terms are defined in
+	those articles. For here, the combined yield (Y) is composed of two parts,
+	the cash flow dividend (X) made each month and an ammortized dividend from
+	equity buildup (y)-1 when you sell or refinance.
+	These two parts are demonstrated in the graph below.
 </p>
-<img src="leverage-ratio-summary.png">
+<img src="cash-flow-peak-shift.png" width=75%>
+
+<p> To help determine an approximate time for peak yields, there are
+	three assumptions we will use.
+</p>
+<ol>
+	<li>Inflation and interest rates are nearly equal.</li>
+	<li>Inflation is low enough a first order approximation of the natural log
+		holds.</li>
+	<li>The leverage ratio is sufficiently large and external yield (X)
+		sufficiently flat that the peak net yield (Y) occurs nearly concurrently
+		with equity yield (y).
+	</li>
+</ol>
+<h2>Maximizing Equity Yield</h2>
+<p> The rate of equity buildup, in inflation back-adjusted terms is:
+</p>
 <img src="equity-buildup-summary.png">
-<p> As a powerful argument as to the nature of fiat currency, as
-	<a href="#">real interest rates continue to trend near zero</a>,
-	the optimum period for owning a mortgage liability becomes
-	approximatable analytically! A powerful example of the Fisher
-	equation.
+<p> If we assume real interest rates are zero, or that inflation equals
+	the nominal interest rate <span style="white-space:nowrap;">(i = r)</span>,
+	then equity buildup becomes linear and the first intersection point of an
+	"refinance window" can be found quadratically.
+	This optimum "window" represents the tangent point for capital gains from
+	equity buildup (blue), equivalently compared to regular dividends from stocks
+	or rental cash flow (dotted black).
 </p>
-<p> For the sake of this article,
-	if we assume real interest rates are zero, or that the inflation
-	rate equals the nominal interest rate (IPR = APR), then the
-	first intersection point of the "optimum refinance window" can
-	be found with a quadratic formula. This window represents a tangent
-	point for comparing capital gains from equity buildup to regular
-	dividend yields from stocks or rental income.
+<img src="refinance-window.png" width="75%">
+<h2>Optimum Point Derivation</h2>
+<p> To make the algebra easier, we define some helper variables and then
+	take the derivative of the equity yield (y) to find its optimum.
 </p>
-<img src="refinance-window.png" width="100%">
+<img src="y-derivative.png">
+<p> Setting the derivative equal to zero, substituting n for &Sigma;n/p, and
+	assuming g is near 1 to approximate
+	<span style="white-space:nowrap;">ln(g) = g - 1</span>
+	results in a quadratic equation we can solve.
+</p>
+<img src="quadratic-point.png">
 <p> The long tangent of the last three articles was to reach this
 	point. Now the <a href="mortgage-calculator.html">mortgage calculator
 	</a> can estimate yields from the loan liability for comparisons to
