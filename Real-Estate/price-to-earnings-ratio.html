@@ -30,12 +30,104 @@
 <hr>
 <article>
 <h1>Price to Earnings Ratio</h1>
-<img src="peratio.png" width="100%">
-<p><a href="peratio.m"><span class="code">peratio.m</span></a>
-	<a href="real_estate_eqs.m"><span class="code">real_estate_eqs.m</span></a>
-	<a href="../Economic-Data/matlab.html">data scripting library</a>
+<p> The price to earnings ratio (P/E) is a commonly used measure of
+	stock market prices. Another way this information is reported is
+	earnings per share (EPS) together with the stock share price.
+</p>
+<p> The goal of the <a href="index.html">mortgage calculator series</a>
+	is comparing real estate investments to stocks. The graph below shows
+	the results of the real estate model over the last 40 years compared to
+	the S&amp;P 500.
 </p>
 
+<img src="peratio.png">
+<p> Although there were three anecdotal assumptions
+	and a normalization scalar <em>c'</em> (the same as in the
+	<a href="price-to-rent-ratio.html">P/R ratio</a>) used,
+	the results look pretty strong by comparison: family home ownership
+	returns seem to have been more than twice (2.75x) the stock
+	market historically. About 25% of this seems to be due to active
+	property management vs. passive stock holding and the other 75% due
+	to the use of debt.
+</p>
+<p> Another observation, the 10%, 40%, and 50% data presented by
+	<a href="https://www.stlouisfed.org/open-vault/2019/august/wealth-inequality-in-america-facts-figures">
+  Kent et. al.</a> suggest wealth inequality in America has risen
+	somewhere betwen 1.56 to 3.44 times from 1989 to 2016.
+	Meanwhile, the model's all-cash real estate P/E ratio continues to rise,
+	from 9.6 to 18.3 (or a factor of 1.9) from 1989 to 2016.
+	Depressingly and ironically, this modeled P/E ratio is purely a function
+	of Federal Reserve policy.
+</p>
+<h2>Code</h2>
+<p> The MATLAB (or Octave) script
+	<a href="peratio.m"><span class="code">peratio.m</span></a>
+	used to make this plot is available to my readers as a tool,
+	free under an MIT license. It relies on functions from my
+	<a href="../Economic-Data/matlab.html">data scripting library</a>.
+	Up to date data is available at the sources cited below.
+</p>
+<h2>Hashed Freddie Mac Data</h2>
+<p> Single family mortgage data is publicly available from
+	<a href="http://www.freddiemac.com/research/datasets/sf_loanlevel_dataset.page">
+	Freddie Mac</a> under limited terms and conditions.
+	For research purposes, running the model with the Freddie Mac data produces
+	similar results with fewer assumptions.
+	These results are hashed onto the plot above.
+</p>
+<p class="code">
+	...You may also use the Single-Family Loan-Level Dataset for academic or
+	research purposes, and make your academic or research results and any related
+	Derived Products available to the public, provided that any such distribution
+	is solely for noncommercial purposes and further provided that the same does
+	not include and cannot be used to derive or recreate any part of the
+	Single-Family Loan-Level Dataset or to identify any specific individual as
+	prohibited above...
+</p>
+<h2>Citations</h2>
+<p>	U.S. Census Bureau and U.S. Department of Housing and Urban
+	Development. <em>Median Sales Price of Houses Sold for the United
+	States [MSPUS]</em>. FRED, Federal Reserve Bank of St.
+	Louis. Retrieved Sept. 7, 2021, from
+	<a href="https://fred.stlouisfed.org/series/MSPUS">
+	https://fred.stlouisfed.org/series/MSPUS</a>.
+</p>
+<p> U.S. Bureau of Labor Statistics. <em>Consumer Price Index for All
+	Urban Consumers: Rent of Primary Residence in U.S. City Average
+	[CUUR0000SEHA]</em>. FRED, Federal Reserve Bank of St.
+	Louis. Retrieved Sept. 7, 2021, from
+	<a href="https://fred.stlouisfed.org/series/CUUR0000SEHA">
+		https://fred.stlouisfed.org/series/CUUR0000SEHA</a>.
+</p>
+<p> Freddie Mac. <em>30-Year Fixed Rate Mortgage Average in
+	the United States [MORTGAGE30US]</em>. FRED, Federal Reserve Bank of St.
+	Louis. Retrieved Sept. 7, 2021, from
+	<a href="https://fred.stlouisfed.org/series/MORTGAGE30US">
+		https://fred.stlouisfed.org/series/MORTGAGE30US</a>.
+</p>
+<p> Hamilton, James. <em>Dates of U.S. recessions as inferred by GDP-based
+	recession indicator [JHDUSRGDPBR]</em>. FRED, Federal Reserve Bank of St.
+	Louis. Retrieved Sept. 7, 2021, from
+	<a href="https://fred.stlouisfed.org/series/JHDUSRGDPBR">
+	https://fred.stlouisfed.org/series/JHDUSRGDPBR</a>.
+</p>
+<p> Shiller, R. J. <em>U.S. Stock Markets 1871-Present and CAPE Ratio</em>.
+	Econ.Yale.Edu. Retrieved Sept. 7, 2021, from
+	<a href="http://www.econ.yale.edu/~shiller/data.htm">
+	http://www.econ.yale.edu/~shiller/data.htm</a>.
+</p>
+<p> Freddie Mac (2021). <em>Single Family Loan-Level Dataset</em>. Freddie Mac.
+	Retrieved Sept. 2, 2021, from
+	<a href="http://www.freddiemac.com/research/datasets/sf_loanlevel_dataset.page">
+	http://www.freddiemac.com/research/datasets/sf_loanlevel_dataset.page</a>.
+</p>
+<p> Kent, A., Ricketts, L., &amp; Boshara, R. (2019, August 14). <em>What
+	Wealth Inequality in America Looks Like: Key Facts &amp; Figures.</em>
+	Federal Reserve Bank of St. Louis.
+	<a href="https://www.stlouisfed.org/open-vault/2019/august/wealth-inequality-in-america-facts-figures">
+	https://www.stlouisfed.org/open-vault/2019/august/wealth-inequality-in-america-facts-figures
+	</a>.
+</p>
 <footer>
 <hr>
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
