@@ -1,7 +1,7 @@
 clear;
 clc;
 % addpath("path");
-run('real-estate-eqs.m');
+run('real_estate_eqs.m');
 
 function array = buildup_time_array(apr, ipr, N)
   m = 0;
@@ -41,8 +41,8 @@ endfunction
 
 f = 0.07;
 L = 4;
-APR = 2;
-IPR = 2;
+APR = 7.7;
+IPR = 3;
 N = 360;
 c = 1;
 n = 1:N;
@@ -109,7 +109,7 @@ hold off;
 l = legend("location","northeast");
 t = title("Cash Flow Peak Shift for L = 4, f = .07, c = 1, 30-year, 2% APR Mortgage");
 y = ylabel("Annual Percentage Rate");
-axis([0,30,0,14]);
+axis([0,30,0,20]);
 set(l, "fontsize", 12);
 set(t, "fontsize", 14);
 set(y, "fontsize", 14);

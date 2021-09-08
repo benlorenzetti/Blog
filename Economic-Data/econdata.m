@@ -24,6 +24,41 @@
 % and shortens data file loadpaths:
 warning('off', 'Octave:data-file-in-path');
 
+function open_closed_range = oc_rng(series)
+  if(size(series)(2) == 1)
+    zero = series(1,1) - 1;
+  else
+    zero = series(1,1) - (series(1,2) - series(1,1));
+  endif
+  last = series(1,size(series)(2));
+  open_closed_range = [zero, last];
+endfunction
+
+function intersection_open_closed_range = int_rng(rng1, rng2)
+  zero = max(rng1(1), rng2(1));
+  last = min(rng1(2), rng2(2));
+  intersection_open_closed_range = [zero, last];
+endfunction
+
+function TorF = isin(n, oc_range)
+  TorF = (n > oc_range(1) & n <= oc_range(2));
+endfunction
+
+function stretched2monthly_data = s2m_data(data2byN)
+  i = 0;
+  m = oc_rng(data2byN)(1);
+  while(m < oc_rng(data2byN)(2))
+    i = i + 1;
+    m = m + 1;
+    stretched2monthly_data(1,i) = m;
+    j = lookup(data2byN(1,:), m); % returns index j <= that month
+    if(j == 0 || data2byN(1,j) < m)
+      j = j + 1;
+    endif
+    stretched2monthly_data(2,i) = data2byN(2,j);
+  endwhile
+endfunction
+
 function incl_range = months_range(series1, series2)
   first = max(series1(1,1), series2(1,1));
   last = min(series1(1,size(series1)(2)), series2(1,size(series2)(2)));
@@ -77,17 +112,6 @@ function new_data = stretch_align_index(data, incl_range)
   endwhile
 endfunction
 
-function Rm = Rmort(apr, N)
-  r = (1+apr(2,:)./100) .^ (1/12);
-  Rm(1,:) = apr(1,:);
-  Rm(2,:) = (1-r.^(-N)) ./ (1 - 1./r);
-endfunction
-
-function Rth = Rtarget_pr(Rm, Rreal)
-  Rth(1,:) = Rm(1,:);
-  Rth(2,:) = (Rreal .* Rm(2,:))./(Rm(2,:) .+ Rreal);
-endfunction
-
 function Rpar = parallel_series(R1, R2)
   incl_range = months_range(R1, R2);
   R1sub = stretch_align_index(R1, incl_range);
@@ -115,14 +139,7 @@ function dif = differentiate_series(s)
   dif(1,:) = s(1,2:size(s)(2));
   dif(2,:) = s(2,2:size(s)(2));
   left = s(2,1:size(s)(2)-1);
-  dif(2,:) = dif(2,:) .- left;
-endfunction
-function pr_index = prindex(Vmedian, Irent)
-  incl_range = months_range(Vmedian, Irent);
-  V = stretch_align_index(Vmedian, incl_range);
-  I = stretch_align_index(Irent, incl_range);
-  pr_index(1,:) = V(1,:);
-  pr_index(2,:) = V(2,:)./I(2,:);
+  dif(2,:) = (dif(2,:) .- left) ./ left;
 endfunction
 
 function new_index = normalize(index_data, real_data, year)
