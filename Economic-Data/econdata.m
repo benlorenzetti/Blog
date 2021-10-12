@@ -25,12 +25,17 @@
 warning('off', 'Octave:data-file-in-path');
 
 function open_closed_range = oc_rng(series)
-  if(size(series)(2) == 1)
-    zero = series(1,1) - 1;
+  if(size(series)(2) == 0)
+    zero = 0;
+    last = 0;
   else
-    zero = series(1,1) - (series(1,2) - series(1,1));
+    if(size(series)(2) == 1)
+      zero = series(1,1) - 1;
+    else
+      zero = series(1,1) - (series(1,2) - series(1,1));
+    endif
+    last = series(1,size(series)(2));
   endif
-  last = series(1,size(series)(2));
   open_closed_range = [zero, last];
 endfunction
 
@@ -45,17 +50,32 @@ function TorF = isin(n, oc_range)
 endfunction
 
 function stretched2monthly_data = s2m_data(data2byN)
+  stretched2monthly_data = [];
   i = 0;
-  m = oc_rng(data2byN)(1);
-  while(m < oc_rng(data2byN)(2))
+  iend = size(data2byN)(2);
+  mprev = oc_rng(data2byN)(1);
+  jsum = 0;
+  jdiv = 0;
+  while(i < iend)
     i = i + 1;
-    m = m + 1;
-    stretched2monthly_data(1,i) = m;
-    j = lookup(data2byN(1,:), m); % returns index j <= that month
-    if(j == 0 || data2byN(1,j) < m)
-      j = j + 1;
-    endif
-    stretched2monthly_data(2,i) = data2byN(2,j);
+    m = data2byN(1,i);
+    jsum = jsum + data2byN(2,i);
+    jdiv = jdiv + 1;
+    if(m == mprev && i != iend)
+      continue;
+    elseif(m == mprev + 1 || i == iend)
+      mprev = m;
+      stretched2monthly_data = [stretched2monthly_data, [m; jsum/jdiv]];
+
+    else
+      do 
+        mprev = mprev + 1;
+        stretched2monthly_data = [stretched2monthly_data, [mprev; jsum/jdiv]];
+      until(mprev == m)
+  endif
+  jsum = 0;
+  jdiv = 0;
+
   endwhile
 endfunction
 

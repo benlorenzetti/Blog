@@ -31,18 +31,18 @@ function array = buildup_x_array(f, L, APR, IPR, N, c)
     array(m) = x_yield(m,f,L,APR,IPR,N,c);
   until(m == N)  
 endfunction
-function array = buildup_t_array(f, L, APR, IPR, N)
+function array = buildup_e_array(f, L, APR, IPR, N)
   m = 0;
   do
     m = m + 1;
-    array(m) = t_yield(m,f,L,APR,IPR,N);
+    array(m) = e_yield(m,f,L,APR,IPR,N);
   until(m == N)  
 endfunction
 
 f = 0.07;
-L = 4;
-APR = 7.7;
-IPR = 3;
+L = 11;
+APR = 1.875;
+IPR = 2.5;
 N = 360;
 c = 1;
 n = 1:N;
@@ -99,7 +99,7 @@ set(y, "fontsize", 14);
 % PART III: Peak Shifting
 
 external = 100*((1+buildup_x_array(f,L,APR,IPR,N,c)).^12 - 1);
-internal = 100*((1+buildup_t_array(f,L,APR,IPR,N)).^12 - 1);
+internal = 100*((1+buildup_e_array(f,L,APR,IPR,N)).^12 - 1);
 plot(n/12, external.+internal, ";(Y) Net Yield (2% Inflation);");
 hold on;
 plot(n/12, internal, ";(y-1) Equiv. Equity Yield (2% Infl.);");

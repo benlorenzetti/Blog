@@ -1,0 +1,20 @@
+\begin{align*}
+MV&=PT\\
+P&=\frac{M\overline V}{T}\\
+\frac{dP}{dt}&=\frac{\delta P}{\delta M}*\frac{dM}{dt}+\frac{\delta P}{\delta T}*\frac{dT}{dt}\\
+\frac{dP}{dt}&=\overline V\left(\frac{dM/dt}{T}-\frac{MdT/dt}{T^{2}} \right)\\
+\end{align*}
+
+\begin{align*}
+&\begin{cases}
+E\pi&=\frac{1}{P}*\frac{dP}{dt}\\
+Q_{rt}&=\frac{1}{Pop.}*\frac{dPop.}{dt}=\frac{1}{T}*\frac{dT}{dt}\\
+G_{dp}&=MV=PT\\
+\end{cases}\\
+E\pi&=\overline V\left(\frac{dM/dt}{G_{dp}}-\frac{MQ_{rt}}{G_{dp}} \right)\\
+E\pi&=\frac{dM/dt}{M}-Q_{rt}\\
+\end{align*}
+
+\begin{align*}
+\pi_{n}-E_{n}\pi_{n+1}=\Delta \pi=\kappa u
+\end{align*}

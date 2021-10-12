@@ -50,7 +50,7 @@ function int_yield = e_yield(n, f, L, APR, IPR, N)
   frac = equity_buildup_frac(n, f, L, APR, IPR, N);
   int_yield = frac^(1/n) - 1;
 endfunction
-function point = opt_brute(f, L, APR, IPR, N)
+function point = brute_opt(f, L, APR, IPR, N)
   i = floor(opt_pt(f, L, APR, IPR, N)(1));
   val = e_yield(i,f,L,APR,IPR,N);
   do

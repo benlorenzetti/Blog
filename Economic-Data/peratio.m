@@ -25,12 +25,12 @@ run('real_estate_eqs.m');
 apr = s2m_data(import_fred_csv('Data/MORTGAGE30US.csv'));   % percent apr
 Vmed = s2m_data(import_fred_csv('Data/MSPUS.csv'));             % dollars
 Iindex = s2m_data(import_fred_csv('Data/CUUR0000SEHA.csv')); % unitless
-recess = s2m_data(import_fred_csv('Data/JHDUSRGDPBR.csv'));  % 0 or 1
+recess = import_fred_csv('Data/JHDUSRGDPBR.csv');  % 0 or 1
 shiller = import_shiller_csv('Data/ie_data.csv');
 price = shiller_series(shiller, 2);
 earnings10yr = moving_ave(shiller_series(shiller, 4), 60);
 pe10 = divide_series(price, earnings10yr);
-%dpct = s2m_data(import_fred_csv("C:/Users/Ben\ Lorenzetti/Documents/pct-down.csv"));
+dpct = s2m_data(import_fred_csv("C:/Users/benlo/Documents/pct-down.csv"));
 
 RN = [];
 Rreal = [12*1960+1:12*2022 ; 180*ones(1,12*62)];
@@ -96,7 +96,7 @@ while(m < end_yr * 12)
     fm = f(2, lookup(f(1,:), m));
     L1m = L1(2, lookup(L1(1,:), m));
     im = i(2, lookup(i(1,:), m));
-    opt_ptm = opt_brute(fm, L1m, aprm, im, 360)(1);
+    opt_ptm = brute_opt(fm, L1m, aprm, im, 360)(1);
     eym = other_pt(opt_ptm, fm, L1m, aprm, im, 360)(4);
     EY = [EY, [m; eym]];
     %------------------- L1 External Yield / Combined Yield -----------------
@@ -109,14 +109,13 @@ while(m < end_yr * 12)
     endif
   endif
   %------------------------L2  Equity Yield % APR --------------------
-  %{
   if(isin(m, int_rng(int_rng(oc_rng(f), oc_rng(dpct)), int_rng(oc_rng(apr), oc_rng(i)))))
     fm = f(2, lookup(f(1,:), m));
     dpctm = dpct(2, lookup(dpct(1,:), m));
     L2m = 100/dpctm;
     L2 = [L2, [m; L2m]];
     im = i(2, lookup(i(1,:), m));
-    opt_pt2m = opt_brute(fm, L2m, aprm, im, 360)(1);
+    opt_pt2m = brute_opt(fm, L2m, aprm, im, 360)(1);
     ey2m = other_pt(opt_pt2m, fm, L2m, aprm, im, 360)(4);
     EY2 = [EY2, [m; ey2m]];
     %------------------- L2 External Yield / Combined Yield -----------------
@@ -128,7 +127,6 @@ while(m < end_yr * 12)
       YPE2 = [YPE2, [m; 100/y2m]];
     endif
   endif
-  %}
 endwhile
 
 plot(pe10(1,:)/12, pe10(2,:), ";S&P 500 5YR P/E;");
@@ -136,14 +134,14 @@ hold on;
 plot(YPE(1,:)/12, 2.75*YPE(2,:), ";2.75x Mortgage P/E;");
 plot(RN(1,:)/12, RN(2,:)/12, ";R(N) All Cash P/E;");
 plot(recess(1,:)/12, 50*recess(2,:), ":k;US Recessions;");
-%plot(YPE2(1,:)/12, 2.75*YPE2(2,:), ":k;Freddie Mac Overlay;");
+plot(YPE2(1,:)/12, 2.75*YPE2(2,:), ":k;Freddie Mac Overlay;");
 hold off;
 lg = legend("location", "northwest");
 ylab = ylabel("Price to Earnings Ratio (Annual)");
 axis([1976, 2022, 0, 40]);
 ti = title("Comparison of Stock Prices, Home Prices, and Interest Rates");
 text(1972, -3.25, "Sources: MORTGAGE30US, MSPUS, CUUR0000SEHA (FRED) and U.S. Stock Markets 1871-Present (Shiller)");
-text(1978, -4.75, "with L = 4, f = .07, Rexp = 180 months, and rent index normalized to model in Jan. 1999");
+text(1976, -4.75, "with L = 4, f = .07, Rexp = 180 months, c' = 1, and rent index normalized to model in Jan. 1999");
 set(lg, "fontsize", 12);
 set(ti, "fontsize", 14);
 set(ylab, "fontsize", 14);
