@@ -127,7 +127,7 @@ legend("location", "northwest");
 %}
 
 % ================== Net Inflation ================ %
-%{
+%
 plot(cpi(1,:)/12, cpi(2,:), "linewidth", 2, ";Consumer Price Index;");
 hold on;
 plot(INFNET(1,:)/12, INFNET(2,:), "linewidth", 2, ";Predicted Inflation;");
@@ -172,7 +172,7 @@ set(xlab, "fontsize", 14);
 set(ylab, "fontsize", 14);
 %}
 %================= Adjusted Single Span =================%
-%
+%{
 colormap(copper);
 scatter(PH2(2,ind(1):ind(6)), PH2(3,ind(1):ind(6)), 36, PH2(1,ind(1):ind(6)), "o", "filled");
 lege = legend("Aug 1971 (black) -\nSep 2020 (copper)");
