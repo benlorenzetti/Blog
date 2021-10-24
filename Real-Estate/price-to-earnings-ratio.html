@@ -34,34 +34,31 @@
 	stock market prices. Another way this information is reported is
 	earnings per share (EPS) together with the stock share price.
 </p>
-<p> The goal of the <a href="index.html">mortgage calculator series</a>
+<p> The goal of the <a href="mortgage-calculator.html">mortage calculator</a>
 	is comparing real estate investments to stocks. The graph below shows
 	the results of the real estate model over the last 40 years compared to
-	the S&amp;P 500.
+	the S&amp;P 500. For more information on yellow and red curves, they are
+	is the culmination of the
+	<a href="index.html">mortgage calculator series</a>.
 </p>
 
 <img src="peratio.png">
-<p> Although there were three anecdotal assumptions
-	and a normalization scalar <em>c'</em> (the same as in the
-	<a href="price-to-rent-ratio.html">P/R ratio</a>) used,
-	the results look pretty strong by comparison: family home ownership
+<h2>Assumptions</h2>
+<p> There are three anecdotal assumptions noted on the graph and a
+	normalization scalar <em>c'</em> (the same as in the
+	<a href="price-to-rent-ratio.html">P/R ratio</a>).
+	All of these could be more tightly quantified with more data by professional
+	researchers, economists, or companies.
+  Nonetheless, the results seem pretty well correlated and believable in
+	the magnitude of differences: family home ownership
 	returns seem to have been more than twice (2.75x) the stock
 	market historically. About 25% of this seems to be due to active
 	property management vs. passive stock holding and the other 75% due
 	to the use of debt.
 </p>
-<p> Another observation, the 10%, 40%, and 50% data presented by
-	<a href="https://www.stlouisfed.org/open-vault/2019/august/wealth-inequality-in-america-facts-figures">
-  Kent et. al.</a> suggest wealth inequality in America has risen
-	somewhere betwen 1.56 to 3.44 times from 1989 to 2016.
-	Meanwhile, the model's all-cash real estate P/E ratio continues to rise,
-	from 9.6 to 18.3 (or a factor of 1.9) from 1989 to 2016.
-	Depressingly and ironically, this modeled P/E ratio is purely a function
-	of Federal Reserve policy.
-</p>
 <h2>Code</h2>
 <p> The MATLAB (or Octave) script
-	<a href="peratio.m"><span class="code">peratio.m</span></a>
+	<a href="../Economic-Data/peratio.m"><span class="code">peratio.m</span></a>
 	used to make this plot is available to my readers as a tool,
 	free under an MIT license. It relies on functions from my
 	<a href="../Economic-Data/matlab.html">data scripting library</a>.

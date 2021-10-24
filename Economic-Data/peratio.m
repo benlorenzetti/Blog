@@ -129,10 +129,10 @@ while(m < end_yr * 12)
   endif
 endwhile
 
-plot(pe10(1,:)/12, pe10(2,:), "linewidth", 2, ";S&P 500 5YR P/E;");
+plot(pe10(1,:)/12, pe10(2,:), "linewidth", 2, ";S&P 500 5YR AVE P/E;");
 hold on;
 plot(YPE(1,:)/12, 2.75*YPE(2,:), "linewidth", 2, ";2.75x Mortgage P/E;");
-plot(RN(1,:)/12, RN(2,:)/12, "linewidth", 2, ";R(N) All Cash P/E;");
+plot(RN(1,:)/12, 1.5*RN(2,:)/12, "linewidth", 2, ";1.5x R(N) All Cash P/E;");
 plot(recess(1,:)/12, 50*recess(2,:), ":k;US Recessions;");
 plot(YPE2(1,:)/12, 2.75*YPE2(2,:), "linewidth", 2, ":k;Freddie Mac Overlay;");
 hold off;

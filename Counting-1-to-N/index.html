@@ -19,7 +19,7 @@
 <h1>Counting from 1 to N</h1>
 <p>What is the <em>first</em> natural number? Well, when phrased this way
 the answer is clearly 1. The Romans knew this, they didn't even have a
-numeral for zero, instead using X for 10 and C, M for 100, 1000.
+numeral for zero!
 [<a href="#footnote1">1</a>]
 Yet today most programming languages, and digital systems in general,
 start their numbering at zero.</p>
@@ -31,48 +31,47 @@ However I respectfully disagree with his conclusion, it is often
 more natural to define the set a posteriori
 <span style="white-space:nowrap;">&#8469;={1, 2, 3, 4,...}</span>
 than to start counting at zero with
-<span style="white-space:nowrap;" >{0, 1, 2, 3,...}&ne;&#8469;.</span>
+<span style="white-space:nowrap;" >{0, 1, 2, 3,...}.</span>
 </p>
 
-<p>Of course practically it doesn't matter--if you have 256 bytes
+<p>Of course information wise, both are equivalent--if you have 256 bytes
 of memory available in RAM, you can uniquely address each location by
 <span style="white-space:nowrap;">{0, 1, 2, ... , 254, 255}</span>
 or <span style="white-space:nowrap;">{1, 2, 3, ... , 255, 256}</span>
-equally easily because in binary 0 and 256 have the same representation
+and in binary 0 and 256 have the same representation
 within 8-bits.
 Zero, represented by <span class="code">00000000</span> is not discernable from
 <span class="code">(1)00000000</span>, which is Two Fifty Six.
 </p>
 
-<p>I think  that starting at 1 is better because if you have N
+<p>I think starting at 1 is better because if you have n
 elements, then the index of the last elements tells you how many there are
-and accessing the Nth memory location is not out-of-bounds.
+and accessing the nth memory location is not out-of-bounds.
 However C starts counting at zero and always identifies larger
-blocks of data from the leftmost byte.
+blocks of data from the zeroth byte.
 </p>
 <p>To have a successful systems language use 1-to-N indexing,
-you would need a computer architecture that addressed multibyte
+you have to think about the computer architecture as addressing multibyte
 words from the right, not the left.
 So a 4-byte word would be pointed to by its 4th byte
-and the new language could support type casting of different size structs
+and the language could support type casting of different size structs
 by preserving the location of the Nth byte, even as the value of N changes.
 </p>
 
 <img src="left-vs-right-addressing.png" alt="Left vs. Right Edge Addressing" width="500px"/>
-<p>32-bit words addressed from the left vs the right</p>
+<p>32-bit Words Addressed from the Right vs the Light</p>
 
 <p>A pragmatic advantage of a right vs left memory model is easy
 type casting for big-endian byte order,
 which is the character/digit order English speakers read and write in.
-It is also the byte order of the internet. (Easier to change a machine to the
-network than a network to the machine.)
+It is also the byte order of the internet. (Network Effects)
 </p>
 
 <img src="big-endian-and-alphabetical-order.png"
 alt="Big-endian byte order matches alphabetical order" width="500px"/>
 
 <p>Big-endian ordering matches alphabetical order; with ASCII encoding,
-"abc" indeed evaluates to a value less than "cba"</p>
+"abc0" indeed evaluating to a value less than "cba0"</p>
 
 <p>A right edge, or 1-to-N memory model would also remove the dissonance
 between array and list indexing present in most languages and might
