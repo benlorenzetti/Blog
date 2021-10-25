@@ -14,12 +14,12 @@ r^{-n}\sum_{i=1}^{\infty}(r^{-1})^{i}\right]\\
 \end{align*}
 
 \begin{align*}
-P_{n+1}&=rP_{n}-p\\
-P_{n}&=r^{n}(pR_{N}-pR_{n})\\
+P_{n+1}&=iP_{n}-p\\
+P_{n}&=i^{n}(pR_{N}-pR_{n})\\
 R_{n}&=
 \begin{cases}
-\frac{1-r^{-n}}{1-r^{-1}},&r\neq1\\
-n,&r=1
+\frac{1-i^{-n}}{1-i^{-1}},&i\neq1\\
+n,&i=1
 \end{cases}
 \end{align*}
 
