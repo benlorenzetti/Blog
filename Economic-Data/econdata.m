@@ -171,14 +171,14 @@ function new_index = normalize(index_data, real_data, year)
 endfunction
 
 function mave = moving_ave(data, last_n)
-  lend = data(1,last_n);
+  first = data(1,last_n+1);
   last = data(1,size(data)(2));
   i = 0;
   do
+    mave(1,i+1) = first + i;
+    mave(2,i+1) = sum(data(2,i+1:i+last_n))/last_n;
     i = i + 1;
-    mave(1,i) = lend + i;
-    mave(2,i) = sum(data(2,i:i+last_n))/last_n;
-  until(i == last - lend)
+  until(i == last - first)
 endfunction
 
 function apr = percentage_change(data, k)

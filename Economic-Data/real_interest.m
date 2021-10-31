@@ -36,15 +36,22 @@ do
   trade_tot(2,i) = trade_tot(2,i-1) + trade_splice(2,i)/12;
 until(i == size(trade_splice)(2))
 
+med_wage = s2m_data(import_fred_csv('Data/LES1252881600Q.csv'));
+wage_change = differentiate_series(moving_ave(med_wage, 24));
+wage_change(2,:) = ((1+wage_change(2,:)).^12 - 1)*100;
+rgdp = s2m_data(import_fred_csv('Data/GDPC1.csv'));
+drgdp = differentiate_series(moving_ave(rgdp, 24));
+drgdp(2,:) = ((1+drgdp(2,:)).^12 - 1)*100;
+
 ID = []; % indirect deficit (millions per year)
 RD = []; % real deficit
 RDINF = []; % real deficit inflation pct
 INTINF = []; % int payment inflation pct
-INTNET = [];
-RINT = []; % real interest rates %
 INFNET = [];
 PH1 = [];
 PH2 = [];
+R1 = [];
+R2 = [];
 
 start_yr = 1950;
 end_yr = 2022;
@@ -84,17 +91,7 @@ while(m < end_yr * 12)
     int_infm = 100 * int_paym / debtm;
     INTINF = [INTINF, [m; int_infm]];
   endif
-  if(isin(m, int_rng(oc_rng(int_rt), oc_rng(INTINF))))
-    int_rtm = int_rt(2, lookup(int_rt(1,:), m));
-    int_netm = int_rtm - int_infm;
-    INTNET = [INTNET, [m; int_netm]];
-  endif
-  if(isin(m, int_rng(int_rng(oc_rng(INTNET), oc_rng(RDINF)), int_rng(oc_rng(def), oc_rng(pop)))))
-    defm = def(2, lookup(def(1,:), m));
-    popm = pop(2, lookup(pop(1,:), m));
-    rint_summ = int_netm - real_def_infm + defm + popm;
-    RINT = [RINT, [m; rint_summ]];
-  endif
+  % Net Expected Inflation
   if(isin(m, int_rng(int_rng(oc_rng(RDINF), oc_rng(INTINF)), int_rng(oc_rng(def), oc_rng(pop)))))
     defm = def(2, lookup(def(1,:), m));
     popm = pop(2, lookup(pop(1,:), m));
@@ -113,21 +110,20 @@ while(m < end_yr * 12)
     PH1 = [PH1, [m; unratem; cpim]];
     PH2 = [PH2, [m; unratem; cpim - infnetm]];
   endif
+  % Real Interest Rates
+  if(isin(m, int_rng(oc_rng(cpi), oc_rng(int_rt))))
+    cpim = cpi(2, lookup(cpi(1,:), m));
+    intm = int_rt(2, lookup(int_rt(1,:), m));
+    R1 = [R1, [m; intm - cpim]];
+  endif
+  if(isin(m, int_rng(oc_rng(INFNET), oc_rng(R1))))
+    R2 = [R2, [m; intm - (cpim - infnetm)]];
+  endif
 endwhile
 
-% ================ Real Interest Rates ============= %
-%{
-plot(RDINF(1,:)/12, RDINF(2,:), ";Real Deficit Rate;");
-hold on;
-plot(RINT(1,:)/12, RINT(2,:), ";Real Interest Rate;");
-plot(INTNET(1,:)/12, INTNET(2,:), ";Nominal Interest Effect;");
-plot(tip_yield(1,:)/12, tip_yield(2,:), ";TIP Yield;");
-hold off;
-legend("location", "northwest");
-%}
 
 % ================== Net Inflation ================ %
-%
+%{
 plot(cpi(1,:)/12, cpi(2,:), "linewidth", 2, ";Consumer Price Index;");
 hold on;
 plot(INFNET(1,:)/12, INFNET(2,:), "linewidth", 2, ";Predicted Inflation;");
@@ -204,7 +200,7 @@ set(titl, "fontsize", 14);
 set(xlab, "fontsize", 14);
 set(ylab, "fontsize", 14);
 %
-%
+%}
 %============================= Interest and Inflation ==============%
 %{
 plot(int_rt(1,:)/12, int_rt(2,:), "linewidth", 2, ";Federal Funds Rate;");
@@ -220,3 +216,5 @@ set(lege, "fontsize", 14);
 set(titl, "fontsize", 14);
 set(ylab, "fontsize", 14);
 %}
+
+plot(wage_change(1,:)/12, wage_change(2,:), R2(1,:)/12, R2(2,:)/6, recess(1,:)/12, 10*(recess(2,:)-.5), drgdp(1,:)/12, drgdp(2,:));
