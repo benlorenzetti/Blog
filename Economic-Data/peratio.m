@@ -35,7 +35,7 @@ dpct = s2m_data(import_fred_csv("C:/Users/benlo/Documents/pct-down.csv"));
 RN = [];
 Rreal = [12*1960+1:12*2022 ; 180*ones(1,12*62)];
 Rth = [];
-YRTH = [];
+YRN = [];
 norm_yr = 1999;
 norm_mn = 1;
 i = differentiate_series(moving_ave(Iindex, 60));
@@ -71,12 +71,12 @@ while(m < end_yr * 12)
     aprm = apr(2,lookup(apr(1,:),m));
     Rm = Rmort(aprm, 360);
     RN = [RN, [m; Rm]];
+    YRN = [YRN, [m; Rm/12]];
     %------------- Rth ------------------
     if(isin(m, oc_rng(Rreal)))
       Rreali = Rreal(2, lookup(Rreal(1,:), m));
       Rpar = Rm * Rreali / (Rm + Rreali);
       Rth = [Rth, [m; Rpar]];
-      YRTH = [YRTH, [m; 12/Rpar]];
     endif % Rth
   endif % R(N)
   %------------------ Rpr ------------------
@@ -132,7 +132,7 @@ endwhile
 plot(pe10(1,:)/12, pe10(2,:), "linewidth", 2, ";S&P 500 5YR AVE P/E;");
 hold on;
 plot(YPE(1,:)/12, 2.75*YPE(2,:), "linewidth", 2, ";2.75x Mortgage P/E;");
-plot(RN(1,:)/12, 1.5*RN(2,:)/12, "linewidth", 2, ";1.5x R(N) All Cash P/E;");
+plot(YRN(1,:)/12, 1.5*YRN(2,:), "linewidth", 2, ";1.5x R(N) All Cash P/E;");
 plot(recess(1,:)/12, 50*recess(2,:), ":k;US Recessions;");
 plot(YPE2(1,:)/12, 2.75*YPE2(2,:), "linewidth", 2, ":k;Freddie Mac Overlay;");
 hold off;

@@ -44,7 +44,7 @@ aside { margin: 20px; border-style: none; padding: 0px;
     min-width: 306px;
 }
 #vertical-div-containing-article-and-navigation {
-	margin: 0px; border-style: none; padding: 0px;
+	margin: 0px; border-style: none; padding: 10px;
 	width: 700px; /* Verdana 12pt font, 70 characters per line? */
 	float: left;
 }
