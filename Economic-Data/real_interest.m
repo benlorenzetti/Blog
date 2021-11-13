@@ -2,6 +2,7 @@ clear;
 clc;
 run('econdata.m');
 
+home_apr = s2m_data(import_fred_csv('Data/MORTGAGE30US.csv'));   % percent apr
 deficit = s2m_data(import_fred_csv('Data/FYFSD.csv')); % millions per year
 deficit(2,:) = -1*deficit(2,:);
 debt = s2m_data(import_fred_csv('Data/GFDEBTN.csv'));  % millions
@@ -202,14 +203,15 @@ set(ylab, "fontsize", 14);
 %
 %}
 %============================= Interest and Inflation ==============%
-%{
-plot(int_rt(1,:)/12, int_rt(2,:), "linewidth", 2, ";Federal Funds Rate;");
+%
+plot(home_apr(1,:)/12, home_apr(2,:), "linewidth", 2, ";30yr Fixed Rate Mortgage (Ave);");
 hold on;
+plot(int_rt(1,:)/12, int_rt(2,:), "linewidth", 2, ";Federal Funds Rate;");
 plot(cpi(1,:)/12, cpi(2,:), "linewidth", 2, ";Consumer Price Index;");
 plot(recess(1,:)/12, 40*(recess(2,:)-.5), ":k;US Recession;");
 hold off;
 lege = legend("location", "northeast");
-titl = title("Medium Frequency Recessions, Low Frequency Decline");
+titl = title("Medium Frequency Recessions, Long Term Decline");
 axis([1962, 2022, -2, 20]);
 ylab = ylabel("Annual Percentage Rate");
 set(lege, "fontsize", 14);
@@ -217,4 +219,6 @@ set(titl, "fontsize", 14);
 set(ylab, "fontsize", 14);
 %}
 
+%{
 plot(wage_change(1,:)/12, wage_change(2,:), R2(1,:)/12, R2(2,:)/6, recess(1,:)/12, 10*(recess(2,:)-.5), drgdp(1,:)/12, drgdp(2,:));
+%}

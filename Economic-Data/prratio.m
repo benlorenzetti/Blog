@@ -28,7 +28,7 @@ pr_index(2,:) = scale * Vmed(2,:)./Irent(2,:);
 
 plot(pr_index(1,:)/12, pr_index(2,:), "linewidth", 2, ';US Median Sales P/R Index;');
 hold on;
-plot(Rth(1,:)/12, Rth(2,:), "linewidth", 2, ';Mortgage Dividend P/R Model;');
+plot(Rth(1,:)/12, Rth(2,:), "linewidth", 2, ';Mortgage Dividend R(pr);');
 plot(recessions(1,:)/12, 70*recessions(2,:)+40, "k:;US Recessions;");
 hold off;
 titl = title("Median Sales Price to Rent Index, normalized at Dec. 2015, 97.3");

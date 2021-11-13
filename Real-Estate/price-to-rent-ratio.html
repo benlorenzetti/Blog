@@ -24,47 +24,49 @@
 	</script>
 </header>
 <aside>
-<a href="../index.html"><img src="#" alt="snth.us"></a>
+<a href="index.html"><img src="#" alt="snth.us"></a>
 </aside>
 <div id="vertical-div-containing-article-and-navigation">
 <hr>
 <article>
 <h1>Price to Rent Ratio</h1>
-<h2>Sep. 1, 2021</h2>
-<p> The price to rent ratio (P/R) is a well known litmus test for real
-  estate deals. For example, if you could rent a $180,000 home for
+<h2>Nov. 13, 2021</h2>
+<p> The price to rent ratio (R<sub>pr</sub>) is a well known litmus test for
+	real estate deals. For example, if you could rent a $180,000 home for
 	$1500/month, the P/R ratio is 120 months.
 </p>
-<img src="prratio.gif">
-<p> There is no quick, easy thumbrule for a good P/R ratio. One can
-	see below that the median P/R ratio (black curve) has trended upward
-	over the last 50 years, based on FRED data on median sales price of
-	US homes (<a href="https://fred.stlouisfed.org/series/MSPUS">MSPUS</a>)
-  and a unitless rent index
-  (<a href="https://fred.stlouisfed.org/series/CUUR0000SEHA">CUUR0000SEHA</a>).
+<img src="prratio-eq.png">
+<p> A popular P/R thumbrule is the
+<a href="https://www.jasonhartman.com/3-things-youll-learn-from-a-good-income-property-calculator-and-one-you-wont/">1% rule</a>
+	(Jason Hartman), which says a good ratio is
+	<span style="white-space:nowrap;">R<sub>pr</sub> &leq; 100</span>.
+	However my <a href="mortgage-calculator.html">mortgage calculator</a>
+	does not display R<sub>pr</sub> because good P/R ratios change over time
+	and it would clutter the results.
 </p>
-<p> The hypothesis of the
-  <a href="marginal-dividend.html">marginal dividend model</a>
-  is that a target P/R ratio is set by combination of fiat monetary
-	policy in parallel with a real-economy "resistance to becoming
-	rundown". The Federal Reserve provides enough public data for a
-	quick test, and the result is plotted below with a P/R index
-	(black) normalized to the model (red) in December 2015.
-	To improve credibility, US recessions are shown and the data
-	starts the year Nixon suspended the gold standard.
+<p> The graph below shows the median P/R ratio has changed dramatically over
+	the	last 50 years, based on FRED data on median sales price of US homes and
+	a unitless rent index.
 </p>
-<img src="resistance-ratio.png">
+<img src="prratio.png">
+<p> Why does this thumbrule change? The hypothesis of the
+  <a href="mortgage-dividend.html">mortgage dividend model</a>
+  is that a target R<sub>pr</sub> is set by combination of fiat interest rate
+	policy in parallel with a real-economy "resistance to becoming rundown" i.e.
+	maintenance expenses, taxes, etc. The graph above shows a test of the
+	hypothesis with the model (red) and a P/R index (blue) normalized to the
+	model in December 2015.
+</p>
 <h2>Should I Buy or Rent?</h2>
-<p> The model provides a target of where fair market property prices are
-  headed based on federal policy. With the real price ratio (black)
+<p> The model provides a target of where market property prices are likely
+  headed based on federal policy. With the real price ratio (blue)
   normalized to the model (red) in Dec. 2015, it looks like property
-  prices in April 2021 were quickly recovering to the target but
-	not yet in a bubble.
-  </p>
+  prices in 2021 Q3 have quickly recovered and should probably peak soon
+	relative to rents.
+</p>
 <p> Is the model valid?
-  You can read more about the model in the series
-  <a href="index.html">
-    <span style="white-space:nowrap;">Should I Buy or Rent?</span></a>
+  You can read more about the model in the
+	<a href="index.html">mortgage calculator series</a>.
   The graph is based on the FRED datasets cited below, but I also relied
 	on an anecdotal value of 180 months for the "run down resistance"
 	<span style="font-family:monospace;">Rreal</span>	based on my personal
@@ -77,7 +79,7 @@
 <pre>
 clear;
 clc;
-run('<a href="../Economic-Data/econdata.m">econdata.m</a>'); % Functions for importing and manipulating data
+run('econdata.m'); % Functions for importing and manipulating data
 
 mort30us = import_fred_csv('Data\MORTGAGE30US.csv');   % percent apr
 mspus = import_fred_csv('Data\MSPUS.csv');             % dollars
@@ -103,19 +105,18 @@ scale = Rth(2,ind1) / (Vmed(2,ind2)/(Irent(2,ind2)));
 pr_index(1,:) = pr_range(1) : pr_range(2);
 pr_index(2,:) = scale * Vmed(2,:)./Irent(2,:);
 
-plot(pr_index(1,:)/12, pr_index(2,:), 'k');
+plot(pr_index(1,:)/12, pr_index(2,:), "linewidth", 2, ';US Median Sales P/R Index;');
 hold on;
-plot(Rth(1,:)/12, Rth(2,:), 'r');
-plot(recessions(1,:)/12, 70*recessions(2,:)+40);
-title("Median Sales Price to Rent Index, normalized to Dec. 2015");
-h = ["Median Sales P/R Index"; "Marginal Dividend P/R Ratio"; "US Recessions"];
-legend(h, "location","southeast");
-ylabel("months");
-axis([1968, 2023,40,110]);
+plot(Rth(1,:)/12, Rth(2,:), "linewidth", 2, ';Mortgage Dividend R(pr);');
+plot(recessions(1,:)/12, 70*recessions(2,:)+40, "k:;US Recessions;");
 hold off;
+titl = title("Median Sales Price to Rent Index, normalized at Dec. 2015, 97.3");
+lege = legend("location","southeast");
+ylab = ylabel("Months of Rent");
+axis([1968, 2023,40,110]);
 </pre>
 
-<h2>Citations</h2>
+<h2>Data Citations</h2>
 <p>	U.S. Census Bureau and U.S. Department of Housing and Urban
 	Development, Median Sales Price of Houses Sold for the United
 	States [MSPUS], retrieved from FRED, Federal Reserve Bank of St.
