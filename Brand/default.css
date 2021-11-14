@@ -37,7 +37,7 @@ nav {
   padding: 0;
   margin: 1em;
 }
-#main-content-width-div {
+#main-content-section {
   float: left;
   max-width: 800px;
   padding: 0;
@@ -58,7 +58,7 @@ footer {
 /* Left Side Navigation Menu */
 nav {
   background-color: #eeeeee;
-  width: 250px;
+  width: 300px;
 }
 nav img {
   margin: 0 auto;
@@ -105,7 +105,7 @@ ul.nested-nav-ul {
   margin-left: 2em;
   list-style-type: none;
 }
-nav ul li ul li a { font-size: 11pt; }
+nav ul li ul li a { font-size: 12pt; }
 nav a:link, nav a:visited {
   color: #213d93;
   background-color: #eeeeee;
