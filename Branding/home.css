@@ -1,0 +1,85 @@
+/* basicStyle.css */
+/* style basics from here until line 44 */
+body {
+	background-color: rgb(204,204,204);
+	background-image: url('./bodybackground.gif');
+	background-size: 100% 100%;
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+p, ul, ol, table, h2 {
+	font-size: 12pt;
+	font-family: "Times New Roman", verdana, arial, serif;
+	/* I realize Times New Roman doesn't match verdana, arial, serif...*/
+}
+.block-quote {
+	font-style: italic;
+}
+.block-quote-citation {
+	padding-left: 24em;
+}
+.figure-label {
+	margin-left: auto; margin-right: auto; /* combine with fixed width element */
+}
+section p {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+h1, h2, nav ul {
+	font-family: "Times New Roman", georgia;
+    padding: 0;
+    margin: 0;
+    margin-top: 0.6em;
+}
+a:link, a:visited {
+	color: rgb(179, 22, 35);
+}
+hr { height: 3px;
+	background-image: url('./footerbackground.gif');
+}
+
+header { margin: 0px; border-style: none; padding: 0px; }
+aside { margin: 20px; border-style: none; padding: 0px;
+	float: left;
+    min-width: 306px;
+}
+#vertical-div-containing-article-and-navigation {
+	margin: 0px; border-style: none; padding: 10px;
+	width: 700px; /* Verdana 12pt font, 70 characters per line? */
+	float: left;
+}
+nav { margin: 0px; border-style: none; padding: 0px;
+	background-image: url('./footerbackground.gif');
+	background-size: 100% 100%;
+	background-repeat: repeat-y;
+	width: 100%; margin-top: 20px;
+}
+nav ul { list-style-type: none; padding: 0px; margin: 0px 0px 0px 25px; }
+nav ul li { float: left; }
+nav ul li a {
+	display: block;
+	padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;
+	text-decoration: none;
+	font-size: 18px;
+}
+nav ul li a:link, nav ul li a:visited { color: rgb(204,204,204); }
+nav ul li a:hover, nav ul li a:active { background-color: rgb(179,22,35); color: rgb(204,204,204); }
+
+
+footer { margin: 0px; border-style: none; padding: 0px;
+	clear: both;
+}
+/* end of style */
+
+article {}
+.code { font-family: monospace; font-size: 10pt; white-space: pre;
+margin-top:0; padding-top:0;}
+
+span.math1 {
+    white-space: nowrap;
+    font-style: italic;
+}
+
+h2 span.date {
+    font-style: monospace;
+}

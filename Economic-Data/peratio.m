@@ -61,7 +61,7 @@ Y2 = [];
 YPE2 = [];
 
 start_yr = 1980;
-end_yr = 2022;
+end_yr = 2023;
 
 m = (start_yr-1) * 12;
 while(m < end_yr * 12)
@@ -138,10 +138,16 @@ plot(YPE2(1,:)/12, 2.75*YPE2(2,:), "linewidth", 2, ":k;Freddie Mac Overlay;");
 hold off;
 lg = legend("location", "northwest");
 ylab = ylabel("Price to Earnings Ratio (Annual)");
-axis([1976, 2022, 0, 40]);
+axis([1976, 2023, 0, 40]);
 ti = title("Comparison of Stock Prices, Home Prices, and Interest Rates");
 text(1972, -3.25, "Sources: MORTGAGE30US, MSPUS, CUUR0000SEHA (FRED) and U.S. Stock Markets 1871-Present (Shiller)");
 text(1976, -4.75, "with L = 4, f = .07, Rexp = 180 months, c' = 1, and rent index normalized to model in Jan. 1999");
 set(lg, "fontsize", 12);
 set(ti, "fontsize", 14);
 set(ylab, "fontsize", 14);
+oc_rng(pe10)(2)/12
+mod(oc_rng(pe10)(2),12)
+oc_rng(YPE)(2)/12
+mod(oc_rng(YPE)(2),12)
+oc_rng(YRN)(2)/12
+mod(oc_rng(YRN)(2),12)
