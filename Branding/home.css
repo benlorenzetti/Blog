@@ -83,3 +83,53 @@ span.math1 {
 h2 span.date {
     font-style: monospace;
 }
+
+
+/* Picture Gallery Slideshow container */
+.slideshow-container {
+  max-width: 700px;
+  position: relative;
+  margin: auto;
+}
+
+/* Picture Gallery Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 100px;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+	color: rgb(179, 22, 35);
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Picture Gallery Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* Picture Gallery Caption text */
+.text {
+	color: rgb(179, 22, 35);
+  font-size: 18px;
+  padding: 0px 0px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Picture Gallery Number text (1/3 etc) */
+.numbertext {
+	color: rgb(179, 22, 35);
+  font-size: 18px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
