@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+  <title>Pi V Insertion Sort</title>
+  <link rel="stylesheet" type="text/css" href="default.css" />
+  <link rel="stylesheet" type="text/css" href="manpage.css" />
+</head>
+
+<body>
+
+<nav>
+<a href="index.html"><img alt="Ad1 Logo" src="#" /></a>
+
+<h3 class="nav-heading">
+  <a href="index.html">- Data Structure</a>
+</h3>
+<hr class="nav-hr"/>
+<ul class="top-level-nav-ul">
+  <li><a href="algorithms.html">M &#x2a2f; N function framework</a></li>
+  <li><a href="macros.html">M &#x2a2f; N macro library</a></li>
+  <li><a href="mx_functions.html">
+      <span class="nav-span">(m, x)</span> struct. specific f()'s</a></li>
+  <li><a href="xn_functions.html">
+      <span class="nav-span">(x, n)</span> type specific f()'s</a></li>
+  <li><a href="mn_functions.html">
+      <span class="nav-span">(m, n)</span> specific interfaces</a></li>
+  <li>
+    <h4 class="nav-sub-heading">
+      <a href="xx_functions.html"><span class="nav-span">(x, x)</span> generic algorithms</a>
+    </h4>
+    <ul class="nested-nav-ul">
+      <li><a id="current-page" href="insort.html">
+          <span class="nav-span">piv_insort()</span></a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="nav-heading">
+  <a href="containers.html">+ Containers</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="piv.html">+ About</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="baselibrary.html">+ Vectors &amp; Slices</a>
+</h3>
+
+</nav>
+
+<div id="main-content-width-div">
+
+<div id="leaderboard">
+<!--<img src="https://lh5.ggpht.com/NFYFP2H9CCP50vAQNLa7AtCj_mbbYmOzY978fZqd31oL5qOdvXgxU3KW8ek2VgvIOvTqWY0=w728" />
+-->
+</div>
+
+<section id="name">
+<h1><span>piv_insort()</span> - Insertion Sort Algorithm</h1>
+</section>
+
+<section class="synopsis">
+<h2>SYNOPSIS</h2>
+<pre class="synopsis">
+#include "piv_stdlib.h"
+
+void piv_insort (piv_state *input, (*const comparison_f) (void*, void*),
+                 const size_t type_size, const piv_table* const v_table)
+</pre>
+</section>
+
+<section id="description">
+<h2>DESCRIPTION</h2>
+
+<p>Sorts a sequential data structure using type-specfic order
+relation. A "less than" <span>comparison_f</span> function sorts
+<span>input</span> into (&lt;) ascending order and "greater than"
+function sorts into descending order (&gt;).
+Partial order relations (&leq;, &geq;) produce a stable sort.
+</p>
+
+<p>Insertion sort has in-place O(1) memory complexity and O(n^2) time
+complexity, but this reduces to O(n) for sequences with only a single
+element out of place.
+</p>
+
+<p><span>piv_insort()</span> and its macro cousin
+<a href="#">PIV_INSORT()</a> can
+be applied to any <a href="#">sequential</a> data structure storing any type,
+so long as you pass in the data structure's <span>v_table</span> and the
+data type's <span>type_size</span> from sizeof().
+</p>
+
+<p>Assumes that the <span>input</span> container to be sorted is non-empty.</p>
+</section>
+
+<section id="return-value">
+<h2>RETURN VALUE</h2>
+<p>No return value because insertion sort is in-place and never fails</p>
+</section>
+
+<section id="algorithm">
+<h2>ALGORITHM</h2>
+</section>
+
+<footer>
+<hr />
+Copyright (c) Ben Lorenzetti 2017<br />
+Redistribution and use is permitted under the terms of the 3-clause
+<a href="./FreeBSD_Documentation_License.txt">FreeBSD Documentation License</a>.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+/* General Style */
+body p {
+  font-family: georgia, sans-serif;
+  font-color: black;
+  font-size: 12pt;
+}
+span {
+  white-space: pre;
+  font-family: courier new, monospace;
+  font-size: 11pt;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: roman, serif;
+  font-size: 12pt;}
+h1 { font-size: 18pt; }
+h2 { font-size: 14pt; }
+h1 span {
+  font-size: 16pt;
+  font-family: courier;
+}
+a {
+  color: #2a5db0;
+  text-decoration: none;
+}
+
+
+/* Two + One Column Format */
+body {
+  margin: 0;
+  padding-top: 0;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+}
+nav {
+  float: left;
+  padding: 0;
+  margin: 1em;
+}
+#main-content-width-div {
+  float: left;
+  max-width: 800px;
+  padding: 0;
+  margin: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#leaderboard {
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  background-color: #eeeeee;
+}
+footer {
+  clear: left;
+}
+
+/* Left Side Navigation Menu */
+nav {
+  background-color: #eeeeee;
+  width: 250px;
+}
+nav img {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+nav a {
+  display: block;
+  padding-left: .5em;
+  padding-right: .5em;
+}
+.nav-heading {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.nav-sub-heading {
+  margin: 0;
+}
+.nav-hr {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+ul.top-level-nav-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+}
+nav ul li
+{ padding: 0;
+  margin: 0;  }
+nav ul li a {
+  font-size: 12pt;
+  padding-top: .1em;
+  padding-bottom: .1em;
+  margin: 0;
+}
+ul.nested-nav-ul {
+  padding: 0;
+  margin: 0;
+  margin-left: 2em;
+  list-style-type: none;
+}
+nav ul li ul li a { font-size: 11pt; }
+nav a:link, nav a:visited {
+  color: #213d93;
+  background-color: #eeeeee;
+  font-family: roman, serif;
+}
+nav a:active, nav a:hover {
+  font-family: roman, serif;
+  color: black;
+  background-color: #dddddd;
+}
+#current-page {
+  color: black;
+}
+
+table, th, td {border: 1px solid black; border-collapse: collapse;}
+td {text-align: left; vertical-align: top; padding: 5px;}
+th {text-align: right; vertical-align: top; padding: 5px;}
+li {padding: 5px;}
+pre {padding: 3px; padding-left: 20px; padding-right: 20px;
+     margin: 5px; background-color: HoneyDew;}

@@ -54,28 +54,35 @@ function stretched2monthly_data = s2m_data(data2byN)
   i = 0;
   iend = size(data2byN)(2);
   mprev = oc_rng(data2byN)(1);
-  jsum = 0;
-  jdiv = 0;
-  while(i < iend)
+  ave_numerator = 0;
+  ave_denom = 0;
+  while(i < iend) % Do for each data point in input data:
     i = i + 1;
     m = data2byN(1,i);
-    jsum = jsum + data2byN(2,i);
-    jdiv = jdiv + 1;
-    if(m == mprev && i != iend)
+    ave_numerator = ave_numerator + data2byN(2,i);
+    ave_denom = ave_denom + 1;
+    ave = ave_numerator / ave_denom;
+    if(m == mprev + 1 || i == iend)
+      stretched2monthly_data = [stretched2monthly_data, [m; ave]];
+    elseif(m == mprev)
       continue;
-    elseif(m == mprev + 1 || i == iend)
-      mprev = m;
-      stretched2monthly_data = [stretched2monthly_data, [m; jsum/jdiv]];
-
-    else
-      do 
-        mprev = mprev + 1;
-        stretched2monthly_data = [stretched2monthly_data, [mprev; jsum/jdiv]];
-      until(mprev == m)
-  endif
-  jsum = 0;
-  jdiv = 0;
-
+    else % Indicates Data Periodicity is > 1 month
+      if(i == 1) 
+        rise = 0;
+      else
+        rise = ave - data2byN(2, i - 1);
+        ave = ave - rise;
+      endif
+      run = m - mprev;
+      while (mprev < m)
+       mprev = mprev + 1;
+       ave = ave + rise / run;
+       stretched2monthly_data = [stretched2monthly_data, [mprev; ave]];
+      endwhile
+    endif
+    mprev = m;
+    ave_numerator = 0;
+    ave_denom = 0;
   endwhile
 endfunction
 
