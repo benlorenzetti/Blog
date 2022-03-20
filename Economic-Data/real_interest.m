@@ -127,7 +127,7 @@ endwhile
 
 
 % ================== Net Inflation ================ %
-%
+%{
 plot(cpi(1,:)/12, cpi(2,:), "linewidth", 2, ";Consumer Price Index;");
 hold on;
 plot(INFNET(1,:)/12, INFNET(2,:), "linewidth", 2, ";Predicted Inflation;");
@@ -188,7 +188,7 @@ set(ylab, "fontsize", 14);
 axis([84, 98, -23, 27]);
 %}
 %================ Broken Up By Year Ranges================%
-%{
+%
 scatter(PH2(2,ind(1):ind(2)-1), PH2(3,ind(1):ind(2)-1), 36, "k", "o", "filled");
 hold on;
 scatter(PH2(2,ind(2):ind(3)-1), PH2(3,ind(2):ind(3)-1), 36, "b", "o", "filled");
