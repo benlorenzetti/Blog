@@ -6,8 +6,8 @@ body p {
 }
 span {
   white-space: pre;
-  font-family: courier new, monospace;
-  font-size: 11pt;
+  font-family: monospace;
+  font-size: 12pt;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: roman, serif;
@@ -120,7 +120,7 @@ nav a:active, nav a:hover {
   color: black;
 }
 
-table, th, td {border: 1px solid black; border-collapse: collapse;}
+table, th, td {border: none; text-align: center; margin: auto;}
 td {text-align: left; vertical-align: top; padding: 5px;}
 th {text-align: right; vertical-align: top; padding: 5px;}
 li {padding: 5px;}

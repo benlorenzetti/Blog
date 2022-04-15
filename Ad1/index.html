@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+  <title>Pointers and References</title>
+  <link rel="stylesheet" type="text/css" href="default.css" />
+  <link rel="stylesheet" type="text/css" href="manpage.css" />
+</head>
+
+<body>
+
+<nav>
+<a href="index.html"><img alt="Ad1 Logo" src="#" /></a>
+
+<h3 class="nav-heading">
+  <a href="index.html">- Data Types</a>
+</h3>
+<hr class="nav-hr"/>
+<ul class="top-level-nav-ul">
+  <li><a href="#">Little-Endian Machine</a>
+		<ul class="nested-nav-ul">
+			<li><a href="#">Unsigned Integers</a></li>
+			<li><a href="#">Structs and Unions</a></li>
+			<li><a href="#">Booleans and Equality</a></li>
+		</ul>
+	</li><li>
+		<h4 class="nav-sub-heading">
+      <a href="#">Natural Numbers</a>
+		</h4>
+    <ul class="nested-nav-ul">
+      <li><a id="current-page" href="#">
+          Pointers (Dual-Endianess)</a></li>
+			<li><a href="#">Null (Natural Ambiguity)</a></li>
+    </ul>
+	</li><li>
+		<a href="#">
+	</li>
+</ul>
+
+<h3 class="nav-heading">
+  <a href="containers.html">+ Containers</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="piv.html">+ About</a>
+</h3>
+
+<h3 class="nav-heading">
+  <a href="baselibrary.html">+ Vectors &amp; Slices</a>
+</h3>
+
+</nav>
+
+<div id="main-content-width-div">
+
+<div id="leaderboard">
+<!--<img src="https://lh5.ggpht.com/NFYFP2H9CCP50vAQNLa7AtCj_mbbYmOzY978fZqd31oL5qOdvXgxU3KW8ek2VgvIOvTqWY0=w728" />
+-->
+</div>
+
+<section id="name">
+<h1>Dual-Endian Pointers</h1>
+</section>
+
+<section class="synopsis">
+<h2>SYNOPSIS</h2>
+<pre class="synopsis">
+struct stack(T) = { Um* alloc_len; Um *T last; }
+struct queue(T) = { Um* alloc_len; Um**T lend; Um* len; }
+struct vector(T) =               { Um**T lend; Um* len; }
+
+struct list(T) = { Un*list(T) next; T val; }
+struct tree(T) = list { list(T) r } l
+               =    list&compfn;2&compfn;(T) {l, r}
+struct heap(T, k) = list&compfn;k&compfn;(T)
+</pre>
+</section>
+
+<section id="description">
+<h2>NATURAL ORDER</h2>
+<p> The last section described <a href="natural-numbers.html">natural
+	numbers</a> with type signatures &Uopf;<sub>8</sub>*, &Uopf;<sub>32</sub>*,
+	etc; indicated by the unsigned type casting operator <span>*</span>.
+</p>
+<p>
+	Consider a memory addressable by a single octet, then this cast operation
+	emerges as a zero-cost abstraction by representing unsigned octal numbers
+	&Uopf;<sub>3</sub> in the standard binary form such that
+	<span>{7,6,5,4,3,2,1,0} &isin; U3</span> but also defining a set of natural
+	numbers in the opposite order such that
+	<span>{1,2,3,4,5,6,7,8} &isin; U3*</span>.
+</p>
+<p> Consequently, to use natural number ordering in Ad1 you have to think of C
+	arrays as being laid out backwards, so the series of UTF-8 code points in
+	a little-endian memory for <span>"memmove"</span> in C would be interpreted as
+	<span>"\0evommem"</span> if read by Ad1.
+</p>
+<img src="data-types/left-vs-right-addressing.png" width="501px;">
+<p> In the example above, the NUL character '<span>\0</span>' would be stored
+	at location 7 in &Uopf;<sub>3</sub>/C (the top layout) or location 1 in
+	&Uopf;<sub>3</sub>*/Ad1 (bottom layout), but both of these locations would be
+	indexed by the same three bit datum in memory, <span>111</span>.
+	One advantage of using the zero-cost abstraction for pointers is it makes
+	little-endian machines network-ordered, a property Ad1 calls
+	<em>dual-endian</em>, or <em>point from the right</em> because objects
+	in memory are addressed by their rightmost boundary.
+</p>
+<h2>POINTER SYNTAX</h2>
+<p> In C the pointer type operator (<span>*</span>) also serves double duty as
+	the pointer dereference operator, a symmetry described as
+	"declarations follow use" because the declaration of a pointer to a type T
+	(<span>T* ptr;</span>) follows the same syntax of pointer access
+	(<span>*ptr</span>). This is not so in Ad1, which focuses on a differnt
+	symmetry:
+</p>
+<pre>
+  uint32_t *p1;     // a pointer to an unsigned, 32-bit integer in C
+  Um* * U32 p1, p2; // similar pointers in Ad1
+</pre>
+<p> The <em>infix</em> <span>*</span> <em>operator</em> in Ad1 appears
+	between two types such that <span>(Um*)*U32</span> declares a machine-size,
+	natural number pointer to a 32-bit unsigned integer. This improves on
+	C's <span>*</span> <em>prefix operator</em> for pointers,	which only modifies
+	the next immediate object declared.
+</p>
+<p> The double entendre in Ad1&mdash; <span>*</span> is also
+	that <em>postfix, one's complement</em> operator <span>*</span>.
+	Sometimes it is more appropriate to use pointers that increment
+	from the right instead of the left, for this pointers can be declared with or
+	without the natural number <span>*</span> cast:
+</p>
+<pre>
+Um**U32 n = RSP; // (Um*)*U32 - a normal Ad1 pointer
+Um* U32 u = n*;  // (Um) *U32 - an uncast C-style pointer or offset
+</pre>
+<p> Instead of <span>*</span> serving double-duty with dereferencing, Ad1
+	pointers automatically dereference in some circumstances and can be
+	explicitly dereferenced (evalulated) with parenthesis or explictly left
+	alone [unevaluated] with square brackets to return the integer that points
+	to the object's right edge.
+</p>
+<p> Thus in the above example,
+	the address returned by <span>[n]</span> would be from the
+	domain <span>&Uopf;<sub>m</sub>* = {1, 2, 3,...2<sup>m</sup>}</span> for a
+	system indexed by m-bit integers while the second uncast pointer would return
+	<span>[u]</span> from the domain
+	<span>&Uopf;<sub>m</sub> = {0,1,2,...2<sup>m</sup>-1}</span> despite both
+	being the same datum of ones and zeros in the machine.
+</p>
+<h2>FUNCTIONAL SEMANTICS</h2>
+<p>
+	The boolean mappings for &Uopf; and &Nopf; respect the complementary
+	<span>*</span> castings such that <span>0000</span> is interpreted as
+	either of empty falseness in &Uopf; or as demonstrably true if cast in &Nopf;.
+</p>
+<table>
+	<tr>
+		<td></td>
+		<td>&Uopf;</td>
+		<td>&Nopf;</td>
+	</tr><tr>
+		<td><span>0000</span></td>
+		<td>()</td>
+		<td>T</td>
+	</tr><tr>
+		<td><span>1111</span></td>
+		<td>[]</td>
+		<td>1</td>
+	</tr>
+</table>
+<p> A classic problem in object-oriented programming is whether the memory
+	mapped-to by a pointer contains an object well formed to its type.
+	It is up to the programmer to maintain this invariant in Ad1&mdash;pointers
+	from domain &Uopf;* and live on the stack also point to
+	valid objects in memory. Contra-rily, pointers from &Uopf; may lead to
+	unformed or unallocated memory. This corresponds roughly to a truth table
+	that would be produced by bitwise AND of the pointer with objects
+	represented by 1 or () depending on if they were well formed.
+</p>
+<table>
+	<tr>
+		<td>A</td>
+		<td>B</td>
+		<td>A*B</td>
+	</tr><tr>
+		<td>1</td>
+		<td>x</td>
+		<td>x</td>
+		<td>linear pointer</td>
+	</tr><tr>
+		<td>()</td>
+		<td>x</td>
+		<td>T</td>
+		<td>empty/null pointer</td>
+	</tr><tr>
+		<td>[]</td>
+		<td>[]</td>
+		<td>1</td>
+		<td>(vacuous truth)</td>
+	</tr>
+</table>
+<p> Some implementations may store (<span>000...0</span>) at location
+	[<span>000...0</span>] to obtain the proper semantics for cases 1, 2 and 3
+	for vacuous, empty and trivial results.
+</p>
+<p> It is up to the programmer to maintain this implicative logic with
+	their references&mdash;under the conditions when the control flow has a
+	non-empty reference (1), it should always point to a valid object, well formed
+	per its declared type (1).
+	In contrast, pointers from &Uopf; are considered by the compiler to be
+	vacuously true and are not tracked at compile time to help manage error states.
+</p>
+<p>
+	For simplicity of manipulating binary data and addresses, the bitwise
+	operators <span>&amp;</span>,	<span>|</span> and <span>=</span> map directly
+	to the underlying machine instructions for AND, OR and XOR regardless of
+	&Uopf; or &Nopf; casting.
+</p>
+<table>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td>Boolean Logic</td>
+		<td>Set Description</td>
+	</tr><tr>
+		<td><i>times</i></td>
+		<td><span>(x)</span></td>
+		<td>1</td>
+		<td>0</td>
+		<td></td>
+		<td>AND &isin; &Nopf;</td>
+		<td>cross product</td>
+		<td>MC</td>
+	</tr><tr>
+		<td><i>par</i></td>
+		<td><span>||</span></td>
+		<td>F</td>
+		<td>T</td>
+		<td></td>
+		<td>OR &isin; &Uopf;</td>
+		<td>union</td>
+		<td>MD</td>
+	</tr><tr>
+		<td><i>with</i></td>
+		<td><span>==</span></td>
+		<td>T</td>
+		<td></td>
+		<td>F</td>
+		<td>EQ &isin; &Uopf;</td>
+		<td>intersection</td>
+		<td>AC</td>
+	</tr><tr>
+		<td><i>plus</i></td>
+		<td><span>(+)</span></td>
+		<td>0</td>
+		<td></td>
+		<td>1</td>
+		<td>XOR &isin; &Nopf;</td>
+		<td>disjoint union</td>
+		<td>AD</td>
+	</tr>
+</table>
+<p> In <a href="http://www.paulgraham.com/rootsoflisp.html" target="_blank">The
+	Roots of Lisp</a>, Paul Graham notes the consistency of the C model along
+	with Lisp. As functional languages and ideas become more mainstream, new
+	<a href="https://dl.acm.org/doi/pdf/10.1145/359576.359579" target="_blank">
+	C-like languages</a> should advertise thier unique own &lambda;-function&mdash;the
+	<span>*</span> function.
+</p>
+
+<table>
+	<tr>
+		<td>A</td>	<td>B</td>	<td>A-oB</td>
+	</tr><tr>
+		<td>1</td>	<td>x</td>	<td>x</td>
+	</tr><tr>
+		<td>T</td>	<td>&perp;</td>	<td>&empty;</td>
+	</tr><tr>
+		<td>0</td>	<td>x</td>	<td>T</td>
+	</tr><tr>
+		<td>x</td>	<td>T</td>	<td>T</td>
+	</tr><tr>
+		<td>&perp;</td>	<td>&perp;</td>	<td>1</td>
+	</tr><tr>
+		<td>x</td>	<td>&perp;</td>	<td>x*</td>
+	</tr>
+</table>
+<pre>
+       ...    ...    ...    ...
+       . .    | |    | |    | |
+  N -o |N| -o |N| -o |N| -o |N| -o T
+</pre>
+<table>
+	<tr>
+		<td></td>
+		<td>&Uopf;<sub>4</sub></td>
+		<td>&Nopf;<sub>4</sub></td>
+	</tr><tr>
+		<td><span>0000</span></td>
+		<td>&empty;</td>
+		<td>T</td>
+	</tr><tr>
+		<td><span>1111</span></td>
+		<td>&perp;</td>
+		<td>1</td>
+	</tr>
+</table>
+<table>
+	<tr>
+		<td></td>
+		<td colspan="2">&nbsp;&Sopf;<sub>4</sub></td>
+		<td></td>
+	</tr><tr>
+		<td><span>0000</span></td>
+		<td>&empty;</td>
+		<td>T</td>
+		<td><span>1000</span></td>
+	</tr><tr>
+		<td><span>0111</span></td>
+		<td>&perp;</td>
+		<td>1</td>
+		<td><span>1111</span></td>
+	</tr>
+</table>
+<pre>
+	&otimes; AND HIGH AND LOW
+	|| OR HIGH AND LOW
+	== EQ HIGH OR LOW
+	&oplus; XOR HIGH OR LOW
+</pre>
+<p> Lexing is not context free and relies on a symbol table </p>
+<pre>
+All global entites are assigned a lexing level value and all abstract
+entites have higher precedence than contrete objects.
+
+Hang as right child and recurse
+      ;
+  old   new_obj
+If right child has >= level, rotate eval
+
+</pre>
+</section>
+<section id="synopsis">
+<h2>SYNOPSIS</h2>
+<pre>
+vector(T): N x N*T
+stack(T): N x N**T
+STACK = { 0, 0 }
+push: stack(T) x T -o stack(T) x (1 + 0)
+emplace: stack(T) x N -o stack(T) x (vector(T) + 0)
+
+</pre>
+</section>
+
+<section id="return-value">
+<h2>RETURN VALUE</h2>
+<p>No return value because insertion sort is in-place and never fails</p>
+</section>
+
+<section id="algorithm">
+<h2>ALGORITHM</h2>
+</section>
+
+<footer>
+<hr />
+Copyright (c) Ben Lorenzetti 2017<br />
+Redistribution and use is permitted under the terms of the 3-clause
+<a href="./FreeBSD_Documentation_License.txt">FreeBSD Documentation License</a>.
+</footer>
+
+</body>
+</html>

@@ -162,7 +162,7 @@ function div = divide_series(s1, s2)
   div(1,:) = incl_range(1) : incl_range(2);
   div(2,:) = s1(2,:)./s2(2,:);
 endfunction
-function dif = differentiate_series(s)
+function dif = differ(s)
   dif(1,:) = s(1,2:size(s)(2));
   dif(2,:) = s(2,2:size(s)(2));
   left = s(2,1:size(s)(2)-1);

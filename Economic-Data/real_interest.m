@@ -14,9 +14,9 @@ int_pay(2,:) = int_pay(2,:) * 1000;                  % -> millions per year
 int_rt = s2m_data(import_fred_csv('Data/FEDFUNDS.csv'));  % pct (annual)
 tip_yield = s2m_data(import_fred_csv('Data/DFII10.csv')); % pct (annual)
 price_index = s2m_data(import_fred_csv('Data/CPIAUCSL.csv'));
-cpi = differentiate_series(moving_ave(price_index, 12));
+cpi = differ(moving_ave(price_index, 12));
 cpi(2,:) = ((1+cpi(2,:)).^12 - 1)*100;
-pop = differentiate_series(moving_ave(s2m_data(import_fred_csv('Data/POPTHM.csv')), 12));
+pop = differ(moving_ave(s2m_data(import_fred_csv('Data/POPTHM.csv')), 12));
 pop(2,:) = ((1+pop(2,:)).^12 - 1)*100;
 recess = import_fred_csv('Data/JHDUSRGDPBR.csv');  % 0 or 1
 unrate = s2m_data(import_fred_csv('Data/UNRATE.csv'));
@@ -40,11 +40,15 @@ do
 until(i == size(trade_splice)(2))
 
 med_wage = s2m_data(import_fred_csv('Data/LES1252881600Q.csv'));
-wage_change = differentiate_series(moving_ave(med_wage, 24));
+wage_change = differ(moving_ave(med_wage, 24));
 wage_change(2,:) = ((1+wage_change(2,:)).^12 - 1)*100;
 rgdp = s2m_data(import_fred_csv('Data/GDPC1.csv'));
-drgdp = differentiate_series(moving_ave(rgdp, 24));
+drgdp = differ(moving_ave(rgdp, 24));
 drgdp(2,:) = ((1+drgdp(2,:)).^12 - 1)*100;
+
+walcl = s2m_data(import_fred_csv('Data/WALCL.csv')); % millions
+totra = s2m_data(import_fred_csv('Data/TOTRA.csv')); % millions
+wm2ns = s2m_data(import_fred_csv('Data/WM2NS.csv')); % billions
 
 ID = []; % indirect deficit (millions per year)
 RD = []; % real deficit
@@ -188,7 +192,7 @@ set(ylab, "fontsize", 14);
 axis([84, 98, -23, 27]);
 %}
 %================ Broken Up By Year Ranges================%
-%
+%{
 scatter(PH2(2,ind(1):ind(2)-1), PH2(3,ind(1):ind(2)-1), 36, "k", "o", "filled");
 hold on;
 scatter(PH2(2,ind(2):ind(3)-1), PH2(3,ind(2):ind(3)-1), 36, "b", "o", "filled");
@@ -228,3 +232,12 @@ set(ylab, "fontsize", 14);
 %{
 plot(wage_change(1,:)/12, wage_change(2,:), R2(1,:)/12, R2(2,:)/6, recess(1,:)/12, 10*(recess(2,:)-.5), drgdp(1,:)/12, drgdp(2,:));
 %}
+
+plot(totra(1,:)/12, totra(2,:), ";Total Resources and Assets (TOTRA);");
+hold on;
+plot(walcl(1,:)/12, walcl(2,:), ";Total Assets (WALCL);");
+plot(curaccount_trade(1,:)/12, curaccount_trade(2,:), ";Trade Balance on Current Account (BOPBCA);");
+plot(trade(1,:)/12, trade(2,:), ";Trade Balance on Payments (BOPGSTB);");
+plot(deficit(1,:)/12, -deficit(2,:), ";Federal Deficit (FYFSD);");
+lege = legend("location", "northwest");
+hold off;

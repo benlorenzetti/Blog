@@ -30,7 +30,7 @@ shiller = import_shiller_csv('Data/ie_data.csv');
 price = shiller_series(shiller, 2);
 earnings10yr = moving_ave(shiller_series(shiller, 4), 60);
 pe10 = divide_series(price, earnings10yr);
-dpct = s2m_data(import_fred_csv("C:/Users/benlo/Documents/pct-down.csv"));
+%dpct = s2m_data(import_fred_csv("C:/Users/benlo/Documents/pct-down.csv"));
 
 RN = [];
 Rreal = [12*1960+1:12*2022 ; 180*ones(1,12*62)];
@@ -38,7 +38,7 @@ Rth = [];
 YRN = [];
 norm_yr = 1999;
 norm_mn = 1;
-i = differentiate_series(moving_ave(Iindex, 60));
+i = differ(moving_ave(Iindex, 60));
 i(2,:) = 100*((1+i(2,:)).^(12) - 1);
 scale = Vmed(2,lookup(Vmed(1,:),(norm_yr-1)*12+norm_mn));
 scale = scale / Iindex(2,lookup(Iindex(1,:), (norm_yr-1)*12+norm_mn));
@@ -109,6 +109,7 @@ while(m < end_yr * 12)
     endif
   endif
   %------------------------L2  Equity Yield % APR --------------------
+  %{
   if(isin(m, int_rng(int_rng(oc_rng(f), oc_rng(dpct)), int_rng(oc_rng(apr), oc_rng(i)))))
     fm = f(2, lookup(f(1,:), m));
     dpctm = dpct(2, lookup(dpct(1,:), m));
@@ -127,18 +128,19 @@ while(m < end_yr * 12)
       YPE2 = [YPE2, [m; 100/y2m]];
     endif
   endif
+  %}
 endwhile
 
 plot(pe10(1,:)/12, pe10(2,:), "linewidth", 2, ";S&P 500 5YR AVE P/E;");
 hold on;
-plot(YPE(1,:)/12, 2.75*YPE(2,:), "linewidth", 2, ";2.75x Mortgage P/E;");
 plot(YRN(1,:)/12, 1.5*YRN(2,:), "linewidth", 2, ";1.5x R(N) All Cash P/E;");
+plot(YPE(1,:)/12, 3*YPE(2,:), "linewidth", 2, ";3x Mortgage P/E;");
 plot(recess(1,:)/12, 50*recess(2,:), ":k;US Recessions;");
-plot(YPE2(1,:)/12, 2.75*YPE2(2,:), "linewidth", 2, ":k;Freddie Mac Overlay;");
+%plot(YPE2(1,:)/12, 2.75*YPE2(2,:), "linewidth", 2, ":k;Freddie Mac Overlay;");
 hold off;
 lg = legend("location", "northwest");
 ylab = ylabel("Price to Earnings Ratio (Annual)");
-axis([1976, 2023, 0, 40]);
+axis([1976, 2023, 5, 40]);
 ti = title("Comparison of Stock Prices, Home Prices, and Interest Rates");
 text(1972, -3.25, "Sources: MORTGAGE30US, MSPUS, CUUR0000SEHA (FRED) and U.S. Stock Markets 1871-Present (Shiller)");
 text(1976, -4.75, "with L = 4, f = .07, Rexp = 180 months, c' = 1, and rent index normalized to model in Jan. 1999");
