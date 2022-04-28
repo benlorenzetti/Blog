@@ -40,11 +40,11 @@ function array = buildup_e_array(f, L, APR, IPR, N)
 endfunction
 
 f = 0.07;
-L = 11;
-APR = 1.875;
-IPR = 2.5;
-N = 360;
-c = 1;
+L = 4;
+APR = 4.25;
+IPR = 4.25;
+N = 180;
+c = 1.5;
 n = 1:N;
 
 mul2 = buildup_time_array(APR, 2*APR, N);
