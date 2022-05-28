@@ -39,12 +39,12 @@ function array = buildup_e_array(f, L, APR, IPR, N)
   until(m == N)  
 endfunction
 
-f = 0.07;
-L = 11;
-APR = 1.875;
-IPR = 2.5;
-N = 360;
-c = 1;
+f = 0.07; % 0.07
+L = 4;   % 11
+APR = 1.875;  % 1.875
+IPR = 4; % 2.5
+N = 180;   % 360
+c = 1;     % 1
 n = 1:N;
 
 mul2 = buildup_time_array(APR, 2*APR, N);
@@ -97,7 +97,7 @@ set(y, "fontsize", 14);
 %}
 
 % PART III: Peak Shifting
-
+%
 external = 100*((1+buildup_x_array(f,L,APR,IPR,N,c)).^12 - 1);
 internal = 100*((1+buildup_e_array(f,L,APR,IPR,N)).^12 - 1);
 plot(n/12, external.+internal, ";(Y) Net Yield (2% Inflation);");

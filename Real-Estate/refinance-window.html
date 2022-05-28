@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Refinance Window</title>
-	<link rel="stylesheet" type="text/css" href="../Ben/Branding/home.css">
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
 	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
@@ -30,6 +30,206 @@
 <hr>
 <article>
 <h1>When Should I Sell or Refinance?</h1>
+<p> This <a href="index.html">series</a> previously found
+	<math><msub><mi>&sum;</mi><mi>n</mi></msub><mo>/</mo><mi>p</mi></math>,
+	the rate of <a href="./equity-buildup.html">equity buildup</a>
+	in a mortgage and <math><msub><mi>G</mi><mi>n</mi></msub></math>,
+	the <a href="./mortgage-yield.html">performance</a>
+	of a real estate investment after <math><mi>n</mi></math> months,
+	in terms of the
+	<a href="#">mortgage months-to-value ratio</a>
+	(<math><msub><mi>R</mi><mi>N</mi></msub></math>), inflation
+	(<math><mi>&pi;</mi></math>) and an opportunity cost
+	(<math><mi>&omega;</mi></math>) of other investments.
+</p>
+<math>
+  <msub><mi>G</mi><mi>n</mi></msub>
+  <mo>=</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mo>(</mo><mrow>
+      <mrow>
+        <mi>c</mi><mi>&omega;</mi>
+				<mo>(</mo><mfrac>
+					<mrow><msup><mi>&omega;</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+					<mrow><mi>&omega;</mi><mo>-</mo><mn>1</mn></mrow>
+				</mfrac><mo>)</mo>
+      </mrow>
+      <mo>-</mo>
+			<mrow>
+      	<mfrac><mi>&omega;</mi><mi>&pi;</mi></mfrac>
+				<mo>(</mo><mrow>
+					<mfrac>
+						<mrow>
+							<msup>
+								<mrow>
+									<mo>(</mo><mfrac><mi>&omega;</mi><mi>&pi;</mi></mfrac><mo>)</mo>
+								</mrow>
+								<mi>n</mi>
+							</msup>
+							<mo>-</mo><mn>1</mn>
+						</mrow>
+						<mrow>
+							<mo>(</mo><mfrac><mi>&omega;</mi><mi>&pi;</mi></mfrac><mo>)</mo>
+							<mo>-</mo><mn>1</mn>
+						</mrow>
+					</mrow><mo>)</mo>
+				</mfrac>
+			</mrow>
+			<mo>+</mo>
+			<mfrac><msub><mi>&sum;</mi><mi>n</mi></msub><mi>p</mi></mfrac>
+			<mo>-</mo><mi>c</mi><mi>T</mi>
+    </mrow><mo>)</mo>
+  </mrow>
+	<mspace width="2em"/><mtext>for</mtext><mspace width="1em"/>
+	<mi>&omega;</mi><mo>&gt;</mo><mi>&pi;</mi><mo>&gt;</mo><mn>1</mn>
+</math>
+<p> where
+  <math><mi>c</mi><mo>=</mo><mfrac><mi>q</mi><mi>p</mi></mfrac></math>
+  is a bargain factor,
+  <math><mi>T</mi><mo>=</mo>
+    <mfrac><mrow><msub><mi>F</mi><mn>1</mn></msub>
+      <mo>+</mo><msub><mi>F</mi><mn>2</mn></msub>
+      </mrow>
+      <mi>q</mi>
+    </mfrac>
+  </math> is time underwater and
+  <math><mi>L</mi><mo>=</mo>
+    <mfrac>
+      <mrow><mi>p</mi><mo>&times;</mo><msub><mi>R</mi><mi>N</mi></msub></mrow>
+      <mrow><mi><msub><mi>E</mi><mn>0</mn></msub>
+        <mo>+</mo><msub><mi>F</mi><mn>1</mn></msub></mrow>
+    </mfrac>
+  </math> is the effective leverage ratio.
+</p>
+<p> For example if <math><mi>G</mi><mo>=</mo><mn>0.1</mn></math>, this would
+	be like saying your IRA is up 10% over <math><mi>n</mi></math> months.
+	Like other lowercase/capital variables,
+	we define <math><mi>g</mi><mo>=</mo><mn>1</mn><mo>+</mo><mi>G</mi></math>
+	as the fractional performance of a real estate investment
+	over <math><mi>n</mi></math> months.
+	From this, the average fractional yield (<math><mi>y</mi></math>)
+	is a geometric average, i.e. the <math><mi>n</mi></math>th root of
+	<math><mi>g</mi></math>.
+</p>
+<math><mi>y</mi><mo>=</mo>
+	<msup><mi>g</mi>
+		<mrow><mn>1</mn><mo>/</mo><mi>n</mi></mrow>
+	</msup><mo>=</mo>
+	<msup><mi>g</mi><mi>h</mi></msup>
+</math>
+<p> When bought with debt, the yield of real estate investments
+	<math><mi>Y</mi><mo>=</mo><mi>y</mi><mo>-</mo><mn>1</mn></math>
+	begins to depend on <math><mi>n</mi></math>,
+	the number of months a mortgage is held before selling or
+	refinancing. To optimize we take the derivative of the fractional
+	yield using partial derivatives and the chain rule.
+</p>
+<math>
+	<mrow>
+		<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
+			<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+		<mo>=</mo>
+		<mfrac><mrow><mo>&part;</mo><mi>y</mi></mrow>
+			<mrow><mo>&part;</mo><mi>g</mi></mrow></mfrac>
+		<mo>&times;</mo>
+		<mfrac><mrow><mo>d</mo><mi>g</mi></mrow>
+			<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+		<mo>+</mo>
+		<mfrac><mrow><mo>&part;</mo><mi>y</mi></mrow>
+			<mrow><mo>&part;</mo><mi>h</mi></mrow></mfrac>
+		<mo>&times;</mo>
+		<mfrac><mrow><mo>d</mo><mi>h</mi></mrow>
+			<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+	</mrow>
+</math>
+<br>
+<math>
+	<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+	<mo>=</mo>
+	<mrow>
+		<mi>h</mi>
+		<msup><mi>g</mi><mrow><mi>h</mi><mo>-</mo><mn>1</mn></mrow></msup>
+		<mo>&times;</mo>
+		<mfrac><mrow><mo>d</mo><mi>g</mi></mrow>
+			<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+		<mo>+</mo>
+		<apply><mo>ln</mo><mi>(g)</mi></apply>
+		<msup><mi>g</mi><mfrac><mn>1</mn><mi>n</mi></mfrac></msup>
+		<mo>&times;</mo>
+		<mfrac><mrow><mo>-</mo><mn>1</mn></mrow>
+			<msup><mi>n</mi><mn>2</mn></msup></mfrac>
+	</mrow>
+</math>
+<br>
+<math>
+	<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+	<mo>=</mo>
+	<mrow>
+		<mfrac>
+			<msup><mi>g</mi><mrow><mn>1</mn><mo>/</mo><mi>n</mi></mrow></msup>
+			<mi>n</mi>
+		</mfrac>
+		<mo>(</mo><mrow>
+			<mfrac><mn>1</mn><mi>g</mi></mfrac>
+			<mfrac><mrow><mo>d</mo><mi>g</mi></mrow>
+				<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+			<mo>-</mo>
+			<mfrac><apply><mo>ln</mo><mi>g</mi></apply><mi>n</mi></mfrac>
+		<mo>)</mo></mrow>
+	</mrow>
+</math>
+<p> Setting the derivative to zero and substituting for
+	<math><mi>G</mi></math> gives our optimization equation for
+	<math><mi>n</mi></math>, for
+	<math><mi>n</mi><mo>&gt;</mo><mn>0</mn></math>.
+</p>
+<math>
+	<mi>n</mi>
+	<mfrac><mrow><mo>d</mo><mi>G</mi></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+	<mo>=</mo>
+	<mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo>
+	<apply><mo>ln</mo>
+		<mrow><mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow>
+	</apply>
+</math>
+<p> We define
+	<math><mi>&Omega;</mi><mo>=</mo><mi>&omega;</mi><mo>-</mo><mn>1</mn></math>,
+	<math><mi>&Pi;</mi><mo>=</mo><mi>&pi;</mi><mo>-</mo><mn>1</mn></math>
+	and
+	<math>R<mo>=</mo><mi>&omega;</mi><mo>/</mo><mi>&pi;</mi><mo>-</mo><mn>1</mn>
+	</math>
+	and make three assumptions to simplify real estate performance
+	<math><mi>G</mi></math> over <math><mi>n</mi></math> months:
+</p>
+<ol>
+	<li>Monthly opportunity cost yield is positive but significantly less than one
+		and monthly inflation is positive but less than private opportunity cost.
+		<br>
+		<math><mn>0</mn><mo>&lt;</mo><mi>&Omega;</mi><mo>&Lt;</mo><mn>1</mn></math>
+		<br>
+		<math>
+			<mn>0</mn><mo>&lt;</mo><mi>&Pi;</mi><mo>&lt;</mo><mi>&Omega;</mi>
+			<mspace width="1em"/><mo>&rArr;</mo><mspace width="1em"/>
+			<mn>0</mn><mo>&lt;</mo><mi>R</mi><mo>&lt;</mo><mi>&Omega;</mi>
+		</math>
+	</li>
+	<li> Based on assumption 1, first-order Maclaurin Series approximations
+		can be made for their exponential functions. Using a standard
+		(<math><mi>X</mi><mo>=</mo><mi>x</mi><mo>-</mo><mn>1</mn></math>)
+		upper/lowercase fractional/differential form:
+		<br>
+		<math>
+			<msup><mi>x</mi><mi>n</mi></msup><mo>&asymp;</mo>
+			<apply><mo>ln</mo><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></apply>
+
+		</math>
+	</li>
+</ol>
+<hr>
 <p> This is the seventh part of a series <a href="index.html">Should
 	I Buy or Rent?</a>
 </p>
