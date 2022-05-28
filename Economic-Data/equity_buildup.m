@@ -8,16 +8,16 @@ function array = buildup_time_array(apr, ipr, N)
   do
     m = m + 1;
     array(m) = equity_buildup_time(m, apr, ipr, N);
-  until(m == N)  
+  until(m == N)
 endfunction
-function array = buildup_frac_array(f, L, apr, ipr, N) 
+function array = buildup_frac_array(f, L, apr, ipr, N)
   m = 0;
   do
     m = m + 1;
     array(m) = equity_buildup_frac(m, f, L, apr, ipr, N);
   until(m == N)
 endfunction
-function exp = exp_array(frac, N) 
+function exp = exp_array(frac, N)
   m = 0;
   do
     m = m + 1;
@@ -29,14 +29,14 @@ function array = buildup_x_array(f, L, APR, IPR, N, c)
   do
     m = m + 1;
     array(m) = x_yield(m,f,L,APR,IPR,N,c);
-  until(m == N)  
+  until(m == N)
 endfunction
 function array = buildup_e_array(f, L, APR, IPR, N)
   m = 0;
   do
     m = m + 1;
     array(m) = e_yield(m,f,L,APR,IPR,N);
-  until(m == N)  
+  until(m == N)
 endfunction
 
 f = 0.07; % 0.07
@@ -83,7 +83,7 @@ set(x, "fontsize", 12);
 % PART II: Quadratic Formula Graphs
 %{
 plot(n/12, plus2f, ";2% Inflation (IPR = APR);", n/12, zerof, ";0% Inflation;");
-hold on 
+hold on
 plot(n/12, minus2f, ";-2% Inflation;", n/12, eq_exp, ":k;eq. yield approx. (7.2%);");
 plot(pt1(1)/12, pt1(2), "xk", pt2(1)/12, pt2(2), "xk");
 t = title("L = 4, f = 0.07 Refinance Window for 30-Year, 2% APR Mortgage");
