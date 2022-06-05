@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+td {
+    font-family: monospace;
+}
+</style>
+</head>
+<body>
+<h2 style="font-size: 14pt;">References</h2>
+<ol>
+  <li>
+      Spangler, M. G. (1941). The Structural Design of Flexible Pipe Culverts.
+      <i>Iowa Engineering Experiment Station</i>.
+  </li><li>
+    <a style="text-decoration:none;" target="_blank"
+      href="https://onlinepubs.trb.org/Onlinepubs/hrbproceedings/28/28-021.pdf">
+      Spangler, M.G., & Shafer, G.E. (1949). <i>Stresses and Deflections in Flexible Pipe Culverts.</i>
+    </a>
+  </li><li>
+    <a style="text-decoration:none;" target="_blank"
+      href="https://www.usbr.gov/tsc/techreferences/rec/REC-ERC-77-01.pdf">
+      Howard, A. K. (1977).
+      <i>Modulus of Soil Reaction (E') Values for Buried Flexible Pipe.</i>
+      Denver, CO: Bureau of Reclamation.
+    </a>
+  </li><li>
+    <a style="text-decoration:none;" target="_blank"
+      href="https://www.researchgate.net/profile/Teruhisa-Masada-2/publication/238180735_Modified_Iowa_Formula_for_Vertical_Deflection_of_Buried_Flexible_Pipe/links/5736244808ae298602e0a0f7/Modified-Iowa-Formula-for-Vertical-Deflection-of-Buried-Flexible-Pipe.pdf?origin=publication_detail">
+      Masada, T. (2000).
+      Modified Iowa Formula for Vertical Deflection of Buried Flexible Pipe.
+      <i>Journal of Transportation Engineering, 126(5).</i>
+    </a>
+  </li><li>
+    <a style="text-decoration:none;" target="_blank"
+      href="https://www.jmeagle.com/sites/default/files/TB06DepthofBurialforPVC.pdf">
+      JM Eagle. (2009). Depth of Burial for PVC Pipe. Tecnical Bulletin.
+    </a>
+  </li><li>
+    <a style="text-decoration:none;" target="_blank"
+      href="https://www.engineeringenotes.com/soil-engineering/vertical-stress-in-soil-mass/theories-for-determining-vertical-stress-in-soil-mass/38741"
+    >Theories for Determining Vertical Stress in Soil Mass. Engineering Notes.
+    (2018, February 19). Retrieved from
+    https://www.engineeringenotes.com/soil-engineering/vertical-stress-in-soil-mass/theories-for-determining-vertical-stress-in-soil-mass/38741
+    </a>
+  </li>
+</ol>
+<h1 style="font-size: 16pt;">Horizontal Pipe Deflection</h1>
+<p> To prevent buried PVC pipe failure, the maximum recommended
+  diametric deflection is 7.5% for sewer/drain pipes and
+  5% for pressure pipes/electrical conduits (JM Eagle, 2009).
+  The modified Iowa Equation calculator below estimates this
+  deflection under the load of the earth above the pipe and static objects
+  directly overhead. For a fuller description, see the references above.
+  After determining the shallowest depth to prevent this failure mode,
+  the necessary depth across the route is found to meet a recommended slope of
+  1.25% for drainage (and preventing freezing).
+</p>
+<img src="figures/horizontal-deflection.png" style="float:left;">
+<table>
+	<tr>
+    <td>
+      <input type="number" id="pipe-thickness" value="0.237" size="12">
+    </td><td>
+      (in) pipe thickness, t
+    </td><td>
+      I = <span id="moment-of-inertia-per">16</span> in<sup>3</sup>
+    </td>
+  </tr><tr>
+    <td>
+      <input type="number" id="pipe-elasticity" value="360" size="12">
+    </td><td>
+      (kpsi) pipe elasticity, E
+    </td><td>
+      E = <span id="pipe-elasticity-out"></span> kpsi
+    </td>
+  </tr><tr>
+    <td>
+      <input type="number" id="radius" value="4" size="12">
+    </td><td>
+      (in) pipe radius, r
+    </td><td>
+      P<sub>S</sub> = <span id="pipe-stiffness"></span> psi
+    </td>
+  </tr><tr>
+    <td>
+      <input type="number" id="soil-reaction" value="400" size="12">
+    </td><td>
+      (psi) backfill material reaction, E'
+    </td><td>
+      0.041E' = <span id="soil-reaction-out"></span> psi
+    </td>
+  </tr><tr>
+		<td>
+      <input type="number" id="trench-depth" value="24" size="12">
+		</td><td>
+			(in) trench depth
+		</td><td>
+      R = <span id="pipe-depth"></span> in
+    </td>
+  </tr><tr>
+		<td>
+			<input type="number" id="point-mass" value="250" size="12">
+		</td><td>
+			(lbm) weight of object above grade
+		</td><td>
+      P<sub>B</sub> = <span id="point-pressure">xxx</span> psi
+    </td>
+  </tr><tr>
+		<td>
+      <input type="number" id="density" value="105" size="12">
+		</td><td>
+			(lbm/ft<sup>3</sup>) backfill material density, &rho;
+		</td><td>
+      f = <span id="prism-load">xxx</span> psi
+    </td>
+  </tr><tr>
+    <td>
+  		<input type="number" id="T" value="1.5" size="12">
+		</td><td>
+			() time lag factor T
+		</td><td>
+      P<sub>C</sub> = <span id="load-pressure">xxx</span> psi
+    </td>
+	</tr><tr>
+		<td>
+  		<input type="number" id="bedding-angle" value="0.10" size="12">
+		</td><td>
+			() bedding constant K
+		</td><td>
+      K = <span id="bedding-constant">x.xx</span>
+    </td>
+  </tr><tr>
+    <td></td>
+    <td>
+      <math>
+        <mfrac><mrow><mo>&Delta;</mo><mi>x</mi></mrow>
+          <mrow><mn>2</mn><mi>r</mi></mrow></mfrac>
+        <mo>=</mo>
+        <mfrac>
+          <mrow><mn>6.7</mn><mi>T</mi><mi>K</mi>
+            <msub><mi>P</mi><mi>C</mi></msub></mrow>
+          <mrow><msub><mi>P</mi><mi>S</mi></msub><mo>+</mo><mn>0.41</mn><mi>E'</mi></mrow>
+        </mfrac>
+      </math>
+      <button type="button" onclick="calculate()">Calculate</button>
+      <math>
+        <mo>=</mo><mn><span id="deflection"></span></mn><mo>%</mo>
+      </math>
+    </td>
+</table>
+<h2 style="clear:left;font-size:14pt;">Variable Definitions</h2>
+<ul>
+  <li>
+    <math><msub><mi>P</mi><mi>S</mi></msub>
+      <mo>(</mo><mtext>psi</mtext><mo>)</mo><mo>=</mo>
+      <mfrac><mrow><mn>6.7</mn><mi>E</mi><msub><mi>I</mi><mi>l</mi></msub></mrow>
+        <msup><mi>r</mi><mn>3</mn></msup>
+      </mfrac><mo>=</mo><mtext>pipe stiffness</mtext>.
+    </math>
+    <ul>
+      <li>
+        <math><mi>E</mi><mo>(</mo><mtext>psi</mtext><mo>)</mo>
+          <mo>=</mo><mtext>pipe modulus of elasticity</mtext>
+        </math>.
+      </li><li>
+        <math><msub><mi>I</mi><mi>l</mi></msub>
+          <mrow><mo>(</mo><mfrac><msup><mi>in</mi><mn>4</mn></msup><mi>in</mi></mfrac><mo>)</mo></mrow>
+          <mo>=</mo>
+          <mfrac><mi>I</mi><mi>l</mi></mfrac>
+          <mtext> where I is the&nbsp;
+            <a href="https://en.wikipedia.org/wiki/List_of_second_moments_of_area">
+            area moment of inertia.</a>
+        </math>
+        For a cylinder about its height-axis, the moment of inertia is
+        <math>
+          <msub><mi>I</mi><mi>z</mi></msub><mo>/</mo><mi>l</mi><mo>=</mo>
+          <mfrac><mn>&pi;</mn><mrow><mn>2</mn><mi>l</mi></mrow></mfrac>
+          <mo>(</mo><mrow>
+            <msubsup><mi>r</mi><mi>o</mi><mn>4</mn></msubsup><mo>-</mo>
+            <msubsup><mi>r</mi><mi>i</mi><mn>4</mn></msubsup>
+          </mrow><mo>)</mo>
+
+        </math>.
+      </li><li>Assuming negligible thickness <math><mi>t</mi></math>, where
+        <math><mi>t</mi><mo>&Lt;</mo><mi>r</mi><mo>&approx;</mo>
+          <msub><mi>r</mi><mi>i</mi></msub>
+        </math> and using
+        <a href="https://en.wikipedia.org/wiki/Pascal%27s_triangle">Pascal's
+          triangle</a> to expand the polynomial produced by substituting
+        <math><msub><mi>r</mi><mi>o</mi></msub><mo>=</mo>
+          <msub><mi>r</mi><mi>i</mi></msub><mo>+</mo><mi>t</mi>
+        </math> simplifies I<sub>z</sub>/l to
+        <math>
+          <msub><mi>I</mi><mi>l</mi></msub><mo>&approx;</mo>
+          <mfrac><mn>&pi;</mn><mrow><mn>2</mn><mi>l</mi></mrow></mfrac>
+          <mo>(</mo><mrow>
+            <mn>4</mn><msup><mi>r</mi><mn>3</mn></msup><mi>t</mi>
+          </mrow><mo>)</mo><mo>=</mo>
+          <mfrac>
+            <mrow><mn>2</mn><mn>&pi;</mn><msup><mi>r</mi><mn>3</mn></msup><mi>t</mi></mrow>
+            <mi>l</mi></mfrac>
+        </math>
+      </li><li>
+        Update: according to Howard (1977), the moment of inertia formula should be
+        <math><msub><mi>I</mi><mi>l</mi></msub><mo>=</mo>
+          <mfrac><msup><mi>t</mi><mn>3</mn></msup><mrow><mn>12</mn><mi>l</mi></mrow></mfrac>
+        </math>.
+      </li><li>
+        Without access to the original Spangler (1941) text to confirm,
+        Spangler (1949) calls I the "moment of inertia of the pipe wall,
+        per unit length of pipe," which I think confirms
+        <math><msub><mi>I</mi><mi>l</mi></msub><mo>=</mo>
+          <mfrac><msup><mi>t</mi><mn>3</mn></msup><mrow><mn>12</mn><mi>l</mi></mrow></mfrac>
+        </math>.
+      </li>
+    </ul>
+  </li><li>
+    <math><mi>E'</mi><mo>(</mo><mtext>psi</mtext><mo>)</mo>
+      <mo>=</mo><mtext>modulus of soil reaction</mtext>
+    </math>.
+    Values can be found in Howard (1977)
+  </li>
+  <li>
+    <math><msub><mi>P</mi><mi>C</mi></msub>
+      <mo>(</mo><mtext>psi</mtext><mo>)</mo><mo>=</mo>
+      <mfrac><mi>W</mi><mrow><mn>2</mn><mi>r</mi></mrow></mfrac>
+    </math>, where <math><mi>W</mi></math> is the combined load per unit length
+    of pipe.
+    <ul>
+      <li>
+        <math><msub><mi>W</mi><mi>B</mi></msub>
+          <mrow><mo>(</mo><mfrac><mtext>lbf</mtext><mtext>in</mtext></mfrac><mo>)</mo></mrow>
+          <mo>=</mo>
+          <mfrac><mrow><mn>3</mn><mi>Q</mi><mi>r</mi></mrow>
+            <mrow><mn>&pi;</mn><msup><mi>R</mi><mn>2</mn></msup></mrow>
+          </mfrac>
+          <mo>=</mo><mtext>Boussinesq load weight</mtext>
+        </math>. The load per unit length of a point force (Q) at depth R
+        directly beneath the point weight (Enineering Notes, 2018).
+      </li><li>
+        <math><msub><mi>W</mi><mi>M</mi></msub>
+          <mrow><mo>(</mo><mfrac><mtext>lbf</mtext><mtext>in</mtext></mfrac><mo>)</mo></mrow>
+          <mo>=</mo><mn>2</mn><mi>r</mi><mo>*</mo>
+            <apply><mi>f</mi>
+              <mrow><mo>(</mo>
+                <mi>&rho;</mi><mo>,</mo><mi>R</mi>
+              <mo>)</mo></mrow>
+            </apply>
+        </math>, where &rho; (lbm/in<sup>3</sup>) is the density of the material
+        above the pipe
+        (<a target="_blank" style="text-decoration:none;"
+          href="https://www.jmeagle.com/sites/default/files/TB06DepthofBurialforPVC.pdf">JM Eagle, 2009</a>).
+      </li><li>
+        <math><mo>&therefore;</mo><msub><mi>P</mi><mi>C</mi></msub><mo>=</mo>
+          <mrow><mo>(</mo>
+            <mfrac><mrow><mn>3</mn><mi>Q'</mi></mrow>
+              <mrow><mn>2</mn><mi>&pi;</mi><msup><mi>R</mi><mn>2</mn></msup></mrow>
+            </mfrac>
+          <mo>)</mo></mrow><mi>g</mi><mo>+</mo>
+          <apply><mi>f</mi>
+            <mrow><mo>(</mo><mi>&rho;</mi><mo>,</mo><mi>R</mi><mo>)</mo></mrow>
+          </apply>
+        </math>, where Q' is a point mass above grade, R is depth below grade,
+        &rho; is density of grade/subgrade material and g is acceleration
+        due to gravity.
+      </li>
+    </ul>
+  </li>
+  <li><math><mi>T</mi><mo>=</mo><mtext>time lag factor</mtext></math>.
+    The time lag factor is due to a decrease in buried flexible pipe
+    deflections over time due to consolidation of the soil at the sides
+    of the pipe. We choose the recommended value from ().
+  </li><li>
+    <math><mi>K</mi><mo>=</mo><mn>1.1</mn>
+      <mo>=</mo><mtext>bedding constant</mtext></math>.
+    The bedding constant is based on the bottom portion of the
+    pipe embedded in subgrade that is supporting the weight. We choose
+    a value based on 60&deg; bedding angle.
+  </li>
+</ul>
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png"></a>
+  Ben Lorenzetti 2022<br>
+  This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+<script>
+function calculate() {
+
+  var uw100 = [0.69, 1.39, 2.08, 2.78, 3.47, 4.17, 4.86, 5.56, 6.25, 6.94,
+    7.64, 8.33, 9.03, 9.72, 10.42, 11.11, 11.81, 12.50, 13.19, 13.89,
+    14.58, 15.28, 15.97, 16.67, 17.36, 18.06, 18.75, 19.44, 20.14, 20.83,
+    21.53, 22.22, 22.92, 23.61, 24.31, 25.00, 25.69, 26.39, 27.08, 27.78,
+    28.47, 29.17, 29.86, 30.56, 31.25, 31.94, 32.64, 33.33, 34.03, 34.72];
+  var uw110 = [0.76, 1.53, 2.29, 3.06, 3.82, 4.58, 5.35, 6.11, 6.88, 7.64];
+  var uw120 = [0.83, 1.67, 2.50, 3.33, 4.17, 5.00, 5.83, 6.67, 7.50, 8.33];
+  var uw125 = [0.87, 1.74, 2.60, 3.47, 4.34, 5.21, 6.08, 6.94, 7.81, 8.68];
+  var uw130 = [0.90, 1.81, 2.71, 3.61, 4.51, 5.42, 6.32, 7.22, 8.13, 9.03];
+
+  var T = Number(document.getElementById("T").value);
+
+  var theta = document.getElementById("bedding-angle").value;
+  var alpha = theta / 2;
+  var a = (alpha / 180) * Math.PI;
+  var term3 = a/Math.sin(a);
+  var term5 = Math.sin(2*a)/Math.sin(a);
+  if(a === 0) {
+    term3 = 1;
+    term5 = 2;
+  }
+  var K = 0.5*Math.sin(a) - 0.082*Math.pow(Math.sin(a),2);
+  K = K + 0.08*term3 - 0.16*Math.sin(a*(Math.PI - a));
+  K = K - 0.04*term5 + 0.0318*Math.cos(a) - 0.208;
+
+  K = theta;
+  document.getElementById("bedding-constant").innerHTML = Math.round(K*100)/100;
+
+  var r = document.getElementById("radius").value;
+  var R = document.getElementById("trench-depth").value - r;
+  document.getElementById("pipe-depth").innerHTML = R;
+
+  var rho = document.getElementById("density").value;
+  var f = NaN;
+  if(rho > 95 && rho <= 105 && R < 12*uw100.length-6)
+    f = uw100[Math.round(R/12)];
+  if(rho > 105 && rho <= 115 && R < 12*uw110.length-6)
+    f = uw110[Math.round(R/12)];
+  if(rho > 115 && rho <= 122.5 && R < 12*uw120.length-6)
+    f = uw120[Math.round(R/12)];
+  if(rho > 122.5 && rho <= 127.5 && R < 12*uw125.length-6)
+    f = uw125[Math.round(R/12)];
+  if(rho > 127.5 && rho <= 132.5 && R < 12*uw130.length-6)
+    f = uw130[Math.round(R/12)];
+  if(rho > -0.1 && rho < 0.1)
+    f = 0;
+
+
+  var Qprime = document.getElementById("point-mass").value;
+  var Pb = 32.3*3*Qprime/(2*Math.PI*Math.pow(R,2));
+  document.getElementById("point-pressure").innerHTML = Math.round(100*Pb)/100;
+
+  var P = Pb + f;
+  document.getElementById("prism-load").innerHTML = Math.round(100*f)/100;
+  document.getElementById("load-pressure").innerHTML = Math.round(100*P)/100;
+
+  var thickness = document.getElementById("pipe-thickness").value;
+  var E = 1000*document.getElementById("pipe-elasticity").value;
+  document.getElementById("pipe-elasticity-out").innerHTML = E/1000;
+  var I = Math.pow(thickness, 3) / 12;
+  var PS = 6.7*E*I*thickness/Math.pow(r, 3);
+  document.getElementById("moment-of-inertia-per").innerHTML = Math.round(I*10000)/10000;
+  document.getElementById("pipe-stiffness").innerHTML = Math.round(10*PS)/10;
+
+  var Eprime = document.getElementById("soil-reaction").value;
+  document.getElementById("soil-reaction-out").innerHTML = Math.round(10*0.41*Eprime)/10;
+
+  var deflection = T*K*P / (0.149*PS + 0.061*Eprime);
+
+
+  document.getElementById("deflection").innerHTML = Math.round(10000*deflection)/100;
+
+}
+</script>
+
+</body>
+</html>
