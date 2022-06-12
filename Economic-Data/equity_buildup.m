@@ -10,6 +10,7 @@ function array = buildup_time_array(apr, ipr, N)
     array(m) = equity_buildup_time(m, apr, ipr, N);
   until(m == N)
 endfunction
+
 function array = buildup_frac_array(f, L, apr, ipr, N)
   m = 0;
   do
@@ -17,13 +18,15 @@ function array = buildup_frac_array(f, L, apr, ipr, N)
     array(m) = equity_buildup_frac(m, f, L, apr, ipr, N);
   until(m == N)
 endfunction
-function exp = exp_array(frac, N)
+
+function exp = power_array(frac, N)
   m = 0;
   do
     m = m + 1;
     exp(m) = frac^m;
   until(m == N)
 endfunction
+
 function array = buildup_x_array(f, L, APR, IPR, N, c)
   m = 0;
   do
@@ -31,6 +34,7 @@ function array = buildup_x_array(f, L, APR, IPR, N, c)
     array(m) = x_yield(m,f,L,APR,IPR,N,c);
   until(m == N)
 endfunction
+
 function array = buildup_e_array(f, L, APR, IPR, N)
   m = 0;
   do
@@ -57,7 +61,7 @@ zerof = buildup_frac_array(f, L, APR, 0, N);
 minus2f = buildup_frac_array(f, L, APR, -IPR, N);
 
 pt1 = opt_pt(f, L, APR, IPR, N);
-eq_exp = exp_array(pt1(3), N);
+eq_exp = power_array(pt1(3), N);
 start = ceil(pt1(1)+1);
 op2 = start + lookup(plus2f(start:N) .-eq_exp(start:N), 0);
 pt2 = other_pt(op2, f, L, APR, IPR, N);

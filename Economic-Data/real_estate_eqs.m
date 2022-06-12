@@ -9,6 +9,37 @@ function RN = Rmort(APR, N)
     RN = (1-mfr^(-N))/(1-mfr^(-1));
   endif
 endfunction
+
+function months = equity_buildup(n, APR, IPR, N)
+  Rm = Rmort(APR, N);
+  inf = realpow(1+IPR/100, 1/12);
+  r = realpow(1+APR/100, 1/12);
+  c1 = (r-inf)/(1-1/r);
+  c2 = (r^(-N))/(1-1/r);
+  months = n + c1*(c2*(r^n - 1) - n);
+endfunction
+
+function months = mortgage_performance(n, APR, IPR, N, L, c, OPR, T)
+  Rn = Rmort(APR, N);
+  inf = realpow(1+IPR/100, 1/12);
+  i = realpow(1+APR/100, 1/12);
+  omega = realpow(1+OPR/100, 1/12);
+  rho = omega/inf;
+  equity_dividend = c*omega*(omega^n - 1)/(omega - 1);
+  mortgage_cost = rho*(rho^n - 1)/(rho - 1);
+  sigma_n = equity_buildup(n, APR, IPR, N);
+  months = (L/Rn)*(equity_dividend - mortgage_cost + sigma_n - T);
+endfunction
+
+function months = simple_mortgage_period(APR, IPR, N, L, c, OPR, T)
+  Rn = Rmort(APR, N);
+  inf = realpow(1+IPR/100, 1/12);
+  i = realpow(1+APR/100, 1/12);
+  omega = realpow(1+OPR/100, 1/12);
+  rho = omega/inf;
+  months = (T + sqrt(Rn*T/L)) / (c*omega + 1 - rho);  
+endfunction
+
 function months = equity_buildup_time(n, APR, IPR, N)
   Rm = Rmort(APR, N);
   inf = realpow(1+IPR/100, 1/12);
@@ -17,10 +48,12 @@ function months = equity_buildup_time(n, APR, IPR, N)
   c2 = (r^(-N))/(1-1/r);
   months = n + c1*(c2*(r^n - 1) - n);
 endfunction
+
 function frac = equity_buildup_frac(n, f, L, APR, IPR, N)
   En = equity_buildup_time(n, APR, IPR, N);
   frac = 1 - 2*f*(L+1) + (L/Rmort(APR,N)) * En;
 endfunction
+
 function point = opt_brute(f, L, APR, IPR, N)
   i = opt_pt(f, L, APR, IPR, N)(1);
   prev = e_yield(i,f,L,APR,IPR,N) + x_yield(i,f,L,APR,IPR,N);

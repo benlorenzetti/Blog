@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
-	<title>Refinance Window</title>
+	<title>Refinance Period</title>
 	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
 	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -29,20 +29,23 @@
 <div id="vertical-div-containing-article-and-navigation">
 <hr>
 <article>
-<h1>When Should I Sell or Refinance?</h1>
-<p> This <a href="index.html">series</a> previously found
-	<math><msub><mi>&sum;</mi><mi>n</mi></msub><mo>/</mo><mi>p</mi></math>,
-	the rate of <a href="./equity-buildup.html">equity buildup</a>
-	in a mortgage and <math><msub><mi>G</mi><mi>n</mi></msub></math>,
-	the <a href="./mortgage-yield.html">performance</a>
-	of a real estate investment after <math><mi>n</mi></math> months,
+<h1>Refinance Period</h1>
+<p> This is the seventh of a twelve-part series
+	developing the $nth Mortgage Calculator for comparing
+	<a href="index.html">real estate to other investments</a> like stocks.
+</p>
+<p> We previously found the rate of
+	<a href="./equity-buildup.html">equity buildup</a>
+	<i>&sum;<sub>n</sub></i> in mortgages with monthly payment <i>p</i> and the
+	<a href="./leveraged-performance.html">performance</a>
+	<i>G<sub>n</sub></i> of real estate investments after <i>n</i> months,
 	in terms of the
 	<a href="#">mortgage months-to-value ratio</a>
-	(<math><msub><mi>R</mi><mi>N</mi></msub></math>), inflation
-	(<math><mi>&pi;</mi></math>) and an opportunity cost
-	(<math><mi>&omega;</mi></math>) of other investments.
+	(<i>R<sub>N</sub></i>), inflation
+	(<i>&pi;</i>) and an opportunity cost
+	(<i>&omega;</i>) of other investments.
 </p>
-<math>
+<math style="margin-left: 10%;">
   <msub><mi>G</mi><mi>n</mi></msub>
   <mo>=</mo>
   <mrow>
@@ -78,7 +81,7 @@
 			</mrow>
 			<mo>+</mo>
 			<mfrac><msub><mi>&sum;</mi><mi>n</mi></msub><mi>p</mi></mfrac>
-			<mo>-</mo><mi>c</mi><mi>T</mi>
+			<mo>-</mo><mi>T</mi>
     </mrow><mo>)</mo>
   </mrow>
 	<mspace width="2em"/><mtext>for</mtext><mspace width="1em"/>
@@ -86,18 +89,18 @@
 </math>
 <p> where
   <math><mi>c</mi><mo>=</mo><mfrac><mi>q</mi><mi>p</mi></mfrac></math>
-  is a bargain factor,
+  is a cash-flow factor,
   <math><mi>T</mi><mo>=</mo>
     <mfrac><mrow><msub><mi>F</mi><mn>1</mn></msub>
       <mo>+</mo><msub><mi>F</mi><mn>2</mn></msub>
       </mrow>
-      <mi>q</mi>
+      <mi>p</mi>
     </mfrac>
   </math> is time underwater and
   <math><mi>L</mi><mo>=</mo>
     <mfrac>
       <mrow><mi>p</mi><mo>&times;</mo><msub><mi>R</mi><mi>N</mi></msub></mrow>
-      <mrow><mi><msub><mi>E</mi><mn>0</mn></msub>
+      <mrow><msub><mi>E</mi><mn>0</mn></msub>
         <mo>+</mo><msub><mi>F</mi><mn>1</mn></msub></mrow>
     </mfrac>
   </math> is the effective leverage ratio.
@@ -112,7 +115,8 @@
 	is a geometric average, i.e. the <math><mi>n</mi></math>th root of
 	<math><mi>g</mi></math>.
 </p>
-<math><mi>y</mi><mo>=</mo>
+<math style="margin-left: 20%;">
+	<mi>y</mi><mo>=</mo>
 	<msup><mi>g</mi>
 		<mrow><mn>1</mn><mo>/</mo><mi>n</mi></mrow>
 	</msup><mo>=</mo>
@@ -125,7 +129,7 @@
 	refinancing. To optimize we take the derivative of the fractional
 	yield using partial derivatives and the chain rule.
 </p>
-<math>
+<math style="margin-left: 20%;">
 	<mrow>
 		<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
 			<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
@@ -144,7 +148,7 @@
 	</mrow>
 </math>
 <br>
-<math>
+<math style="margin-left: 20%;">
 	<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
 		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
 	<mo>=</mo>
@@ -163,7 +167,7 @@
 	</mrow>
 </math>
 <br>
-<math>
+<math style="margin-left: 20%;">
 	<mfrac><mrow><mo>d</mo><mi>y</mi></mrow>
 		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
 	<mo>=</mo>
@@ -186,7 +190,7 @@
 	<math><mi>n</mi></math>, for
 	<math><mi>n</mi><mo>&gt;</mo><mn>0</mn></math>.
 </p>
-<math>
+<math style="margin-left: 20%;">
 	<mi>n</mi>
 	<mfrac><mrow><mo>d</mo><mi>G</mi></mrow>
 		<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
@@ -196,39 +200,139 @@
 		<mrow><mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo></mrow>
 	</apply>
 </math>
-<p> We define
+<p> Next we define
 	<math><mi>&Omega;</mi><mo>=</mo><mi>&omega;</mi><mo>-</mo><mn>1</mn></math>,
-	<math><mi>&Pi;</mi><mo>=</mo><mi>&pi;</mi><mo>-</mo><mn>1</mn></math>
-	and
-	<math>R<mo>=</mo><mi>&omega;</mi><mo>/</mo><mi>&pi;</mi><mo>-</mo><mn>1</mn>
-	</math>
-	and make three assumptions to simplify real estate performance
-	<math><mi>G</mi></math> over <math><mi>n</mi></math> months:
+	<math><mi>&Pi;</mi><mo>=</mo><mi>&pi;</mi><mo>-</mo><mn>1</mn></math>,
+	<math><mi>&rho;</mi><mo>=</mo><mi>&omega;</mi><mo>/</mo><mi>&pi;</mi></math>,
+	and <math><mi>&Rho;</mi><mo>=</mo><mi>&rho;</mi><mo>-</mo><mn>1</mn></math>
+	and make five assumptions to simplify the optimization function.
 </p>
 <ol>
 	<li>Monthly opportunity cost yield is positive but significantly less than one
 		and monthly inflation is positive but less than private opportunity cost.
 		<br>
-		<math><mn>0</mn><mo>&lt;</mo><mi>&Omega;</mi><mo>&Lt;</mo><mn>1</mn></math>
-		<br>
-		<math>
+		<math style="margin-left: 20%;">
+			<mn>0</mn><mo>&lt;</mo><mi>&Omega;</mi><mo>&Lt;</mo><mn>1</mn>
+			<mspace width="1em"/><mtext>and</mtext><mspace width="1em"/>
 			<mn>0</mn><mo>&lt;</mo><mi>&Pi;</mi><mo>&lt;</mo><mi>&Omega;</mi>
-			<mspace width="1em"/><mo>&rArr;</mo><mspace width="1em"/>
+			<mspace width="1em"/><mo>&therefore;</mo><mspace width="1em"/>
 			<mn>0</mn><mo>&lt;</mo><mi>R</mi><mo>&lt;</mo><mi>&Omega;</mi>
 		</math>
-	</li>
-	<li> Based on assumption 1, first-order Maclaurin Series approximations
-		can be made for their exponential functions. Using a standard
-		(<math><mi>X</mi><mo>=</mo><mi>x</mi><mo>-</mo><mn>1</mn></math>)
-		upper/lowercase fractional/differential form:
 		<br>
-		<math>
-			<msup><mi>x</mi><mi>n</mi></msup><mo>&asymp;</mo>
-			<apply><mo>ln</mo><mrow><mo>(</mo><mi>n</mi><mo>)</mo></mrow></apply>
-
+		This allows us to ignore the linear edge cases from the geometric series
+		in the performance equation.
+	</li>
+	<li>Based on assumption (1), we make the algebra and computation simpler
+		by taking Taylor Series expansions for ln(x) about x=1. Thus for &omega;,
+		&pi;, and &rho; defined above in place of x,
+		<br>
+		<math style="margin-left: 20%;">
+			<apply><mo>ln</mo><mi>x</mi></apply><mo>&asymp;</mo><mi>X</mi>
+			<mspace width="1em"/><mo>where</mo><mspace width="1em"/>
+			<mi>X</mi><mo>=</mo><mi>x</mi><mo>-</mo><mn>1</mn>
 		</math>
 	</li>
+	<li>For
+		<math><mo>ln</mo><mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo></math>,
+		we assume it can be approximated by a first order Taylor Series
+		about a performance of zero
+		(<math><mi>G</mi><mo>&approx;</mo><mn>0</mn></math>).
+		Thus the optimization function becomes:
+		<br>
+		<math style="margin-left: 20%;">
+			<mi>n</mi>
+			<mfrac><mrow><mo>d</mo><mi>G</mi></mrow>
+				<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+			<mo>=</mo>
+			<mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi>G</mi>
+		</math>
+	</li>
+	<li>The power functions that make up G can be approximated by first order
+		Maclaurin series, and assumption (2) for the resulting logarithm
+		can be reapplied:
+		<br>
+		<math style="margin-left: 20%;">
+			<msup><mi>x</mi><mi>n</mi></msup><mo>&approx;</mo>
+			<mn>1</mn><mo>+</mo>
+			<mi>n</mi><apply><mo>ln</mo><mi>x</mi></apply><mo>&approx;</mo>
+			<mn>1</mn><mo>+</mo><mi>X</mi><mi>n</mi>
+		</math>
+	</li>
+	<li> We assume real interest rates are zero, thus
+		<math><msub><mi>&Sigma;</mi><mi>n</mi></msub><mo>=</mo><mi>pn</mi></math>.
+	</li>
 </ol>
+<p> Applying the above assumptions simplify the performance function to:
+</p>
+<math style="margin-left: 20%;">
+	<msub><mi>G</mi><mi>n</mi></msub><mo>=</mo>
+	<mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+	<mo>(</mo><mi>A</mi><mi>n</mi><mo>-</mo><mi>T</mi><mo>)</mo>
+	<mspace width="1em"/><mtext>where</mtext><mspace width="1em"/>
+	<mi>A</mi><mo>=</mo><mi>c</mi><mi>&omega;</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>&rho;</mi>
+</math>
+<p> Next we solve
+	<math>
+		<mrow><mo>(</mo><mi>n</mi>
+		<mfrac><mrow><mo>d</mo><mi>G</mi></mrow><mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+		<mo>=</mo><msup><mi>G</mi><mn>2</mn></msup><mo>+</mo><mi>G</mi>
+		<mo>)</mo></mrow>
+	</math>
+	with a sixth assumption, (6) that the derivative of G can be further
+	approximated by the derivative of the linear approximation of G.
+</p>
+<math style="margin-left: 20%;">
+	<mfrac><mrow><mi>L</mi></mrow><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+	<mi>A</mi><mi>n</mi><mo>=</mo>
+	<msup><mrow><mo>(</mo><mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+		<mo>)</mo></mrow><mn>2</mn></msup>
+	<msup><mrow><mo>(</mo><mi>A</mi><mi>n</mi><mo>-</mo><mi>T</mi>
+		<mo>)</mo></mrow><mn>2</mn></msup>
+	<mo>+</mo>
+	<mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+	<mo>(</mo><mi>A</mi><mi>n</mi><mo>-</mo><mi>T</mi><mo>)</mo>
+</math>
+<br>
+<math style="margin-left: 20%;">
+	<mi>T</mi><mfrac><msub><mi>R</mi><mi>N</mi></msub><mi>L</mi></mfrac>
+	<mo>=</mo>
+	<msup><mrow><mo>(</mo><mi>A</mi><mi>n</mi><mo>-</mo><mi>T</mi><mo>)</mo></mrow><mn>2</mn></msup>
+</math>
+<br>
+<math style="margin-left: 20%;">
+	<mi>n</mi><mo>=</mo>
+	<mfrac><mrow>
+		<mi>T</mi><mo>+</mo><msqrt>
+			<mfrac><mrow><msub><mi>R</mi><mi>N</mi></msub><mi>T</mi></mrow><mi>L</mi></mfrac>
+		</msqrt>
+	</mrow><mrow>
+		<mi>c</mi><mi>&omega;</mi><mo>+</mo><mo>(</mo><mn>1</mn><mo>-</mo><mi>&rho;</mi><mo>)</mo>
+	</mrow></mfrac>
+	<mo>&approx;</mo><mfrac><mn>1</mn><mi>c</mi></mfrac>
+	<mrow><mo>(</mo>
+		<mi>T</mi><mo>+</mo><msqrt>
+			<mfrac><mrow><msub><mi>R</mi><mi>N</mi></msub><mi>T</mi></mrow><mi>L</mi></mfrac>
+		</msqrt>
+	<mo>)</mo></mrow>
+</math>
+<p> Qualitatively we see the optimum refinance period (<i>n</i>) grows
+	longer with larger refinance fees (<i>T</i>) and lower nominal
+	interest rates (<i>R<sub>N</sub></i>) and grows shorter with
+	higher leverage ratios (<i>L</i>) and cash-flow ratio (<i>c</i>).
+	Since variation of the leverage ratio and cash-flow ratio with down
+	payments tend to have opposing effects, the optimum refinance
+	period is most directly affected by fees, interest rates, and points
+	which affect both.
+</p>
+<p>	The <a href="real-yield.html">next article</a>
+</p>
+<p> This optimization approximation is improved upon for the
+	<a href="mortgage-calculator.html">mortgage calculator</a> by
+	revisiting assumptions 3-5 and solving a cubic function with Cardano's
+	formula.
+	An interesting future study would be to compare these variables with
+	refinancing rates in various markets.
+</p>
 <hr>
 <p> This is the seventh part of a series <a href="index.html">Should
 	I Buy or Rent?</a>
