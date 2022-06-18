@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Cardano Tangent</title>
+	<link rel="stylesheet" type="text/css" href="../Branding/home.css">
+	<script data-ad-client="ca-pub-2647559998401134" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+<div id="horizontal-div-containing-entire-page">
+<header>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2647559998401134"
+	     crossorigin="anonymous"></script>
+	<!-- header-ad -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-2647559998401134"
+	     data-ad-slot="2556218560"
+	     data-ad-format="auto"
+	     data-full-width-responsive="true"></ins>
+	<script>
+	     (adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</header>
+<aside>
+<a href="../index.html"><img src="#" alt="snth.us"></a>
+</aside>
+<div id="vertical-div-containing-article-and-navigation">
+<hr>
+<article>
+<h1>Cardano Tangent</h1>
+<p> This is the eigth part of a twelve-part series for
+	<a href="index.html">comparing real estate to other investments</a>
+	like stocks. This part improves the accuracy of the
+  optimum point calculation by revisiting assumptions 3-5 of the
+  <a href="mortgage-period.html">last article</a>.
+</p>
+<ol start="3">
+  <li>For
+    <math><mo>ln</mo><mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo></math>,
+    we assume it can be approximated by a first order Taylor Series
+    about a performance of zero
+    (<math><mi>G</mi><mo>&approx;</mo><mn>0</mn></math>).
+    Thus the optimization function becomes:
+  </li>
+</ol>
+<math style="margin-left:20%;">
+  <mi>n</mi>
+  <mfrac><mrow><mo>d</mo><mi>G</mi></mrow>
+    <mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+  <mo>=</mo>
+  <mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo><mi>G</mi>
+</math>
+<p> 3. The performance
+  <math><mi>G</mi><mo>=</mo><mi>g</mi><mo>+</mo><mn>1</mn></math>
+  was defined such that it is cumulative over time, not a geometric average.
+  Thus the further the optimum point from when transaction fees are made up,
+  the further <i>G</i> will deviate from 0 and the less accurate substituting
+  <math><mo>ln</mo><mi>g</mi><mo>&approx;</mo><mi>G</mi></math> becomes.
+  We improve the accuracy by using a second order Taylor series about
+  <math><mi>g</mi><mo>=</mo><mn>1</mn></math>, thus the optimization
+  function becomes:
+</p>
+<math style="margin-left:20%;">
+  <mi>n</mi>
+  <mfrac><mrow><mo>d</mo><mi>G</mi></mrow>
+    <mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+  <mo>=</mo>
+  <mo>(</mo><mi>G</mi><mo>+</mo><mn>1</mn><mo>)</mo>
+  <mrow><mo>(</mo>
+    <mi>G</mi><mo>-</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mi>G</mi><mn>2</mn></msup>
+  <mo>)</mo></mrow>
+</math>
+<ol start="4">
+  <li>The power functions that make up G can be approximated by first order
+    Maclaurin series, and assumption (2) for the resulting logarithm
+    can be reapplied:
+  </li>
+</ol>
+<math style="margin-left: 20%;">
+  <msup><mi>x</mi><mi>n</mi></msup><mo>&approx;</mo>
+  <mn>1</mn><mo>+</mo>
+  <mi>n</mi><apply><mo>ln</mo><mi>x</mi></apply><mo>&approx;</mo>
+  <mn>1</mn><mo>+</mo><mi>X</mi><mi>n</mi>
+</math>
+<p> 4. We replace first-order Maclaurin series with a first-order Taylor series
+  about the quadratic optimum point (<i>&tau;</i>) for all power
+  functions, but retain assumption (2) to replace instances of
+  <math><mo>ln</mo><mi>x</mi></math> with
+  <math><mi>X</mi><mo>=</mo><mi>x</mi><mo>-</mo><mn>1</mn></math> for
+  inflation, nominal and real opportunity cost
+  (<i>&pi;</i>, <i>&omega;</i> and <i>&rho;</i>).
+</p>
+<math style="margin-left: 20%;">
+  <msup><mi>x</mi><mi>n</mi></msup><mo>&approx;</mo>
+  <msup><mi>x</mi><mi>&tau;</mi></msup><mo>+</mo>
+  <msup><mi>x</mi><mi>&tau;</mi></msup><mo>ln</mo><mi>x</mi>
+  <mo>(</mo><mi>n</mi><mo>-</mo><mi>&tau;</mi><mo>)</mo>
+  <mo>&approx;</mo>
+  <msup><mi>x</mi><mi>&tau;</mi></msup>
+  <mo>(</mo>
+		<mi>X</mi><mi>n</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>X</mi><mi>&tau;</mi>
+	<mo>)</mo>
+</math>
+<ol start="5">
+  <li> We assume real interest rates of zero, thus
+  </li>
+</ol>
+<math style="margin-left:20%;">
+  <mfrac><msub><mi>&Sigma;</mi><mi>n</mi></msub><mi>p</mi></mfrac>
+  <mo>=</mo><mi>n</mi>
+</math>
+<p> 5. Instead of assuming the real interest rate
+  (<math><mi>R</mi><mo>=</mo><mi>i</mi><mo>-</mo><mi>&pi;</math>) is zero,
+  we assume the nominal interest rate (<i>i</i>) is not
+  one but close to one such that geometric series edge case can be ignored
+  but interest rate power series can be approximated like inflation and
+  opportunity costs above. Thus the rate of
+  <a href="equity-buildup.html">equity buildup</a> becomes:
+</p>
+
+<math style="margin-left: 20%;">
+  <mfrac><msub><mi>&Sigma;</mi><mi>n</mi></msub><mi>p</mi></mfrac>
+  <mo>=</mo><mi>n</mi><mo>+</mo>
+  <mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+  <mrow><mo>[</mo>
+    <mfrac><msup><mi>i</mi><mrow><mn>1</mn><mo>-</mo><mi>N</mi></mrow></msup><mi>I</mi></mfrac>
+    <mo>(</mo><msup><mi>i</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn><mo>)</mo>
+    <mo>-</mo><mi>n</mi>
+  <mo>]</mo></mrow>
+  <mspace width="1em"/><mtext>where</mtext><mspace width="1em"/>
+  <mi>I</mi><mo>=</mo><mi>i</mi><mo>-</mo><mn>1</mn>
+</math>
+<p> The performance of a mortgage over <i>n</i> months was found previously.
+</p>
+<math style="margin-left: 10%;">
+  <msub><mi>G</mi><mi>n</mi></msub>
+  <mo>=</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mrow><mo>(</mo>
+      <mrow>
+        <mi>c</mi><mi>&omega;</mi>
+				<mo>(</mo><mfrac>
+					<mrow><msup><mi>&omega;</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+					<mrow><mi>&omega;</mi><mo>-</mo><mn>1</mn></mrow>
+				</mfrac><mo>)</mo>
+      </mrow>
+      <mo>-</mo>
+			<mrow>
+      	<mi>&rho;</mi>
+				<mrow><mo>(</mo>
+					<mfrac>
+						<mrow><msup><mi>&rho;</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+						<mrow><mi>&rho;</mi><mo>-</mo><mn>1</mn></mrow>
+          </mfrac>
+				<mo>)</mo></mrow>
+			</mrow>
+			<mo>+</mo>
+			<mfrac><msub><mi>&sum;</mi><mi>n</mi></msub><mi>p</mi></mfrac>
+			<mo>-</mo><mi>T</mi>
+    <mo>)</mo></mrow>
+  </mrow>
+	<mspace width="2em"/><mtext>for</mtext><mspace width="1em"/>
+	<mi>&omega;</mi><mo>&gt;</mo><mi>&pi;</mi><mo>&gt;</mo><mn>1</mn>
+</math>
+
+<p> First we substitute the rate of equity buildup.</p>
+<math style="margin-left: 5%;">
+  <msub><mi>G</mi><mi>n</mi></msub>
+  <mo>=</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mrow><mo>(</mo>
+      <mrow>
+        <mi>c</mi><mi>&omega;</mi>
+				<mo>(</mo><mfrac>
+					<mrow><msup><mi>&omega;</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+					<mrow><mi>&omega;</mi><mo>-</mo><mn>1</mn></mrow>
+				</mfrac><mo>)</mo>
+      </mrow>
+      <mo>-</mo>
+			<mrow>
+      	<mi>&rho;</mi>
+				<mrow><mo>(</mo>
+					<mfrac>
+						<mrow><msup><mi>&rho;</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+						<mrow><mi>&rho;</mi><mo>-</mo><mn>1</mn></mrow>
+          </mfrac>
+				<mo>)</mo></mrow>
+			</mrow>
+			<mo>+</mo><mi>n</mi>
+      <mrow><mo>(</mo>
+        <mn>1</mn><mo>-</mo>
+        <mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+      <mo>)</mo></mrow>
+      <mo>+</mo>
+      <mfrac>
+        <mrow><mi>R</mi><msup><mi>i</mi><mrow><mn>2</mn><mo>-</mo><mi>N</mi></mrow></msup></mrow>
+        <mi>I</mi>
+      </mfrac>
+      <mo>(</mo>
+				<mfrac>
+					<mrow><msup><mi>i</mi><mi>n</mi></msup><mo>-</mo><mn>1</mn></mrow>
+					<mi>I</mi>
+				</mfrac>
+			<mo>)</mo>
+			<mo>-</mo><mi>T</mi>
+    <mo>)</mo></mrow>
+  </mrow>
+</math>
+<br>
+<math style="margin-left: 10%;">
+  <mfrac>
+		<mrow><mo>d</mo><msub><mi>G</mi><mi>n</mi></msub></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow>
+	</mfrac>
+  <mo>&approx;</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mrow><mo>(</mo>
+      <mi>c</mi><msup><mi>&omega;</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup>
+      <mo>-</mo>
+      <msup><mi>&rho;</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup>
+			<mo>+</mo><mn>1</mn>
+			<mo>-</mo>
+			<mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+      <mrow><mo>(</mo>
+        <mn>1</mn><mo>-</mo>
+        <mfrac>
+					<msup><mi>i</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msup>
+					<msup><mi>i</mi><mi>N</mi></msup>
+				</mfrac>
+      <mo>)</mo></mrow>
+    <mo>)</mo></mrow>
+  </mrow>
+</math>
+
+
+<p> Next we make the first-order Taylor series approximations for each power
+  series. To help keep things managable,
+  for <i>&omega;</i>, <i>&rho;</i> and <i>i</i> in place of <i>x</i>,
+  we define alternate time-shifts,
+  <math>
+		<msub><mi>&tau;</mi><mi>x</mi></msub><mo>=</mo>
+    <mfrac>
+      <mrow><msup><mi>x</mi><mi>&tau;</mi></msup><mo>-</mo><mn>1</mn></mrow>
+      <mrow><mi>x</mi><mo>-</mo><mn>1</mn></mrow>
+		</mfrac>
+  </math>.
+</p>
+
+<math>
+  <msub><mi>G</mi><mi>n</mi></msub>
+  <mo>=</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mrow><mo>[</mo>
+      <mrow>
+        <mi>c</mi><mi>&omega;</mi>
+        <mo>(</mo>
+          <msup><mi>&omega;</mi><mi>&tau;</mi></msup><mi>n</mi><mo>+</mo>
+          <msub><mi>&tau;</mi><mi>&omega;</mi></msub><mo>-</mo>
+					<msup><mi>&omega;</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+        <mo>)</mo>
+      </mrow>
+      <mo>-</mo>
+			<mrow>
+        <mi>&rho;</mi>
+				<mrow><mo>(</mo>
+          <msup><mi>&rho;</mi><mi>&tau;</mi></msup><mi>n</mi><mo>+</mo>
+					<msub><mi>&tau;</mi><mi>&rho;</mi></msub><mo>-</mo>
+					<msup><mi>&rho;</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+				<mo>)</mo></mrow>
+			</mrow>
+			<mo>+</mo><mi>n</mi>
+      <mrow><mo>(</mo>
+        <mn>1</mn><mo>-</mo>
+        <mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+      <mo>)</mo></mrow>
+      <mo>+</mo>
+      <mfrac>
+        <mrow><mi>R</mi>
+          <msup><mi>i</mi><mrow><mn>2</mn><mo>-</mo><mi>N</mi></mrow></msup>
+        </mrow>
+        <mi>I</mi>
+      </mfrac>
+      <mo>(</mo>
+        <msup><mi>i</mi><mi>&tau;</mi></msup><mi>n</mi>
+				<mo>+</mo><msub><mi>&tau;</mi><mi>i</mi></msub><mo>-</mo>
+				<msup><mi>i</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+      <mo>)</mo>
+			<mo>-</mo><mi>T</mi>
+    <mo>]</mo></mrow>
+  </mrow>
+</math>
+<br>
+<math>
+  <mfrac>
+		<mrow><mo>d</mo><msub><mi>G</mi><mi>n</mi></msub></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow>
+	</mfrac>
+  <mo>&approx;</mo>
+  <mrow>
+    <mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+    <mrow><mo>[</mo>
+      <mi>c</mi><msup><mi>&omega;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+			<mo>(</mo>
+				<mi>&Omega;</mi><mi>n</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>&Omega;</mi><mi>&tau;</mi>
+			<mo>)</mo>
+      <mo>-</mo>
+      <msup><mi>&rho;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+			<mo>(</mo>
+				<mi>&Rho;</mi><mi>n</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>&Rho;</mi><mi>&tau;</mi>
+			<mo>)</mo>
+			<mo>+</mo><mn>1</mn>
+			<mo>-</mo>
+			<mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+      <mrow><mo>(</mo>
+				<mn>1</mn><mo>-</mo>
+				<mfrac>
+					<msup><mi>i</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+					<msup><mi>i</mi><mi>N</mi></msup>
+				</mfrac>
+				<mo>(</mo>
+					<mi>I</mi><mi>n</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>I</mi><mi>&tau;</mi>
+				<mo>)</mo>
+      <mo>)</mo></mrow>
+    <mo>]</mo></mrow>
+  </mrow>
+</math>
+
+<p> We now have linear equations
+<math>
+  <msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mi>A</mi>
+	<mo>(</mo><mi>a</mi><mi>n</mi><mo>-</mo><mi>b</mi><mo>)</mo>
+</math> and
+<math>
+	<mfrac>
+		<mrow><mo>d</mo><msub><mi>G</mi><mi>n</mi></msub></mrow>
+		<mrow><mo>d</mo><mi>n</mi></mrow>
+	</mfrac>
+  <mo>=</mo><mi>A</mi>
+	<mo>(</mo>
+		<mi>a</mi><mo>+</mo><mi>d</mi><mi>n</mi><mo>-</mo><mi>d</mi><mi>&tau;</mi>
+	<mo>)</mo>
+</math>,
+where
+</p>
+<math style="margin-left:10%">
+  <mi>A</mi><mo>=</mo>
+	<mfrac><mi>L</mi><msub><mi>R</mi><mi>N</mi></msub></mfrac>
+</math>
+<br>
+<math style="margin-left:10%">
+  <mi>a</mi><mo>=</mo>
+  <mi>c</mi><msup><mi>&omega;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+  <mo>-</mo>
+  <msup><mi>&rho;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+  <mo>+</mo><mn>1</mn><mo>-</mo>
+  <mfrac><mrow><mi>i</mi><mi>R</mi></mrow><mi>I</mi></mfrac>
+  <mrow><mo>(</mo>
+    <mn>1</mn><mo>-</mo>
+    <msup><mi>i</mi>
+			<mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn><mo>-</mo><mi>N</mi></mrow>
+		</msup>
+  <mo>)</mo></mrow>
+</math>
+<br>
+<math style="margin-left: 10%;">
+  <mi>b</mi><mo>=</mo>
+  <mi>T</mi><mo>-</mo>
+  <mrow><mo>[</mo>
+		<mi>c</mi><mi>&omega;</mi>
+    <mo>(</mo>
+			<msub><mi>&tau;</mi><mi>&omega;</mi></msub><mo>-</mo>
+			<msup><mi>&omega;</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+		<mo>)</mo>
+		<mo>-</mo><mi>&rho;</mi>
+    <mo>(</mo>
+			<msub><mi>&tau;</mi><mi>&rho;</mi></msub><mo>-</mo>
+			<msup><mi>&rho;</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+		<mo>)</mo>
+    <mo>+</mo>
+    <mfrac>
+      <mrow><mi>R</mi><msup><mi>i</mi><mrow><mn>2</mn><mo>-</mo><mi>N</mi></mrow></msup></mrow>
+      <mi>I</mi>
+    </mfrac>
+    <mo>(</mo>
+			<msub><mi>&tau;</mi><mi>i</mi></msub><mo>-</mo>
+			<msup><mi>i</mi><mi>&tau;</mi></msup><mi>&tau;</mi>
+		<mo>)</mo>
+  <mo>]</mo></mrow>
+</math>
+<br>
+<math style="margin-left: 10%;">
+	<mi>d</mi><mo>=</mo>
+	<mi>c</mi><msup><mi>&omega;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+		<mi>&Omega;</mi>
+	<mo>-</mo>
+	<msup><mi>&rho;</mi><mrow><mi>&tau;</mi><mo>+</mo><mn>1</mn></mrow></msup>
+		<mi>&Rho;</mi>
+	<mo>+</mo>
+	<mi>R</mi>
+	<msup><mi>i</mi>
+		<mrow><mi>&tau;</mi><mo>+</mo><mn>2</mn><mo>-</mo><mi>N</mi></mrow>
+	</msup>
+</math>
+<p>and</p>
+<math style="margin-left: 10%;">
+	<msub><mi>&tau;</mi><mi>x</mi></msub><mo>=</mo>
+  <mfrac>
+    <mrow><msup><mi>x</mi><mi>&tau;</mi></msup><mo>-</mo><mn>1</mn></mrow>
+    <mrow><mi>x</mi><mo>-</mo><mn>1</mn></mrow>
+	</mfrac>
+</math>
+<p>for <i>x = &omega;</i>, <i>&rho;</i> and <i>i</i>.
+</p>
+<p> Next is substituting
+	<math>
+	  <msub><mi>G</mi><mi>n</mi></msub><mo>=</mo><mi>A</mi>
+		<mo>(</mo><mi>a</mi><mi>n</mi><mo>-</mo><mi>b</mi><mo>)</mo>
+	</math> and
+	<math>
+		<mfrac>
+			<mrow><mo>d</mo><msub><mi>G</mi><mi>n</mi></msub></mrow>
+			<mrow><mo>d</mo><mi>n</mi></mrow>
+		</mfrac>
+	  <mo>=</mo><mi>A</mi>
+		<mo>(</mo>
+			<mi>a</mi><mo>+</mo><mi>d</mi><mi>n</mi><mo>-</mo><mi>d</mi><mi>&tau;</mi>
+		<mo>)</mo>
+	</math>
+	into the cubic optimization equation.
+</p>
+<math style="margin-left:10%;">
+	<mn>0</mn><mo>=</mo><msup><mi>G</mi><mn>3</mn></msup>
+	<mo>-</mo><msup><mi>G</mi><mn>2</mn></msup>
+	<mo>-</mo><mn>2</mn><mi>G</mi>
+	<mo>+</mo><mn>2</mn>
+	<mfrac><mrow><mo>d</mo><mi>G</mi></mrow><mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
+</math>
+<br>
+<math style="margin-left:10%;">
+	<mn>0</mn><mo>=</mo>
+	<msup><mi>A</mi><mn>3</mn></msup><msup><mi>a</mi><mn>3</mn></msup>
+	<msup><mi>n</mi><mn>3</mn></msup><mo>-</mo>
+	<mn>3</mn><msup><mi>A</mi><mn>3</mn></msup><msup><mi>a</mi><mn>2</mn></msup>
+	<mi>b</mi><msup><mi>n</mi><mn>2</mn></msup><mo>+</mo>
+	<mn>3</mn><msup><mi>A</mi><mn>3</mn></msup><mi>a</mi>
+	<msup><mi>b</mi><mn>2</mn></msup><mi>n</mi>
+	<mo>-</mo><msup><mi>A</mi><mn>3</mn></msup><msup><mi>b</mi><mn>3</mn></msup>
+</math>
+<br>
+<math style="margin-left:10%;">
+	<mspace width="1em"/><mo>-</mo>
+	<mo>(</mo>
+		<msup><mi>A</mi><mn>2</mn></msup><msup><mi>a</mi><mn>2</mn></msup>
+		<msup><mi>n</mi><mn>2</mn></msup>
+		<mo>-</mo>
+		<mn>2</mn><msup><mi>A</mi><mn>2</mn></msup><mi>a</mi><mi>b</mi><mi>n</mi>
+		<mo>+</mo>
+		<msup><mi>A</mi><mn>2</mn></msup><msup><mi>b</mi><mn>2</mn></msup>
+	<mo>)</mo>
+</math>
+<br>
+<math style="margin-left:10%;">
+	<mspace width="1em"/><mo>-</mo>
+	<mo>(</mo>
+		<mrow style="background-color:gray;"><mn>2</mn><mi>A</mi><mi>a</mi><mi>n</mi></mrow>
+		<mo>-</mo><mn>2</mn><mi>A</mi><mi>b</mi>
+	<mo>)</mo>
+	<mo>+</mo><mrow style="background-color:gray;">
+		<mn>2</mn><mi>A</mi><mi>a</mi><mi>n</mi>
+	</mrow>
+	<mo>+</mo><mn>2</mn><mi>A</mi><mi>d</mi><msup><mi>n</mi><mn>2</mn></msup>
+	<mo>-</mo><mn>2</mn><mi>A</mi><mi>d</mi><mi>&tau;</mi><mi>n</mi>
+</math>
+<p> Removing the common term, collecting equal power terms and
+	dividing through by <i>(Aa)<sup>3</sup></i> leaves a normalized
+	cubic equation with three new coefficients.
+</p>
+<math style="margin-left:20%;">
+	<mn>0</mn><mo>=</mo><msup><mi>n</mi><mn>3</mn></msup>
+	<mo>+</mo><mi>B</mi><msup><mi>n</mi><mn>2</mn></msup>
+	<mo>+</mo><mi>C</mi><mi>n</mi><mo>+</mo><mi>D</mi>
+</math>
+<p> where </p>
+<math style="margin-left:20%;">
+	<mi>B</mi><mo>=</mo>
+	<mfrac>
+		<mrow>
+			<mo>-</mo><mn>3</mn><msup><mi>A</mi><mn>3</mn></msup>
+				<msup><mi>a</mi><mn>2</mn></msup><mi>b</mi>
+			<mo>-</mo><msup><mi>A</mi><mn>2</mn></msup><msup><mi>a</mi><mn>2</mn></msup>
+			<mo>+</mo><mn>2</mn><mi>A</mi><mi>d</mi>
+		</mrow>
+		<mrow><msup><mi>A</mi><mn>3</mn></msup><msup><mi>a</mi><mn>3</mn></msup></mrow>
+	</mfrac>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<mi>C</mi><mo>=</mo>
+	<mfrac>
+		<mrow>
+			<mn>3</mn><msup><mi>A</mi><mn>3</mn></msup><mi>a</mi><msup><mi>b</mi><mn>2</mn></msup>
+			<mo>+</mo><mn>2</mn><msup><mi>A</mi><mn>2</mn></msup><mi>a</mi><mi>b</mi>
+			<mo>-</mo><mn>2</mn><mi>A</mi><mi>d</mi><mi>&tau;</mi>
+		</mrow>
+		<mrow><msup><mi>A</mi><mn>3</mn></msup><msup><mi>a</mi><mn>3</mn></msup></mrow>
+	</mfrac>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<mi>D</mi><mo>=</mo>
+	<mfrac>
+		<mrow>
+			<mo>-</mo><msup><mi>A</mi><mn>3</mn></msup><msup><mi>b</mi><mn>3</mn></msup>
+			<mo>-</mo><msup><mi>A</mi><mn>2</mn></msup><msup><mi>b</mi><mn>2</mn></msup>
+			<mo>+</mo><mn>2</mn><mi>A</mi><mi>b</mi>
+		</mrow>
+		<mrow><msup><mi>A</mi><mn>3</mn></msup><msup><mi>a</mi><mn>3</mn></msup></mrow>
+	</mfrac>
+</math>
+<p> The Cardano method is based on two observed	factorizations of a cubic root.
+</p>
+<math style="margin-left:20%;">
+	<msup><mrow><mo>(</mo><mi>x</mi><mo>-</mo><mi>y</mi><mo>)</mo></mrow><mn>3</mn></msup>
+	<mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>
+	<mo>-</mo><mn>3</mn><mi>y</mi><msup><mi>x</mi><mn>2</mn></msup>
+	<mo>+</mo><mn>3</mn><msup><mi>y</mi><mn>2</mn></msup><mi>x</mi>
+	<mo>-</mo><msup><mi>y</mi><mn>3</mn></msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup><mrow><mo>(</mo><mi>x</mi><mo>-</mo><mi>y</mi><mo>)</mo></mrow><mn>3</mn></msup>
+	<mo>=</mo><msup><mi>x</mi><mn>3</mn></msup>
+	<mo>-</mo><mn>3</mn><mi>x</mi><mi>y</mi>
+	<mo>(</mo><mi>x</mi><mo>-</mo><mi>y</mi><mo>)</mo>
+	<mo>-</mo><msup><mi>y</mi><mn>3</mn></msup>
+</math>
+<p> From the first observed factorization, the quadratic term is
+	depressed by shifting the cubic equation right by
+	<math>
+		<mi>n</mi><mo>=</mo><mi>m</mi><mo>-</mo>
+		<mfrac><mi>b</mi><mn>3</mn></mfrac>
+	</math>.
+</p>
+<math style="margin-left:10%;">
+	<mn>0</mn>
+	<mo>=</mo><msup><mi>m</mi><mn>3</mn></msup>
+	<mo>-</mo><mrow style="background-color:gray;">
+		<mn>3</mn><mfrac><mi>B</mi><mn>3</mn></mfrac><msup><mi>m</mi><mn>2</mn></msup>
+	</mrow>
+	<mo>+</mo><mn>3</mn><mfrac><msup><mi>B</mi><mn>2</mn></msup><mn>9</mn></mfrac><mi>m</mi>
+	<mo>-</mo><mfrac><msup><mi>B</mi><mn>3</mn></msup><mn>27</mn></mfrac>
+	<mo>+</mo><mi>B</mi>
+	<mrow><mo>(</mo>
+		<msup style="background-color:gray;"><mi>m</mi><mn>2</mn></msup>
+		<mo>-</mo><mn>2</mn><mfrac><mi>B</mi><mn>3</mn></mfrac><mi>m</mi>
+		<mo>+</mo><mfrac><msup><mi>B</mi><mn>2</mn></msup><mn>9</mn></mfrac>
+	<mo>)</mo></mrow>
+	<mo>+</mo><mi>C</mi>
+	<mrow><mo>(</mo>
+		<mi>m</mi><mo>-</mo><mfrac><mi>B</mi><mn>3</mn></mfrac>
+	<mo>)</mo></mrow>
+	<mo>+</mo><mi>D</mi>
+</math>
+<p> and this depressed cubic is rewritten into a standard form,
+	<math>
+		<msup><mi>x</mi><mn>3</mn></msup>
+		<mo>+</mo><mn>3</mn><mi>p</mi><mi>x</mi><mo>+</mo><mn>2</mn><mi>q</mi>
+		<mo>=</mo><mn>0</mn>
+	</math>, where:
+</p>
+<math style="margin-left:20%;">
+	<mi>p</mi><mo>=</mo>
+	<mfrac><mn>1</mn><mn>3</mn></mfrac>
+	<mrow><mo>(</mo>
+		<mi>C</mi><mo>-</mo><mfrac><msup><mi>B</mi><mn>2</mn></msup><mn>3</mn></mfrac>
+	<mo>)</mo></mrow>
+	<mo>=</mo>
+	<mfrac><mi>C</mi><mn>3</mn></mfrac><mo>-</mo>
+	<msup>
+		<mrow><mo>(</mo><mfrac><mi>B</mi><mn>3</mn></mfrac><mo>)</mo></mrow>
+		<mn>2</mn>
+	</msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<mi>q</mi><mo>=</mo>
+	<mfrac><mn>1</mn><mn>2</mn></mfrac>
+	<mrow><mo>(</mo>
+		<mfrac><mrow><mn>2</mn><msup><mi>B</mi><mn>3</mn></msup></mrow><mn>27</mn></mfrac>
+		<mo>-</mo><mfrac><mrow><mi>B</mi><mi>C</mi></mrow><mn>3</mn></mfrac>
+		<mo>+</mo><mi>D</mi>
+	<mo>)</mo></mrow>
+	<mo>=</mo>
+	<msup>
+		<mrow><mo>(</mo><mfrac><mi>B</mi><mn>3</mn></mfrac><mo>)</mo></mrow>
+		<mn>3</mn>
+	</msup><mo>-</mo>
+	<mfrac><mi>C</mi><mn>2</mn></mfrac>
+	<mrow><mo>(</mo><mfrac><mi>B</mi><mn>3</mn></mfrac><mo>)</mo></mrow>
+	<mo>+</mo>
+	<mfrac><mi>D</mi><mn>2</mn></mfrac>
+</math>
+<p> The next step of the Cardano method utilizes the second observed
+	factorization to separate the depressed cubic equation into two
+	simultaneous equations with two new variables, by first letting
+	<math><mi>x</mi><mo>=</mo><mi>u</mi><mo>-</mo><mi>v</mi></math>.
+</p>
+<math style="margin-left:20%">
+	<msup><mi>u</mi><mn>3</mn></msup><mo>-</mo><mn>3</mn><mi>u</mi><mi>v</mi>
+	<mo>(</mo><mi>u</mi><mo>-</mo><mi>v</mi><mo>)</mo>
+	<mo>-</mo><msup><mi>v</mi><mn>3</mn></msup>
+	<mo>+</mo><mn>3</mn><mi>p</mi>
+	<mo>(</mo><mi>u</mi><mo>-</mo><mi>v</mi><mo>)</mo>
+	<mo>+</mo><mn>2</mn><mi>q</mi>
+	<mo>=</mo><mn>0</mn>
+</math>
+<p> Since we have introduced an independent variable (either <i>u</i>
+	or <i>v</i>), we can assert
+	<math><mi>u</mi><mi>v</mi><mo>=</mo><mi>p</mi></math>
+	as a second independent equation.
+</p>
+<math style="margin-left:20%;">
+	<msup><mi>u</mi><mn>3</mn></msup><mo>+</mo><mn>2</mn><mi>q</mi>
+	<mo>=</mo><msup><mi>v</mi><mn>3</mn></msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup><mi>u</mi><mn>3</mn></msup><msup><mi>v</mi><mn>3</mn></msup>
+	<mo>=</mo><msup><mi>p</mi><mn>3</mn>
+</math>
+<p> This is not a linear system of equations, but is quadratic and can
+	be solved by substitution and completing the square.
+</p>
+<math style="margin-left:20%;">
+	<msup><mi>u</mi><mn>3</mn></msup>
+	<mrow><mo>(</mo>
+		<msup><mi>u</mi><mn>3</mn></msup><mo>+</mo><mn>2</mn><mi>q</mi>
+	<mo>)</mo></mrow>
+	<mo>=</mo><msup><mi>p</mi><mn>3</mn></msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup><mi>u</mi><mn>6</mn></msup>
+	<mo>+</mo><mn>2</mn><msup><mi>u</mi><mn>3</mn></msup><mi>q</mi>
+	<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+	<mo>=</mo><msup><mi>p</mi><mn>3</mn></msup>
+	<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup>
+		<mrow><mo>(</mo>
+			<msup><mi>u</mi><mn>3</mn></msup><mo>+</mo><mi>q</mi>
+		<mo>)</mo></mrow>
+		<mn>2</mn>
+	</msup>
+	<mo>=</mo><msup><mi>p</mi><mn>3</mn></msup>
+	<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup><mi>u</mi><mn>3</mn></msup>
+	<mo>=</mo><mo>-</mo><mi>q</mi>
+	<mo>&plusmn;</mo><msqrt>
+		<msup><mi>p</mi><mn>3</mn></msup>
+		<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+	</msqrt>
+</math>
+<br>
+<math style="margin-left:20%;">
+	<msup><mi>v</mi><mn>3</mn></msup>
+	<mo>=</mo><mo>+</mo><mi>q</mi>
+	<mo>&plusmn;</mo>
+	<msqrt><mrow>
+		<msup><mi>p</mi><mn>3</mn></msup>
+		<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+	</mrow></msqrt>
+</math>
+<p> If
+	<math>
+		<msup><mi>p</mi><mn>3</mn></msup>
+		<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+		<mo>&geq;</mo><mn>0</mn>
+	</math>
+	then the result is real and because both solutions shift from the same
+	absolute values about zero, it can be traced through both cases
+	that either choice of square root plus or minus lead to the same
+	value <i>x</i>.
+</p>
+<math style="margin-left:20%;">
+	<mi>x</mi><mo>=</mo>
+	<mroot>
+		<mrow>
+			<mo>-</mo><mi>q</mi>
+			<mo>-</mo>
+			<msqrt><mrow>
+				<msup><mi>p</mi><mn>3</mn></msup>
+				<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+			</mrow></msqrt>
+		</mrow>
+		<mn>3</mn>
+	</mroot><mo>-</mo>
+	<mroot>
+		<mrow>
+			<mi>q</mi><mo>-</mo>
+			<msqrt><mrow>
+				<msup><mi>p</mi><mn>3</mn></msup>
+				<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+			</mrow></msqrt>
+		</mrow>
+		<mn>3</mn>
+	</mroot>
+</math>
+<p> Finally we undo the shift that depressed the equation.
+</p>
+<math style="margin-left:20%;">
+	<mi>n</mi><mo>=</mo>
+	<mo>-</mo>
+	<mrow><mo>(</mo>
+		<mfrac><mi>B</mi><mn>3</mn></mfrac><mo>+</mo>
+		<mroot>
+			<mrow>
+				<mi>q</mi><mo>+</mo>
+				<msqrt><mrow>
+					<msup><mi>p</mi><mn>3</mn></msup>
+					<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+				</mrow></msqrt>
+			</mrow>
+			<mn>3</mn>
+		</mroot><mo>+</mo>
+		<mroot>
+			<mrow>
+				<mi>q</mi><mo>-</mo>
+				<msqrt><mrow>
+					<msup><mi>p</mi><mn>3</mn></msup>
+					<mo>+</mo><msup><mi>q</mi><mn>2</mn></msup>
+				</mrow></msqrt>
+			</mrow>
+			<mn>3</mn>
+		</mroot>
+	<mo>)</mo></mrow>
+</math>
+
+<footer>
+<hr>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+	<img alt="Creative Commons License" style="border-width:0"
+	src="https://i.creativecommons.org/l/by/4.0/80x15.png"></a>
+  Ben Lorenzetti<br>
+  This work is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+	Commons Attribution 4.0 International License
+</a>.
+</footer>
+</article>
+<nav>
+  <ul>
+    <li><a href="index.html">Back</a></li>
+    <li><a href="../Archive/index.html">Archive</a></li>
+		<li><a href="../Privacy-Policy/index.html">Privacy</a></li>
+  </ul>
+  <div style="clear: both; min-width: 100%; margin: 0px; padding: 0px;"></div>
+</nav>
+</div><!--article+nav wrapper-->
+<footer>
+</footer>
+</div><!--horizontal centering div-->
+</body>
+</html>

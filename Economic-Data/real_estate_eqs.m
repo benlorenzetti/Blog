@@ -31,7 +31,7 @@ function months = mortgage_performance(n, APR, IPR, N, L, c, OPR, T)
   months = (L/Rn)*(equity_dividend - mortgage_cost + sigma_n - T);
 endfunction
 
-function months = simple_mortgage_period(APR, IPR, N, L, c, OPR, T)
+function months = quadratic_mortgage_period(APR, IPR, N, L, c, OPR, T)
   Rn = Rmort(APR, N);
   inf = realpow(1+IPR/100, 1/12);
   i = realpow(1+APR/100, 1/12);

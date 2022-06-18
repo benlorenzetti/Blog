@@ -29,11 +29,15 @@
 <div id="vertical-div-containing-article-and-navigation">
 <hr>
 <article>
-<h1>Refinance Period</h1>
-<p> This is the seventh of a twelve-part series
-	developing the $nth Mortgage Calculator for comparing
-	<a href="index.html">real estate to other investments</a> like stocks.
+<h1>Refinance Tangent</h1>
+<p> This is the seventh of a twelve-part series for
+	<a href="index.html">comparing real estate to other investments</a>
+	like stocks. This part focuses on how long a mortgage should be
+	held before refinancing if all of the terms stay the same,
+	interest, inflation, market valuation after inflation, etc.
+
 </p>
+<img src="property-projection-1.png" style="margin-left:50px;">
 <p> We previously found the rate of
 	<a href="./equity-buildup.html">equity buildup</a>
 	<i>&sum;<sub>n</sub></i> in mortgages with monthly payment <i>p</i> and the
@@ -123,10 +127,9 @@
 	<msup><mi>g</mi><mi>h</mi></msup>
 </math>
 <p> When bought with debt, the yield of real estate investments
-	<math><mi>Y</mi><mo>=</mo><mi>y</mi><mo>-</mo><mn>1</mn></math>
-	begins to depend on <math><mi>n</mi></math>,
+	depends on <math><mi>n</mi></math>,
 	the number of months a mortgage is held before selling or
-	refinancing. To optimize we take the derivative of the fractional
+	refinancing. To optimize this we take the derivative of the fractional
 	yield using partial derivatives and the chain rule.
 </p>
 <math style="margin-left: 20%;">
@@ -176,7 +179,7 @@
 			<msup><mi>g</mi><mrow><mn>1</mn><mo>/</mo><mi>n</mi></mrow></msup>
 			<mi>n</mi>
 		</mfrac>
-		<mo>(</mo><mrow>
+		<mrow><mo>(</mo>
 			<mfrac><mn>1</mn><mi>g</mi></mfrac>
 			<mfrac><mrow><mo>d</mo><mi>g</mi></mrow>
 				<mrow><mo>d</mo><mi>n</mi></mrow></mfrac>
@@ -317,21 +320,34 @@
 </math>
 <p> Qualitatively we see the optimum refinance period (<i>n</i>) grows
 	longer with larger refinance fees (<i>T</i>) and lower nominal
-	interest rates (<i>R<sub>N</sub></i>) and grows shorter with
+	interest rates or longer loan periods (<i>R<sub>N</sub></i>) and
+	grows shorter with
 	higher leverage ratios (<i>L</i>) and cash-flow ratio (<i>c</i>).
-	Since variation of the leverage ratio and cash-flow ratio with down
-	payments tend to have opposing effects, the optimum refinance
-	period is most directly affected by fees, interest rates, and points
-	which affect both.
 </p>
-<p>	The <a href="real-yield.html">next article</a>
+<p> Since the leverage ratio (<i>L</i>) and cash-flow ratio (<i>c</i>)
+	are inversly related in terms of down payment
+	and the mortgage months-to-value ratio (<i>R<sub>N</sub></i>) and
+	months-of-rent fee (<i>T</i>) are inversly related in terms of loan
+	period, options available to the consumer have little impact on
+	the optimum refinance period, with the exception of points that
+	both lower the interest rate and raise upfront fees. Note this equation
+	does not account for interest rates and inflation changing.
 </p>
-<p> This optimization approximation is improved upon for the
-	<a href="mortgage-calculator.html">mortgage calculator</a> by
-	revisiting assumptions 3-5 and solving a cubic function with Cardano's
-	formula.
-	An interesting future study would be to compare these variables with
-	refinancing rates in various markets.
+<p> For example for my first two properties, on the one above I chose
+	to maximize points on a 30-year mortgage because I though interest rates
+	would rise. However on the property below I chose no points and a
+	15-year mortgage in hopes that interest rates lower in the next 5 years.
+</p>
+<img src="property-projection-2.png" style="margin-left:50px;">
+<p>	The examples show this simplified quadratic model is usually ok for
+	a yield estimate, but it has plenty of room for improvement
+	especially at estimating the time.
+	The <a href="cardano-tangent.html">next article</a>
+	improves upon this quadratic estimate by revisiting assumptions 3-6
+	to make the cubic estimate also shown on the examples above.
+</p>
+<p>	This is useful for improving the calculators but has too much detail
+	to gain any insigts. The <a href="#">next interesting article</a> takes
 </p>
 <hr>
 <p> This is the seventh part of a series <a href="index.html">Should
